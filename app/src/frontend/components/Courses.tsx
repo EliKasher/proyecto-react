@@ -1,6 +1,6 @@
 import { faculties } from '../../backend/data/faculties.ts';
 
-function CourseForm() {
+const CourseForm = () => {
   return (
     <>
       <div className="course-register">
@@ -49,3 +49,5 @@ function CourseForm() {
     </>
   )
 }
+
+export default CourseForm;
