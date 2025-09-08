@@ -27,10 +27,4 @@ const educational_level = [
     "IV°"
 ]
 
-const start_date = [
-    "5 de enero",
-    "12 de enero",
-    "19 de enero"
-]
-
 export {educational_level, faculties};
