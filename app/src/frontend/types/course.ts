@@ -1,15 +1,15 @@
 export interface Course {
     name: string;
     faculty: string;
-    educational_level: Array<string>;
-    start_date: CourseDate;
+    educational_level: string[];
+    start_date: CourseDate[];
     quota: number; // min 25
     course_purpose: string;
-    learning_objectives: Array<string> | null;
-    weekly_planification: Array<DailyPlanification>; // 5 days
+    learning_objectives: string[] | null;
+    weekly_planification: DailyPlanification[]; // 5 days
     teachers_data: Teacher;
-    staff: Array<Staff>;
-    materials: Array<Material>;
+    staff: Staff[];
+    materials: Material[];
 }
 
 export interface DailyPlanification {
