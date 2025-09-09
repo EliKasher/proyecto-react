@@ -2,7 +2,7 @@ export interface Course {
     name: string;
     faculty: string;
     educational_level: Array<string>;
-    start_date: Date; // lasts 5 days
+    start_date: CourseDate;
     quota: number; // min 25
     course_purpose: string;
     learning_objectives: Array<string> | null;
@@ -43,4 +43,11 @@ export interface Material {
     name: string;
     quantity: number;
     link: string;
+}
+
+export interface CourseDate {
+    start_date: string;
+    end_date: string;
+    start_month: string;
+    end_month: string;
 }
