@@ -1,4 +1,6 @@
-const faculties = [
+import type { CourseDate } from "../../frontend/types/course";
+
+const faculties: string[] = [
     "Facultad de Ciencias Físicas y Matemáticas",
     "Facultad de Medicina",
     "Facultad de Economía y Negocios",
@@ -12,19 +14,40 @@ const faculties = [
     "Facultad de Ciencias Forestales y de la Conservación de la Naturaleza"
 ]
 
-const educational_level = [
-    "1°",
-    "2°",
-    "3°",
-    "4°",
-    "5°",
-    "6°",
-    "7°",
-    "8°",
-    "I°",
-    "II°",
-    "III°",
-    "IV°"
+const educational_level: string[] = [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "I",
+    "II",
+    "III",
+    "IV"
 ]
 
-export {educational_level, faculties};
+const dates: CourseDate[] = [
+    {
+        "start_date" : "5",
+        "end_date" : "9",
+        "start_month" : "enero",
+        "end_month" : "enero"
+    },
+    {
+        "start_date" : "12",
+        "end_date" : "16",
+        "start_month" : "enero",
+        "end_month" : "enero"
+    },
+    {
+        "start_date" : "19",
+        "end_date" : "23",
+        "start_month" : "enero",
+        "end_month" : "enero"
+    }
+]
+
+export {educational_level, faculties, dates};
