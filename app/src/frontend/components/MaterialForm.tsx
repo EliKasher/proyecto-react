@@ -42,6 +42,7 @@ export default function MaterialForm() {
 
   return (
     <form onSubmit={handleSubmit} className="form-container">
+      <div className="material-form">
       {materiales.map((mat, index) => (
         <div key={index} className="material-card">
           <p className="material-header">
@@ -100,6 +101,7 @@ export default function MaterialForm() {
         <button type="submit" className="submit-btn">
           Guardar
         </button>
+      </div>
       </div>
     </form>
   );

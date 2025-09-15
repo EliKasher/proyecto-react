@@ -1,6 +1,14 @@
 .form-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.material-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 20px;
 }
 
@@ -17,6 +25,9 @@
   width: 800px;
 }
 
+.material-card h2 {
+  margin-bottom: 0;
+}
 .material-header {
   display: flex;
   margin: 0;
@@ -52,7 +63,6 @@
   margin: 0;
 }
 
-
 .cancel-btn {
   background: none;
   align-self: flex-start;
@@ -67,24 +77,14 @@
 
 .actions {
   display: flex;
+  justify-content: left;
+  width: 100% ;
   gap: 10px;
 }
 
-.add-btn {
-  background: #007bff;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.add-btn:hover {
-  background: #0056b3;
-}
 
 .submit-btn {
-  background: #28a745;
+  background: #2e7da8;
   color: white;
   border: none;
   padding: 8px 12px;
@@ -93,5 +93,5 @@
 }
 
 .submit-btn:hover {
-  background: #1e7e34;
+  opacity: 0.8;
 }
