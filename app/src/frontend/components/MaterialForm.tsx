@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/MaterialForm.css";
+import "@/styles/MaterialForm.css";
 
 type Material = {
   nombre: string;

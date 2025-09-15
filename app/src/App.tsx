@@ -1,5 +1,5 @@
 import './frontend/styles/App.css';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router';
+import { BrowserRouter as Router, Route, Routes } from 'react-router';
 import Materials from './frontend/components/MaterialForm';
 
 function InscriptionForm() {
