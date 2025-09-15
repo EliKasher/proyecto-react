@@ -1,6 +1,6 @@
-import './App.css';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router';
-import CourseForm from './frontend/components/Courses';
+import { Route, Routes, Link } from 'react-router';
+import CourseForm from './components/Courses';
+import "./styles/App.css"
 
 function InscriptionForm() {
   return (
@@ -26,19 +26,19 @@ function InscriptionForm() {
 
 function Home() {
   return (
-    <></>
+    <>
+      <CourseForm />
+    </>
   )
 }
 
 function App() {
   return (
     <>
-    <div>
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="register-course" element={<InscriptionForm />}></Route>
       </Routes>
-    </div>
     </>
   )
 }
