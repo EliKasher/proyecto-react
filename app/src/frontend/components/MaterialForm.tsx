@@ -45,7 +45,7 @@ export default function MaterialForm() {
       <div className="material-form">
       {materiales.map((mat, index) => (
         <div key={index} className="material-card">
-          <p className="material-header">
+          <section className="material-header">
             <h2>Material {index + 1}</h2>
           {materiales.length > 1 && (
             <p
@@ -55,7 +55,7 @@ export default function MaterialForm() {
               <img src="close.svg" alt="" />
             </p>
           )}
-          </p>
+          </section>
           <div className="first-row">
             <div className="field">
               <label>Nombre</label>
