@@ -1,4 +1,4 @@
-import type { CourseDate } from "../../frontend/types/course";
+import type { CourseDate } from "../../frontend/src/types/course";
 
 const faculties: string[] = [
     "Facultad de Ciencias Físicas y Matemáticas",

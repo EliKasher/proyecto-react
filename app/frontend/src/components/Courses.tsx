@@ -1,4 +1,4 @@
-import { faculties, educational_level, dates } from '../../backend/data/faculties.ts';
+import { faculties, educational_level, dates } from '../../../backend/data/faculties';
 
 const CourseForm = () => {
   return (
