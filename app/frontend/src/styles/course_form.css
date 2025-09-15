@@ -1,6 +1,6 @@
 .form-section {
     margin: 0 auto;
-    border: 1px solid rgb(184, 50, 132);;
+    border: 1px solid rgb(184, 50, 132);
     border-radius: 12px;
     padding: 30px;
     width: 100%;
@@ -47,7 +47,7 @@
             font-weight: bold;
         }
 
-        input {
+        input, select {
             padding: 14px 16px;
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 8px;
@@ -59,10 +59,30 @@
 
             &:focus {
                 border-color: #7b6cf6;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(123, 108, 246, 0.3);
-            background: rgba(255, 255, 255, 0.15);
+                outline: none;
+                box-shadow: 0 0 0 3px rgba(123, 108, 246, 0.3);
+                background: rgba(255, 255, 255, 0.15);
             }
+
+            &::placeholder {
+                color: rgba(216, 191, 191, 0.5);
+            }
+            
+        }
+
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            width: 100%;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+        
+        select option {
+            background: #47308b;
+            color: #fff;
+            padding: 12px;
         }
     }
 }
