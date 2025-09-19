@@ -86,3 +86,17 @@
         }
     }
 }
+
+div + div {
+    margin-top: 20px;
+}
+
+.row-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+textarea {
+    background-color: #47308b;
+}

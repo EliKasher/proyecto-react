@@ -1,5 +1,6 @@
 import { Route, Routes, Link } from 'react-router';
 import CourseForm from './components/Courses';
+import WeeklyProgramForm from './components/WeeklyProgram';
 import "./styles/App.css"
 
 function InscriptionForm() {
@@ -38,6 +39,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="register-course" element={<InscriptionForm />}></Route>
+        <Route path="weekly-program" element={<WeeklyProgramForm />}></Route>
       </Routes>
     </>
   )
