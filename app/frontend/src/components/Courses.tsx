@@ -11,9 +11,9 @@ const CourseForm = () => {
             <div className="form-group">
                 <div className="form-row">
                     <label className="required">Nombre del Curso</label>
-                    <input 
-                        id="course-name" 
-                        type="text" 
+                    <input
+                        id="course-name"
+                        type="text"
                         placeholder="ej: Álgebra Universitaria"
                         name="course-name"
                     >
@@ -25,8 +25,8 @@ const CourseForm = () => {
                     <select name="faculty" required>
                         <option value="">Seleccione</option>
                         {faculties.map((item, index) => (
-                        <option 
-                            key={index} 
+                        <option
+                            key={index}
                             value={item}
                         >
                             {item}
@@ -38,13 +38,13 @@ const CourseForm = () => {
                     <label className="required">Niveles Educativos a los cuales va dirigido el curso</label>
                     {educational_level.map((item, index) => (
                         <label key={index}>
-                            <input 
-                                id={`course-level-${item}`} 
-                                type="checkbox" 
+                            <input
+                                id={`course-level-${item}`}
+                                type="checkbox"
                                 name="levels"
                             ></input>
                             {item}°
-                        </label>  
+                        </label>
                     ))}
                 </div>
                 <div className="form-row">
@@ -62,13 +62,13 @@ const CourseForm = () => {
                         return (
                             <label
                                 key={index}
-                                htmlFor={`course-start-date-${index}`} 
+                                htmlFor={`course-start-date-${index}`}
                                 className="date-label"
                             >
                                 <input
-                                    id={`course-start-date-${index}`} 
+                                    id={`course-start-date-${index}`}
                                     type="checkbox"
-                                    name="course-start-dates" 
+                                    name="course-start-dates"
                                 >
                                 </input>
                                 {dateText}

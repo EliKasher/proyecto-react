@@ -2,6 +2,7 @@ import { Route, Routes, Link } from 'react-router';
 import CourseForm from './components/Courses';
 import WeeklyProgramForm from './components/WeeklyProgram';
 import RegisterTeacher from "./components/RegisterTeacher";
+import Materials from './components/MaterialForm';
 import "./styles/App.css"
 
 function InscriptionForm() {
@@ -42,6 +43,7 @@ function App() {
         <Route path="register-course" element={<InscriptionForm />}></Route>
         <Route path="weekly-program" element={<WeeklyProgramForm />}></Route>
         <Route path="register-teacher" element={<RegisterTeacher />}></Route>
+        <Route path="/materials" element={<Materials />}></Route>
       </Routes>
     </>
   )
