@@ -1,7 +1,7 @@
-import "./frontend/styles/App.css"
+import "../styles/App.css"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import CourseForm from "./frontend/components/Courses"
-import TeacherForm from "./frontend/components/RegisterTeacher"
+import CourseForm from "../components/Courses"
+import TeacherForm from "../components/RegisterTeacher"
 
 function InscriptionForm() {
     return (
