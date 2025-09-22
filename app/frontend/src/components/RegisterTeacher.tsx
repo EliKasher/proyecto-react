@@ -1,7 +1,7 @@
 import  { useState } from "react";
 import { employmentRelationships, getDocumentsFor, type EmploymentRelationship, type documents } from "../../../backend/data/teachers"
 
-const TeacherForm = () => {
+const RegisterTeacher = () => {
     const [employment, setEmployment] = useState<EmploymentRelationship | "">("");
     const documentsToUpload: documents[] = employment ? getDocumentsFor(employment as EmploymentRelationship) : [];
 
@@ -115,24 +115,24 @@ const TeacherForm = () => {
     );
 };
 
-const registerTeacher = () => {
+// const registerTeacher = () => {
 
-    return (
-        <div className="teacher-register">
-            <div className="register-header">
-                <h2>Formulario Inscripción Docente EdV Verano 2026</h2>
-                <h4>Esta información será registrada para poder acceder a sus cursos y además poder cargar su documentación de pago según su relación contractual.</h4>
-                <h4 className="register-precaution">
-                    Recuerda que todos los campos marcados con
-                    <span className="required"></span> son obligatorios.
-                </h4>
-            </div>
-            <div className="teacher-form-container">
-                <form className="teacher-form">
-                    <TeacherForm />
-                </form>
-            </div>
-        </div>
-    )
-};
-export default registerTeacher;
+//     return (
+//         <div className="teacher-register">
+//             <div className="register-header">
+//                 <h2>Formulario Inscripción Docente EdV Verano 2026</h2>
+//                 <h4>Esta información será registrada para poder acceder a sus cursos y además poder cargar su documentación de pago según su relación contractual.</h4>
+//                 <h4 className="register-precaution">
+//                     Recuerda que todos los campos marcados con
+//                     <span className="required"></span> son obligatorios.
+//                 </h4>
+//             </div>
+//             <div className="teacher-form-container">
+//                 <form className="teacher-form">
+//                     <TeacherForm />
+//                 </form>
+//             </div>
+//         </div>
+//     )
+// };
+export default RegisterTeacher;
