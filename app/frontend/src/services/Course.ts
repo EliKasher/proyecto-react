@@ -1,16 +1,16 @@
 import axios from "axios";
-import type { InscryptionForm } from "../types/course";
+import type { RegisterForm } from "../types/course";
 
+//usamos por ahora el por defecto de json-server
+const baseUrl = "http://localhost:3000/"
 
-const baseUrl = import.meta.env.VITE_BASE_DB_URL
-
-const postCourse = ( 
-    course: InscryptionForm
+const postCourse = (
+    course: RegisterForm
 ) => {
-    const request = axios.post(baseUrl + "courses", course)
+    const request = axios.post(baseUrl + "cursos", course)
     return request.then((response) => response.data)
 }
 
-export default { 
+export default {
     postCourse
 }
