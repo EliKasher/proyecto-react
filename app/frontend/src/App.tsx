@@ -1,7 +1,7 @@
 import { Route, Routes, Link } from 'react-router';
 import MultiStepForm from './components/Multistep';
 import "./styles/App.css"
-
+import ViewCourses from "./components/ViewCourses";
 
 function InscriptionForm() {
   return (
@@ -37,6 +37,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="course-form" element={<MultiStepForm />}></Route>
+        <Route path="view-courses" element={<ViewCourses />}></Route>
       </Routes>
     </>
   )
