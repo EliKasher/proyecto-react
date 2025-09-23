@@ -121,31 +121,6 @@ export default function MultiStepForm() {
           <button onClick={handleSubmit}>Enviar</button>
         )}
       </div>
-      <button
-        onClick={() => {
-          console.log(import.meta.env.VITE_BASE_DB_URL)
-
-          console.log("name", name);
-          console.log("faculty", faculty);
-          console.log("levels", educationalLevels);
-          console.log("quota", quota);
-          console.log("dates", date);
-          console.log("");
-          console.log("teacher name", teacherName);
-          console.log("teacher last name", teacherLastName);
-          console.log("teacher degree", teacherDegree);
-          console.log("teacher email", teacherEmail);
-          console.log("teacher phone number", teacherPhoneNumber);
-          console.log("teacher run", teacherRun);
-          console.log("teacher relationship", teacherCollegeRelationship);
-
-          console.log("materials", materials)
-
-          console.log("week", weeklyPlanification)
-        }}
-      >
-        Debugging
-      </button>
     </div>
   );
 }

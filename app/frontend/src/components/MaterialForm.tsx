@@ -40,7 +40,6 @@ export default function MaterialForm(props: {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Materiales:", materiales);
   };
 
   return (
