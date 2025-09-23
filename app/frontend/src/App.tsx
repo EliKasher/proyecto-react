@@ -17,7 +17,10 @@ function RegisterForm() {
         </div>
         <div className="course-form-container">
           <Link to="/course-form">Registrar Curso</Link>
+
+            <Link to="/view-courses"> Ver Cursos</Link>
         </div>
+
       </div>
     </>
   )
