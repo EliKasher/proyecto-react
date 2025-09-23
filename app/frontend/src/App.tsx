@@ -3,7 +3,7 @@ import MultiStepForm from './components/Multistep';
 import "./styles/App.css"
 import ViewCourses from "./components/ViewCourses";
 
-function InscriptionForm() {
+function RegisterForm() {
   return (
     <>
       <div className="course-register">
@@ -26,7 +26,7 @@ function InscriptionForm() {
 function Home() {
   return (
     <>
-      <InscriptionForm />
+      <RegisterForm />
     </>
   )
 }
