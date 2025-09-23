@@ -1,9 +1,35 @@
-import  { useState } from "react";
-import { employmentRelationships, getDocumentsFor, type EmploymentRelationship, type documents } from "../../../backend/data/teachers"
+import { useState } from "react";
+import {
+    employmentRelationships,
+    getDocumentsFor,
+    type EmploymentRelationship,
+    type documents,
+} from "../../../backend/data/teachers";
 
-const RegisterTeacher = () => {
+const RegisterTeacher = (props: {
+    setName: (arg: string) => void;
+    setLastName: (arg: string) => void;
+    setRun: (arg: string) => void;
+    setEmail: (arg: string) => void;
+    setPhoneNumber: (arg: string) => void;
+    setDegree: (arg: string) => void;
+    setCollegeRelationship: (arg: string) => void;
+}) => {
     const [employment, setEmployment] = useState<EmploymentRelationship | "">("");
-    const documentsToUpload: documents[] = employment ? getDocumentsFor(employment as EmploymentRelationship) : [];
+    const documentsToUpload: documents[] = employment
+        ? getDocumentsFor(employment as EmploymentRelationship)
+        : [];
+
+    const handleNameChange = (name: string) => props.setName(name);
+    const handleLastNameChange = (lastName: string) =>
+        props.setLastName(lastName);
+    const handleRunChange = (run: string) => props.setRun(run);
+    const handlePhoneNumberChange = (phoneNumber: string) =>
+        props.setPhoneNumber(phoneNumber);
+    const handleDegreeChange = (degree: string) => props.setDegree(degree);
+    const handleCollegeRelationshipChange = (collegeRelationship: string) =>
+        props.setCollegeRelationship(collegeRelationship);
+    const handleEmailChange = (email: string) => props.setEmail(email);
 
     return (
         <>
@@ -19,6 +45,7 @@ const RegisterTeacher = () => {
                             type="text"
                             name="teacher-first-name"
                             required
+                            onChange={(e) => handleNameChange(e.target.value)}
                         />
 
                         <label className="required"> Apellidos </label>
@@ -27,6 +54,7 @@ const RegisterTeacher = () => {
                             type="text"
                             name="teacher-last-name"
                             required
+                            onChange={(e) => handleLastNameChange(e.target.value)}
                         />
                     </div>
                     <div className="form-row">
@@ -37,6 +65,7 @@ const RegisterTeacher = () => {
                             name="teacher-run"
                             required
                             placeholder="12345678-9"
+                            onChange={(e) => handleRunChange(e.target.value)}
                         />
                     </div>
                     <div className="form-row">
@@ -46,6 +75,7 @@ const RegisterTeacher = () => {
                             type="email"
                             name="teacher-email"
                             required
+                            onChange={(e) => handleEmailChange(e.target.value)}
                         />
                     </div>
                     <div className="form-row">
@@ -56,6 +86,7 @@ const RegisterTeacher = () => {
                             name="teacher-phone"
                             required
                             placeholder="+56912345678"
+                            onChange={(e) => handlePhoneNumberChange(e.target.value)}
                         />
                     </div>
                     <div className="form-row">
@@ -66,6 +97,7 @@ const RegisterTeacher = () => {
                             name="teacher-degree"
                             required
                             placeholder="ej: Odontólogo / Magíster en Educación"
+                            onChange={(e) => handleDegreeChange(e.target.value)}
                         />
                     </div>
                     <div className="form-row">
@@ -74,7 +106,11 @@ const RegisterTeacher = () => {
                             name="teacher-employment"
                             required
                             value={employment}
-                            onChange={e => setEmployment(e.target.value as EmploymentRelationship)}
+                            onChange={(e) => {
+                                setEmployment(e.target.value as EmploymentRelationship);
+
+                                handleCollegeRelationshipChange(e.target.value);
+                            }}
                         >
                             <option value="">Seleccione</option>
                             {employmentRelationships.map((item, index) => (
@@ -89,16 +125,12 @@ const RegisterTeacher = () => {
                             <p></p>
                             <label className="required">Documentación requerida</label>
                             <ul>
-                                {documentsToUpload.map(doc => (
+                                {documentsToUpload.map((doc) => (
                                     <li key={doc.id}>
                                         <label>
                                             {doc.nombre}
                                             <p></p>
-                                            <input
-                                                type="file"
-                                                name={`doc-${doc.id}`}
-                                                required
-                                            />
+                                            <input type="file" name={`doc-${doc.id}`} required />
                                         </label>
                                         {doc.nota && (
                                             <div className="recommendations">{doc.nota}</div>
