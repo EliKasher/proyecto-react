@@ -34,7 +34,7 @@ const StaffForm = (props: {
     };
 
     const handleRemoveStaff = (index: number) => {
-        if (staff.length <= 1) {
+        if (staff.length <= 0) {
             return;
         }
         setStaff(staff.filter((_, i) => i !== index));
@@ -51,7 +51,7 @@ const StaffForm = (props: {
                 <div key={index} className="card">
                     <div className="card-section-header">
                         <h2>Docente {index + 1}</h2>
-                        {staff.length > 1 && (
+                        {staff.length > 0 && (
                             <span
                                 onClick={() => handleRemoveStaff(index)}
                                 className="cancel-btn"

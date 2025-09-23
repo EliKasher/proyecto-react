@@ -105,9 +105,6 @@ export default function MaterialForm(props: {
         <button type="button" onClick={handleAdd} className="add-btn">
           Agregar Material
         </button>
-        <button type="submit" className="submit-btn">
-          Guardar
-        </button>
       </div>
       </div>
     </form>
