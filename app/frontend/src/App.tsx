@@ -18,7 +18,7 @@ function InscriptionForm() {
           <h4>Este formulario pretende optimizar y sistematizar los programas e información asociadas a los cursos EdV.</h4>
           <h4 className="register-precaution">
             Recuerda que todos los campos marcados con
-            <span className="required"> *</span> son obligatorios.
+            <span className="required"></span> son obligatorios.
             </h4>
         </div>
         <div className="course-form-container">
