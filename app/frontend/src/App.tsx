@@ -46,11 +46,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="course-form" element={<MultiStepForm />}></Route>
-        <Route path="course" element={<CourseForm />}></Route>
-        <Route path="register-course" element={<InscriptionForm />}></Route>
-        <Route path="weekly-program" element={<WeeklyProgramForm />}></Route>
-        <Route path="register-teacher" element={<RegisterTeacher />}></Route>
-        <Route path="materials" element={<Materials />}></Route>
       </Routes>
     </>
   )

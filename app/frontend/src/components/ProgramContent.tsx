@@ -1,67 +1,40 @@
 import React, { useState } from "react";
-import "../styles/course_form.css"
+import "../styles/course_form.css";
 
-type ProgramContent = {
-    coursePurpose: string;
-    objectives: string[];
-};
+const ProgramContentForm = (props: {
+    coursePurpose: string,
+    objectives: string[],
+    setCoursePurpose: (arg: string) => void;
+    setObjectives: (arg: string[]) => void;
+}) => {
 
-const ProgramContentForm = () => {
-    const [programData, setProgramData] = useState<ProgramContent>({
-        coursePurpose: "",
-        objectives: []
-    });
+    const coursePurpose = props.coursePurpose;
+    const objectives = props.objectives;
+    const setCoursePurpose = props.setCoursePurpose;
+    const setObjectives = props.setObjectives;
 
     // Para inputs, guarda el estado al cambiar
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
+    const handleCoursePurpose = (coursePurpose: string) => setCoursePurpose(coursePurpose);
 
-        setProgramData(prevProgramData => ({
-            ...prevProgramData,
-            [name]: value
-        }));
-    }
-    
     const handleChangeObjective = (
-        index: number,
         value: string
     ) => {
-        setProgramData(prevProgramData => {
-            const newObjective = [...prevProgramData.objectives];
-            newObjective[index] = value;
-
-            return {
-                ...prevProgramData,
-                objectives: newObjective
-            }
-        });
+        const nuevos = [...objectives, value];
+        
+        setObjectives(nuevos);
     };
 
     const handleAddObjective = () => {
-        setProgramData(prevProgramData => ({
-            ...prevProgramData,
-            objectives: [...prevProgramData.objectives, ""]
-        }));
+        setObjectives([...objectives, ""])
     };
 
     const handleRemoveObjective = (index: number) => {
-        if (programData.objectives.length <= 0) {
-            return;
-        }
-
-        setProgramData(prevProgramData => ({
-            ...prevProgramData,
-            objectives: prevProgramData.objectives.filter((_, i) => i !== index)
-        }));
-    };
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        console.log("Materiales:", programData);
+        const nuevos = objectives.filter((_, i) => i !== index);
+        setObjectives(nuevos);
     };
 
     return (
-        <form onSubmit={handleSubmit} className="form-container">
+        <form className="form-container">
             <div className="form-section">
                 <div className="section-header">
                     <h3>Contenido del Programa</h3>
@@ -73,17 +46,17 @@ const ProgramContentForm = () => {
                         id="course-purpose"
                         type="text"
                         name="coursePurpose"
-                        onChange={handleInputChange}
-                        value={programData?.coursePurpose}
+                        value={coursePurpose}
+                        onChange={(e) => handleCoursePurpose(e.target.value)}
                         required
                     >
                     </input>
                 </div>
-                {programData.objectives.map((data, index) => (
+                {objectives.map((objective, index) => (
                     <div key={index} className="card">
                         <div className="card-section-header">
                             <h2>Objetivo {index + 1}</h2>
-                            {programData.objectives.length > 0 && (
+                            {objectives.length > 0 && (
                                 <span
                                     onClick={() => handleRemoveObjective(index)}
                                     className="cancel-btn"
@@ -97,8 +70,8 @@ const ProgramContentForm = () => {
                                 <input
                                     name="objective"
                                     type="text"
-                                    value={data}
-                                    onChange={(e) => handleChangeObjective(index, e.target.value)}
+                                    value={objective}
+                                    onChange={(e) => handleChangeObjective(e.target.value)}
                                 />
                             </div>
                         </div>
