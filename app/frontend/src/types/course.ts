@@ -1,4 +1,4 @@
-export interface InscryptionForm {
+export interface RegisterForm {
     course_data: CourseData;
     program_content: ProgramContent;
     weekly_planification: DailyPlanification[]; // 5 days
@@ -22,7 +22,7 @@ export interface ProgramContent {
 
 export interface DailyPlanification {
     day: number;
-    first_period: string; 
+    first_period: string;
     first_classroom: string | null;
     second_period: string;
     second_classroom: string | null;
