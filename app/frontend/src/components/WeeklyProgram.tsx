@@ -118,6 +118,8 @@ const WeeklyProgramForm = (props: {
     setWeeklyPlanification: (args: DailyPlanification[]) => void;
 }) => {
     const dayNumbers: Array<number> = [1, 2, 3, 4, 5];
+    const weeklyPlanification = props.weeklyPlanification;
+    const setWeeklyPlanification = props.setWeeklyPlanification;
 
     useEffect(() => {
         props.setWeeklyPlanification(
@@ -139,7 +141,7 @@ const WeeklyProgramForm = (props: {
                 <h3>Programación Semanal</h3>
             </div>
             <div className="form-group">
-                {dayNumbers.map((dayNumber) => <DayContent dayNumber={dayNumber}></DayContent>)}
+                {dayNumbers.map((dayNumber) => <DayContent dayNumber={dayNumber} weeklyPlanification={weeklyPlanification} setWeeklyPlanification={setWeeklyPlanification}></DayContent>)}
             </div>
         </div>
     );
