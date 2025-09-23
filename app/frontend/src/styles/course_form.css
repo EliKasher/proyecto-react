@@ -6,7 +6,7 @@
     width: 100%;
     max-width: 900px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    background: linear-gradient(130deg, rgba(59, 40, 204, 0.8) 0%, rgba(76, 22, 153, 0.8) 100%);
+    background: linear-gradient(0deg, rgb(184, 50, 132) -10%, rgba(59, 40, 204, 0.8) 50%, rgb(19, 39, 95) 90%);
     backdrop-filter: blur(10px);
 }
 
@@ -138,7 +138,7 @@
 }
 
 .submit-btn {
-    background: rgb(184, 50, 132);
+    background: rgb(211, 35, 144);
     color: white;
     padding: 12px 30px;
     border: none;
@@ -291,11 +291,25 @@
 }
 
 .multistep  {
-    padding: 5px;
+    padding: 20px 0;
 }
 
 .multistep .nav-buttons {
-    padding: 10px 0px;
-    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 30px;
+    padding: 20px 0;
+}
+
+.nav-btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
 }
 

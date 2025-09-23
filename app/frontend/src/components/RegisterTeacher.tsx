@@ -34,7 +34,7 @@ const RegisterTeacher = (props: {
 
     return (
         <>
-            <form className="teacher-form">
+            <form className="form-container">
                 <div className="form-section">
                     <div className="section-header">
                         <h3>Datos Profesor</h3>

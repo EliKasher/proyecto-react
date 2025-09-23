@@ -82,9 +82,6 @@ const ProgramContentForm = (props: {
                     <button type="button" onClick={handleAddObjective} className="add-btn">
                         Agregar Objetivo
                     </button>
-                    <button type="submit" className="submit-btn">
-                        Guardar
-                    </button>
                 </div>
             </div>
         </form>

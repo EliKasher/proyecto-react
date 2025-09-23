@@ -106,6 +106,10 @@ export default function MultiStepForm() {
   const next = () => setCurrentStep((s) => Math.min(s + 1, steps.length - 1));
   const prev = () => setCurrentStep((s) => Math.max(s - 1, 0));
 
+  const handleSave = () => {
+    console.log("Datos finales:", formData);
+  }
+
   const handleSubmit = () => {
 
     const newCourse: InscryptionForm = {
@@ -148,7 +152,12 @@ export default function MultiStepForm() {
         {currentStep === 0 && <Link to="/">Volver</Link>}
         {currentStep > 0 && <button className="back-btn" onClick={prev}>Atrás</button>}
         {currentStep < steps.length - 1 ? (
-          <button className="next-btn" onClick={next}>Siguiente</button>
+          <>
+            <button type="submit" onClick={handleSave} className="submit-btn">
+              Guardar
+            </button>
+            <button className="next-btn" onClick={next}>Siguiente</button>
+          </>
         ) : (
           <button className="submit-btn" onClick={handleSubmit}>Enviar</button>
         )}

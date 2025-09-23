@@ -134,7 +134,7 @@ const WeeklyProgramForm = (props: {
     }, []);
 
     return (
-        <div className="form-section">
+        <div className="form-container">
             <div className="section-header">
                 <h3>Programación Semanal</h3>
             </div>
