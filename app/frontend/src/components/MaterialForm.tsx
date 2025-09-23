@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "@/styles/MaterialForm.css";
+import "../styles/course_form.css";
 import { Material } from "../types/course";
 
 

@@ -5,7 +5,7 @@ import {
     dates,
 } from "../../../backend/data/faculties.ts";
 import "../styles/course_form.css";
-import { CourseDate } from "../types/course.ts";
+import { CourseData, CourseDate } from "../types/course.ts";
 
 const CourseForm = (props: {
     setName: (arg: string) => void;
@@ -25,7 +25,7 @@ const CourseForm = (props: {
             props.setEducationalLevel(props.educationalLevels.concat([value]));
         } else if (!checked && value in props.educationalLevels) {
             props.setEducationalLevel(
-                props.educationalLevels.filter((val) => val !== value)
+                props.educationalLevels.filter((val) => val != value)
             );
         }
     };
@@ -57,7 +57,7 @@ const CourseForm = (props: {
         if (checked && !(props.courseDate.filter((val) => val !== newDate))) {
             props.setDate(props.courseDate.concat([newDate]));
         } else if (!checked && (props.courseDate.filter((val) => val !== newDate))) {
-            props.setDate(props.courseDate.filter((val) => val !== newDate));
+            props.setDate(props.courseDate.filter((val) => val != newDate));
         }
     };
   return (

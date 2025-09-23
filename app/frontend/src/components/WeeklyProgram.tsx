@@ -4,14 +4,14 @@ import { DailyPlanification } from "../types/course";
 
 const DayContent = (props: {
     dayNumber: number;
-    weeklyPlanification?: DailyPlanification[];
-    setWeeklyPlanification?: (arg: DailyPlanification[]) => void;
+    weeklyPlanification: DailyPlanification[];
+    setWeeklyPlanification: (arg: DailyPlanification[]) => void;
 }) => {
     const dayNumber: number = props.dayNumber;
 
     const handleFirstBlockDayChange = (plan: string) => {
-        props.setWeeklyPlanification?(
-            props.weeklyPlanification?.map((dayPlan) => {
+        props.setWeeklyPlanification(
+            props.weeklyPlanification.map((dayPlan) => {
                 if (dayPlan.day === props.dayNumber) {
                     return { ...dayPlan, first_period: plan };
                 }
@@ -22,8 +22,8 @@ const DayContent = (props: {
     };
 
     const handleFirstBlockClassroomChange = (classroom: string) => {
-        props.setWeeklyPlanification?(
-            props.weeklyPlanification?.map((dayPlan) => {
+        props.setWeeklyPlanification(
+            props.weeklyPlanification.map((dayPlan) => {
                 if (dayPlan.day === props.dayNumber) {
                     return { ...dayPlan, first_classroom: classroom };
                 }
@@ -34,8 +34,8 @@ const DayContent = (props: {
     };
 
     const handleSecondBlockDayChange = (plan: string) => {
-        props.setWeeklyPlanification?(
-            props.weeklyPlanification?.map((dayPlan) => {
+        props.setWeeklyPlanification(
+            props.weeklyPlanification.map((dayPlan) => {
                 if (dayPlan.day === props.dayNumber) {
                     return { ...dayPlan, second_period: plan };
                 }
@@ -46,8 +46,8 @@ const DayContent = (props: {
     };
 
     const handleSecondBlockClassroomChange = (classroom: string) => {
-        props.setWeeklyPlanification?(
-            props.weeklyPlanification?.map((dayPlan) => {
+        props.setWeeklyPlanification(
+            props.weeklyPlanification.map((dayPlan) => {
                 if (dayPlan.day === props.dayNumber) {
                     return { ...dayPlan, second_classroom: classroom };
                 }

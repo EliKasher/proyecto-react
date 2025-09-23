@@ -165,16 +165,33 @@
     margin: 0;
 }
 
-.cancel-btn:hover {
+.next-btn {
+    background: rgb(19, 39, 95);
+    align-self: flex-start;
+    padding: 12px 30px;
+    border: none;
+    cursor: pointer;
+    margin: 0;
+}
+
+.back-btn {
+    background: rgb(19, 39, 95);
+    align-self: flex-start;
+    padding: 12px 30px;
+    border: none;
+    cursor: pointer;
+    margin: 0;
+}
+
+.cancel-btn:hover,
+.add-btn:hover,
+.next-btn:hover,
+.back-btn:hover {
     opacity: 0.7;
 }
 
 .submit-btn:hover {
     opacity: 0.8;
-}
-
-.add-btn:hover {
-    opacity: 0.7;
 }
 
 .date-label {
@@ -272,3 +289,13 @@
     border-left: 3px solid #a685ff;
     text-align: left;
 }
+
+.multistep  {
+    padding: 5px;
+}
+
+.multistep .nav-buttons {
+    padding: 10px 0px;
+    text-align: center;
+}
+
