@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import "@/styles/MaterialForm.css";
+import { Material } from "../types/course";
 
-type Material = {
-  nombre: string;
-  cantidad: number;
-  link: string;
-};
 
-export default function MaterialForm() {
-  const [materiales, setMateriales] = useState<Material[]>([
-    { nombre: "", cantidad: 0, link: "" },
-  ]);
+
+export default function MaterialForm(props: {
+  materials: Material[],
+  setMaterials: (arg: Material[]) => void
+}) {
+  //const [materiales, setMateriales] = useState<Material[]>([
+    //{ nombre: "", cantidad: 0, link: "" },
+  //]);
+
+  const materiales = props.materials;
+  const setMateriales = props.setMaterials;
 
   const handleChange = (
     index: number,
@@ -18,7 +21,7 @@ export default function MaterialForm() {
     value: string
   ) => {
     const nuevos = [...materiales];
-    if (field === "cantidad") {
+    if (field === "quantity") {
       nuevos[index][field] = Number(value);
     } else {
       nuevos[index][field] = value;
@@ -27,7 +30,7 @@ export default function MaterialForm() {
   };
 
   const handleAdd = () => {
-    setMateriales([...materiales, { nombre: "", cantidad: 0, link: "" }]);
+    setMateriales([...materiales, { name: "", quantity: 0, link: "" }]);
   };
 
   const handleRemove = (index: number) => {
@@ -61,8 +64,8 @@ export default function MaterialForm() {
               <label>Nombre</label>
               <input
                 type="text"
-                value={mat.nombre}
-                onChange={(e) => handleChange(index, "nombre", e.target.value)}
+                value={mat.name}
+                onChange={(e) => handleChange(index, "name", e.target.value)}
               />
               <p className="hint">El nombre del material.</p>
             </div>
@@ -71,9 +74,9 @@ export default function MaterialForm() {
               <label>Cantidad</label>
               <input
                 type="number"
-                value={mat.cantidad}
+                value={mat.quantity}
                 onChange={(e) =>
-                  handleChange(index, "cantidad", e.target.value)
+                  handleChange(index, "quantity", e.target.value)
                 }
               />
               <p className="hint">
