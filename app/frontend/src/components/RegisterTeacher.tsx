@@ -1,5 +1,6 @@
 import  { useState } from "react";
 import { employmentRelationships, getDocumentsFor, type EmploymentRelationship, type documents } from "../../../backend/data/teachers"
+import "../styles/course_form.css"
 
 const TeacherForm = () => {
     const [employment, setEmployment] = useState<EmploymentRelationship | "">("");
@@ -17,24 +18,25 @@ const TeacherForm = () => {
                         <input
                             id="teacher-first-name"
                             type="text"
-                            name="teacher-first-name"
-                            required
-                        />
-
-                        <label className="required"> Apellidos </label>
-                        <input
-                            id="teacher-last-name"
-                            type="text"
-                            name="teacher-last-name"
+                            name="teacherFirstName"
                             required
                         />
                     </div>
                     <div className="form-row">
-                        <label className="required">RUN </label>
+                        <label className="required"> Apellidos </label>
                         <input
-                            id="teacher-run"
+                            id="teacher-last-name"
                             type="text"
-                            name="teacher-run"
+                            name="teacherLastName"
+                            required
+                        />
+                    </div>
+                    <div className="form-row">
+                        <label className="required">RUT </label>
+                        <input
+                            id="teacher-rut"
+                            type="text"
+                            name="teacherRut"
                             required
                             placeholder="12345678-9"
                         />
@@ -44,7 +46,7 @@ const TeacherForm = () => {
                         <input
                             id="teacher-email"
                             type="email"
-                            name="teacher-email"
+                            name="teacherEmail"
                             required
                         />
                     </div>
@@ -53,7 +55,7 @@ const TeacherForm = () => {
                         <input
                             id="teacher-phone"
                             type="tel"
-                            name="teacher-phone"
+                            name="teacherPhone"
                             required
                             placeholder="+56912345678"
                         />
@@ -63,7 +65,7 @@ const TeacherForm = () => {
                         <input
                             id="teacher-degree"
                             type="text"
-                            name="teacher-degree"
+                            name="teacherDegree"
                             required
                             placeholder="ej: Odontólogo / Magíster en Educación"
                         />
@@ -71,7 +73,7 @@ const TeacherForm = () => {
                     <div className="form-row">
                         <label className="required">Relación Contractual </label>
                         <select
-                            name="teacher-employment"
+                            name="teacherEmployment"
                             required
                             value={employment}
                             onChange={e => setEmployment(e.target.value as EmploymentRelationship)}
@@ -96,7 +98,7 @@ const TeacherForm = () => {
                                             <p></p>
                                             <input
                                                 type="file"
-                                                name={`doc-${doc.id}`}
+                                                name={`doc${doc.id}`}
                                                 required
                                             />
                                         </label>
@@ -118,21 +120,9 @@ const TeacherForm = () => {
 const registerTeacher = () => {
 
     return (
-        <div className="teacher-register">
-            <div className="register-header">
-                <h2>Formulario Inscripción Docente EdV Verano 2026</h2>
-                <h4>Esta información será registrada para poder acceder a sus cursos y además poder cargar su documentación de pago según su relación contractual.</h4>
-                <h4 className="register-precaution">
-                    Recuerda que todos los campos marcados con
-                    <span className="required"></span> son obligatorios.
-                </h4>
-            </div>
-            <div className="teacher-form-container">
-                <form className="teacher-form">
-                    <TeacherForm />
-                </form>
-            </div>
-        </div>
+        <form className="form-container">
+            <TeacherForm />
+        </form>
     )
 };
 export default registerTeacher;

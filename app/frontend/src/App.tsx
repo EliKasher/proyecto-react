@@ -1,9 +1,11 @@
 import { Route, Routes, Link } from 'react-router';
-import CourseForm from './components/Courses';
 import WeeklyProgramForm from './components/WeeklyProgram';
 import RegisterTeacher from "./components/RegisterTeacher";
-import Materials from './components/MaterialForm';
 import "./styles/App.css"
+import CourseForm from './components/Courses';
+import ProgramContentForm from './components/ProgramContent';
+import MaterialForm from './components/MaterialForm';
+import StaffForm from './components/Staff';
 
 function InscriptionForm() {
   return (
@@ -30,7 +32,6 @@ function InscriptionForm() {
 function Home() {
   return (
     <>
-      <CourseForm />
     </>
   )
 }
@@ -43,7 +44,6 @@ function App() {
         <Route path="register-course" element={<InscriptionForm />}></Route>
         <Route path="weekly-program" element={<WeeklyProgramForm />}></Route>
         <Route path="register-teacher" element={<RegisterTeacher />}></Route>
-        <Route path="/materials" element={<Materials />}></Route>
       </Routes>
     </>
   )

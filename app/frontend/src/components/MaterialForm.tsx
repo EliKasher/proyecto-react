@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "@/styles/MaterialForm.css";
+import "../styles/course_form.css"
 
 type Material = {
   nombre: string;
@@ -42,53 +42,58 @@ export default function MaterialForm() {
 
   return (
     <form onSubmit={handleSubmit} className="form-container">
-      <div className="material-form">
+      <div className="form-section">
+        <div className="section-header">
+            <h3>Materiales</h3>
+        </div>
       {materiales.map((mat, index) => (
-        <div key={index} className="material-card">
-          <section className="material-header">
+        <div key={index} className="card">
+          <div className="card-section-header">
             <h2>Material {index + 1}</h2>
           {materiales.length > 1 && (
-            <p
+            <span
               onClick={() => handleRemove(index)}
               className="cancel-btn"
             >
-              <img src="close.svg" alt="" />
-            </p>
+            <img src="close.svg" alt="Eliminar Material" />
+            </span>
           )}
-          </section>
-          <div className="first-row">
-            <div className="field">
-              <label>Nombre</label>
+          </div>
+          <div className="form-card-group">
+            <div className="form-column">
+              <label className="required">Nombre</label>
               <input
                 type="text"
                 value={mat.nombre}
                 onChange={(e) => handleChange(index, "nombre", e.target.value)}
+                name="materialName"
               />
-              <p className="hint">El nombre del material.</p>
+              <p className="recommendations-col">El nombre del material.</p>
             </div>
-
-            <div className="field">
-              <label>Cantidad</label>
+            <div className="form-column">
+              <label className="required">Cantidad</label>
               <input
                 type="number"
                 value={mat.cantidad}
                 onChange={(e) =>
                   handleChange(index, "cantidad", e.target.value)
                 }
+                name="materialQuantity"
               />
-              <p className="hint">
+              <p className="recommendations-col">
                 Número de unidades necesarias de este material.
               </p>
             </div>
           </div>
-          <div className="field">
-            <label>Link</label>
+          <div className="form-row">
+            <label className="required">Link</label>
             <input
               type="url"
               value={mat.link}
               onChange={(e) => handleChange(index, "link", e.target.value)}
+              name="materialLink"
             />
-            <p className="hint">Enlace de referencia o compra del material.</p>
+            <p className="recommendations">Enlace de referencia o compra del material.</p>
           </div>
 
         </div>

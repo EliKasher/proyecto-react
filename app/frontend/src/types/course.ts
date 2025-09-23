@@ -1,15 +1,23 @@
-export interface Course {
-    name: string;
-    faculty: string;
-    educational_level: string[];
-    start_date: CourseDate[];
-    quota: number; // min 25
-    course_purpose: string;
-    learning_objectives: string[] | null;
+export interface InscryptionForm {
+    course_data: CourseData;
+    program_content: ProgramContent;
     weekly_planification: DailyPlanification[]; // 5 days
     teachers_data: Teacher;
     staff: Staff[];
     materials: Material[];
+}
+
+export interface CourseData {
+    name: string;
+    faculty: string;
+    educational_level: string[];
+    quota: number; // min 25
+    course_start: CourseDate[];
+}
+
+export interface ProgramContent {
+    course_purpose: string;
+    learning_objectives: string[];
 }
 
 export interface DailyPlanification {
