@@ -1,13 +1,7 @@
 import { Route, Routes, Link } from 'react-router';
-import WeeklyProgramForm from './components/WeeklyProgram';
-import RegisterTeacher from "./components/RegisterTeacher";
-import Materials from './components/MaterialForm';
 import MultiStepForm from './components/Multistep';
 import "./styles/App.css"
-import CourseForm from './components/Courses';
-import ProgramContentForm from './components/ProgramContent';
-import MaterialForm from './components/MaterialForm';
-import StaffForm from './components/Staff';
+
 
 function InscriptionForm() {
   return (
@@ -23,9 +17,6 @@ function InscriptionForm() {
         </div>
         <div className="course-form-container">
           <Link to="/course-form">Registrar Curso</Link>
-          <form className="course-form">
-
-          </form>
         </div>
       </div>
     </>
