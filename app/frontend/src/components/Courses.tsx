@@ -1,18 +1,27 @@
 import React from "react";
-import {
-  faculties,
-  educational_level,
-  dates,
-} from "../../../backend/data/faculties.ts";
 import "../styles/course_form.css";
+import {
+  type FacultySchema,
+  type EducationalLevelSchema,
+  type CourseDateSchema,
+} from "../types/coursesSchema.ts";
 import { CourseData, CourseDate } from "../types/course.ts";
 
 type Props = {
   data: CourseData;
   setData: React.Dispatch<React.SetStateAction<CourseData>>;
+  faculties: FacultySchema[];
+  educationalLevel: EducationalLevelSchema[];
+  dates: CourseDateSchema[];
 };
 
-const CourseForm = ({ data, setData }: Props) => {
+const CourseForm = ({
+  data,
+  setData,
+  faculties,
+  educationalLevel,
+  dates,
+}: Props) => {
   const handleEducationalLevelChange = (checked: boolean, value: string) => {
     if (checked && !data.educational_level.includes(value)) {
       setData({
@@ -104,8 +113,8 @@ const CourseForm = ({ data, setData }: Props) => {
             >
               <option value="">Seleccione</option>
               {faculties.map((item, index) => (
-                <option key={index} value={item}>
-                  {item}
+                <option key={index} value={item.nombre}>
+                  {item.nombre}
                 </option>
               ))}
             </select>
@@ -114,18 +123,18 @@ const CourseForm = ({ data, setData }: Props) => {
             <label className="required">
               Niveles Educativos a los cuales va dirigido el curso
             </label>
-            {educational_level.map((item, index) => (
+            {educationalLevel.map((item, index) => (
               <label key={index}>
                 <input
                   id={`course-level-${item}`}
                   type="checkbox"
                   name="levels"
-                  checked={data.educational_level.includes(item)}
+                  checked={data.educational_level.includes(item.nivel)}
                   onChange={(e) =>
-                    handleEducationalLevelChange(e.target.checked, item)
+                    handleEducationalLevelChange(e.target.checked, item.nivel)
                   }
                 />
-                {item}°
+                {item.nivel}°
               </label>
             ))}
           </div>

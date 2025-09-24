@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CourseForm from "./Courses";
 import ProgramContentForm from "./ProgramContent";
 import RegisterTeacher from "./RegisterTeacher";
@@ -15,6 +15,14 @@ import {
 } from "../types/course";
 import courseService from "../services/Course";
 import "../styles/course_form.css";
+import {
+  CourseDateSchema,
+  DocumentsRequiredByEmploymentRelationshipsSchema,
+  EducationalLevelSchema,
+  EmploymentRelationshipSchema,
+  FacultySchema,
+  RequiredDocumentsSchema,
+} from "../types/coursesSchema";
 
 export default function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -58,8 +66,60 @@ export default function MultiStepForm() {
   // staff
   const [staff, setStaff] = useState<StaffType[]>([]);
 
+  //db contents
+
+  const [faculties, setFaculties] = useState<FacultySchema[]>([]);
+
+  const [educationalLevel, setEducationalLevel] = useState<
+    EducationalLevelSchema[]
+  >([]);
+
+  const [dates, setDates] = useState<CourseDateSchema[]>([]);
+
+  const [employmentRelationships, setEmploymentRelationships] = useState<
+    EmploymentRelationshipSchema[]
+  >([]);
+
+  const [requiredDocuments, setRequiredDocuments] = useState<
+    RequiredDocumentsSchema[]
+  >([]);
+
+  const [
+    documentsRequiredByEmploymentRelationship,
+    setDocumentsRequiredByEmploymentRelationship,
+  ] = useState<DocumentsRequiredByEmploymentRelationshipsSchema[]>([]);
+
+  useEffect(() => {
+    courseService
+      .getEducationalLevels()
+      .then((data) => setEducationalLevel(data));
+
+    courseService.getCourseDates().then((data) => setDates(data));
+
+    courseService.getFaculties().then((data) => setFaculties(data));
+
+    courseService
+      .getEmploymentRelationships()
+      .then((data) => setEmploymentRelationships(data));
+
+    courseService
+      .getRequiredDocuments()
+      .then((data) => setRequiredDocuments(data));
+
+    courseService
+      .getDocumentsRequiredByEmploymentRelationships()
+      .then((data) => setDocumentsRequiredByEmploymentRelationship(data));
+  }, []);
+
   const steps = [
-    <CourseForm key="course" data={courseData} setData={setCourseData} />,
+    <CourseForm
+      key="course"
+      data={courseData}
+      setData={setCourseData}
+      educationalLevel={educationalLevel}
+      faculties={faculties}
+      dates={dates}
+    />,
     <ProgramContentForm
       key="program"
       data={programContent}
@@ -69,6 +129,11 @@ export default function MultiStepForm() {
       key="teacher"
       data={teacherData}
       setData={setTeacherData}
+      employmentRelationships={employmentRelationships}
+      requiredDocuments={requiredDocuments}
+      documentsRequiredByEmploymentRelationship={
+        documentsRequiredByEmploymentRelationship
+      }
     />,
     <MaterialForm key="materials" data={materials} setData={setMaterials} />,
     <WeeklyProgramForm

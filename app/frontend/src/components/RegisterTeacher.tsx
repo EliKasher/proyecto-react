@@ -1,32 +1,59 @@
 import { useState } from "react";
-import {
-  employmentRelationships,
-  getDocumentsFor,
-  type EmploymentRelationship,
-  type documents,
-} from "../../../backend/data/teachers";
 import "../styles/course_form.css";
 import { Teacher } from "../types/course";
+import {
+  DocumentsRequiredByEmploymentRelationshipsSchema,
+  EmploymentRelationshipSchema,
+  RequiredDocumentsSchema,
+} from "../types/coursesSchema";
 
 type Props = {
   data: Teacher;
   setData: React.Dispatch<React.SetStateAction<Teacher>>;
+  employmentRelationships: EmploymentRelationshipSchema[];
+  requiredDocuments: RequiredDocumentsSchema[];
+  documentsRequiredByEmploymentRelationship: DocumentsRequiredByEmploymentRelationshipsSchema[];
 };
 
-const RegisterTeacher = ({ data, setData }: Props) => {
-  const [employment, setEmployment] = useState<EmploymentRelationship | "">(
+const RegisterTeacher = ({
+  data,
+  setData,
+  employmentRelationships,
+  requiredDocuments,
+  documentsRequiredByEmploymentRelationship,
+}: Props) => {
+  const [employment, setEmployment] = useState<string>(
     data.college_relationship || ""
   );
 
-  const documentsToUpload: documents[] = employment
-    ? getDocumentsFor(employment as EmploymentRelationship)
+  const getDocumentsFor = (rel: string): RequiredDocumentsSchema[] => {
+    const requirements:
+      | DocumentsRequiredByEmploymentRelationshipsSchema
+      | undefined = documentsRequiredByEmploymentRelationship.find(
+        (relation) => relation.id === rel
+      );
+
+    if (requirements) {
+      return requiredDocuments.filter((document) => {
+        return requirements.requerimientos.find(
+          (req) => req === document.id
+        ) === undefined
+          ? false
+          : true;
+      });
+    }
+    return [];
+  };
+
+  const documentsToUpload: RequiredDocumentsSchema[] = employment
+    ? getDocumentsFor(employment as string)
     : [];
 
   const handleChange = (field: keyof Teacher, value: string) => {
     setData({ ...data, [field]: value });
   };
 
-  const handleEmploymentChange = (value: EmploymentRelationship | "") => {
+  const handleEmploymentChange = (value: string) => {
     setEmployment(value);
     handleChange("college_relationship", value);
   };
@@ -111,15 +138,13 @@ const RegisterTeacher = ({ data, setData }: Props) => {
             <label className="required">Relación Contractual</label>
             <select
               value={employment}
-              onChange={(e) =>
-                handleEmploymentChange(e.target.value as EmploymentRelationship)
-              }
+              onChange={(e) => handleEmploymentChange(e.target.value as string)}
               required
             >
               <option value="">Seleccione</option>
               {employmentRelationships.map((item, index) => (
-                <option key={index} value={item}>
-                  {item}
+                <option key={index} value={item.relacion}>
+                  {item.relacion}
                 </option>
               ))}
             </select>
@@ -132,10 +157,12 @@ const RegisterTeacher = ({ data, setData }: Props) => {
                 {documentsToUpload.map((doc) => (
                   <li key={doc.id}>
                     <label>
-                      {doc.nombre}
+                      {doc.id}
                       <input type="file" name={`doc-${doc.id}`} required />
                     </label>
-                    {doc.nota && <div className="recommendations">{doc.nota}</div>}
+                    {doc.nota && (
+                      <div className="recommendations">{doc.nota}</div>
+                    )}
                   </li>
                 ))}
               </ul>
