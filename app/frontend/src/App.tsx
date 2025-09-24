@@ -2,6 +2,7 @@ import { Route, Routes, Link } from 'react-router';
 import MultiStepForm from './components/Multistep';
 import "./styles/App.css"
 import ViewCourses from "./components/ViewCourses";
+import { useEffect } from 'react';
 
 function RegisterForm() {
   return (
@@ -23,6 +24,7 @@ function RegisterForm() {
   )
 }
 
+
 function Home() {
   return (
     <>
@@ -32,6 +34,7 @@ function Home() {
 }
 
 function App() {
+
   return (
     <>
       <Routes>
