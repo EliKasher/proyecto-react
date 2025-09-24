@@ -60,6 +60,15 @@ const getDocumentsRequiredByEmploymentRelationships = () => {
     });
 };
 
+const getCourses = () => {
+    const request = axios.get(baseUrl + "cursos");
+    return request.then((response) => {
+        console.log("success");
+        return response.data;
+    });
+};
+
+
 export default {
     postCourse,
     getCourseDates,
@@ -68,4 +77,5 @@ export default {
     getEmploymentRelationships,
     getDocumentsRequiredByEmploymentRelationships,
     getRequiredDocuments,
+    getCourses
 };
