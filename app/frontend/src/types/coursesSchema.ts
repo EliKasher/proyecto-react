@@ -2,35 +2,24 @@ import { type CourseDate } from "./course"
 
 export interface FacultySchema  {
     id: string | number,
-    nombre: string
+    name: string
 }
 
 export interface EducationalLevelSchema { 
     id: string | number,
-    nivel: string
+    level: string
 }
 
 export interface CourseDateSchema extends CourseDate {id: string | number}
 
 export interface EmploymentRelationshipSchema {
     id: string | number,
-    relacion: string
+    relation: string,
+    requirements: Array<String>
 }
-
-export interface RequiredDocumentsSchema { 
-    id: string
-    relacion: string
-    nota?: string
-}
-
-export interface DocumentsRequiredByEmploymentRelationshipsSchema { 
-    id: string, 
-    requerimientos: string[]
-}
-
 
 export interface DocumentsSchema  {
-    id: string
-    nombre: string
-    nota?: string
+    short_name: string
+    full_name: string
+    note?: string
 }

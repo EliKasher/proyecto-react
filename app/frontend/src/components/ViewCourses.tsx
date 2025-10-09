@@ -92,7 +92,6 @@ const ViewCourses: React.FC = () => {
                     </p>
                 </div>
             )}
-            <button onClick={() => console.log(cursos)}> debug</button>
         </div>
     );
 };

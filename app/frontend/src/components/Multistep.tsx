@@ -16,11 +16,10 @@ import {
 import courseService from "../services/Course";
 import {
   type CourseDateSchema,
-  type DocumentsRequiredByEmploymentRelationshipsSchema,
   type EducationalLevelSchema,
   type EmploymentRelationshipSchema,
   type FacultySchema,
-  type RequiredDocumentsSchema,
+  type DocumentsSchema,
 } from "../types/coursesSchema";
 
 export default function MultiStepForm() {
@@ -79,14 +78,9 @@ export default function MultiStepForm() {
     EmploymentRelationshipSchema[]
   >([]);
 
-  const [requiredDocuments, setRequiredDocuments] = useState<
-    RequiredDocumentsSchema[]
-  >([]);
-
-  const [
-    documentsRequiredByEmploymentRelationship,
-    setDocumentsRequiredByEmploymentRelationship,
-  ] = useState<DocumentsRequiredByEmploymentRelationshipsSchema[]>([]);
+  const [requiredDocuments, setRequiredDocuments] = useState<DocumentsSchema[]>(
+    []
+  );
 
   useEffect(() => {
     courseService
@@ -104,10 +98,6 @@ export default function MultiStepForm() {
     courseService
       .getRequiredDocuments()
       .then((data) => setRequiredDocuments(data));
-
-    courseService
-      .getDocumentsRequiredByEmploymentRelationships()
-      .then((data) => setDocumentsRequiredByEmploymentRelationship(data));
   }, []);
 
   const steps = [
@@ -130,9 +120,6 @@ export default function MultiStepForm() {
       setData={setTeacherData}
       employmentRelationships={employmentRelationships}
       requiredDocuments={requiredDocuments}
-      documentsRequiredByEmploymentRelationship={
-        documentsRequiredByEmploymentRelationship
-      }
     />,
     <MaterialForm key="materials" data={materials} setData={setMaterials} />,
     <WeeklyProgramForm
