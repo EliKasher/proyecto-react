@@ -1,18 +1,15 @@
-import { useState } from "react";
-import "../styles/course_form.css";
-import { Teacher } from "../types/course";
+import { useEffect, useState } from "react";
+import { type Teacher } from "../types/course";
 import {
-  DocumentsRequiredByEmploymentRelationshipsSchema,
-  EmploymentRelationshipSchema,
-  RequiredDocumentsSchema,
+  type EmploymentRelationshipSchema,
+  type DocumentsSchema,
 } from "../types/coursesSchema";
 
 type Props = {
   data: Teacher;
   setData: React.Dispatch<React.SetStateAction<Teacher>>;
   employmentRelationships: EmploymentRelationshipSchema[];
-  requiredDocuments: RequiredDocumentsSchema[];
-  documentsRequiredByEmploymentRelationship: DocumentsRequiredByEmploymentRelationshipsSchema[];
+  requiredDocuments: DocumentsSchema[];
 };
 
 const RegisterTeacher = ({
@@ -20,41 +17,29 @@ const RegisterTeacher = ({
   setData,
   employmentRelationships,
   requiredDocuments,
-  documentsRequiredByEmploymentRelationship,
 }: Props) => {
-  const [employment, setEmployment] = useState<string>(
-    data.college_relationship || ""
+  const [employment, setEmployment] = useState<EmploymentRelationshipSchema>();
+
+  const [documentsToUpload, setDocumentsToUpload] = useState<DocumentsSchema[]>(
+    []
   );
 
-  const getDocumentsFor = (rel: string): RequiredDocumentsSchema[] => {
-    const requirements:
-      | DocumentsRequiredByEmploymentRelationshipsSchema
-      | undefined = documentsRequiredByEmploymentRelationship.find(
-        (relation) => relation.id === rel
+  useEffect(() => {
+    if (employment) {
+      setDocumentsToUpload(
+        requiredDocuments.filter((doc) =>
+          employment.requirements.includes(doc.short_name)
+        )
       );
-
-    if (requirements) {
-      return requiredDocuments.filter((document) => {
-        return requirements.requerimientos.find(
-          (req) => req === document.id
-        ) === undefined
-          ? false
-          : true;
-      });
     }
-    return [];
-  };
-
-  const documentsToUpload: RequiredDocumentsSchema[] = employment
-    ? getDocumentsFor(employment as string)
-    : [];
+  }, [employment]);
 
   const handleChange = (field: keyof Teacher, value: string) => {
     setData({ ...data, [field]: value });
   };
 
   const handleEmploymentChange = (value: string) => {
-    setEmployment(value);
+    setEmployment(employmentRelationships.find((rel) => rel.relation == value));
     handleChange("college_relationship", value);
   };
 
@@ -137,14 +122,14 @@ const RegisterTeacher = ({
           <div className="form-row">
             <label className="required">Relación Contractual</label>
             <select
-              value={employment}
+              value={employment?.relation}
               onChange={(e) => handleEmploymentChange(e.target.value as string)}
               required
             >
               <option value="">Seleccione</option>
               {employmentRelationships.map((item, index) => (
-                <option key={index} value={item.relacion}>
-                  {item.relacion}
+                <option key={index} value={item.relation}>
+                  {item.relation}
                 </option>
               ))}
             </select>
@@ -155,13 +140,17 @@ const RegisterTeacher = ({
               <label className="required">Documentación requerida</label>
               <ul>
                 {documentsToUpload.map((doc) => (
-                  <li key={doc.id}>
+                  <li key={doc.short_name}>
                     <label>
-                      {doc.id}
-                      <input type="file" name={`doc-${doc.id}`} required />
+                      {doc.short_name}
+                      <input
+                        type="file"
+                        name={`doc-${doc.short_name}`}
+                        required
+                      />
                     </label>
-                    {doc.nota && (
-                      <div className="recommendations">{doc.nota}</div>
+                    {doc.note && (
+                      <div className="recommendations">{doc.note}</div>
                     )}
                   </li>
                 ))}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CourseForm from "./Courses";
 import ProgramContentForm from "./ProgramContent";
 import RegisterTeacher from "./RegisterTeacher";
@@ -7,21 +7,19 @@ import StaffForm from "./Staff";
 import MaterialForm from "./MaterialForm";
 import { Link } from "react-router";
 import {
-  Staff as StaffType,
-  CourseDate,
-  DailyPlanification,
-  Material,
-  RegisterForm,
+  type Staff as StaffType,
+  type CourseDate,
+  type DailyPlanification,
+  type Material,
+  type RegisterForm,
 } from "../types/course";
 import courseService from "../services/Course";
-import "../styles/course_form.css";
 import {
-  CourseDateSchema,
-  DocumentsRequiredByEmploymentRelationshipsSchema,
-  EducationalLevelSchema,
-  EmploymentRelationshipSchema,
-  FacultySchema,
-  RequiredDocumentsSchema,
+  type CourseDateSchema,
+  type EducationalLevelSchema,
+  type EmploymentRelationshipSchema,
+  type FacultySchema,
+  type DocumentsSchema,
 } from "../types/coursesSchema";
 
 export default function MultiStepForm() {
@@ -80,14 +78,9 @@ export default function MultiStepForm() {
     EmploymentRelationshipSchema[]
   >([]);
 
-  const [requiredDocuments, setRequiredDocuments] = useState<
-    RequiredDocumentsSchema[]
-  >([]);
-
-  const [
-    documentsRequiredByEmploymentRelationship,
-    setDocumentsRequiredByEmploymentRelationship,
-  ] = useState<DocumentsRequiredByEmploymentRelationshipsSchema[]>([]);
+  const [requiredDocuments, setRequiredDocuments] = useState<DocumentsSchema[]>(
+    []
+  );
 
   useEffect(() => {
     courseService
@@ -105,10 +98,6 @@ export default function MultiStepForm() {
     courseService
       .getRequiredDocuments()
       .then((data) => setRequiredDocuments(data));
-
-    courseService
-      .getDocumentsRequiredByEmploymentRelationships()
-      .then((data) => setDocumentsRequiredByEmploymentRelationship(data));
   }, []);
 
   const steps = [
@@ -131,9 +120,6 @@ export default function MultiStepForm() {
       setData={setTeacherData}
       employmentRelationships={employmentRelationships}
       requiredDocuments={requiredDocuments}
-      documentsRequiredByEmploymentRelationship={
-        documentsRequiredByEmploymentRelationship
-      }
     />,
     <MaterialForm key="materials" data={materials} setData={setMaterials} />,
     <WeeklyProgramForm

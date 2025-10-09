@@ -1,6 +1,5 @@
 import React from "react";
-import "../styles/course_form.css";
-import { Material } from "../types/course";
+import { type Material } from "../types/course";
 
 type Props = {
   data: Material[];

@@ -1,11 +1,10 @@
 import React from "react";
-import "../styles/course_form.css";
 import {
   type FacultySchema,
   type EducationalLevelSchema,
   type CourseDateSchema,
 } from "../types/coursesSchema.ts";
-import { CourseData, CourseDate } from "../types/course.ts";
+import { type CourseData, type CourseDate } from "../types/course.ts";
 
 type Props = {
   data: CourseData;
@@ -113,8 +112,8 @@ const CourseForm = ({
             >
               <option value="">Seleccione</option>
               {faculties.map((item, index) => (
-                <option key={index} value={item.nombre}>
-                  {item.nombre}
+                <option key={index} value={item.name}>
+                  {item.name}
                 </option>
               ))}
             </select>
@@ -129,12 +128,12 @@ const CourseForm = ({
                   id={`course-level-${item}`}
                   type="checkbox"
                   name="levels"
-                  checked={data.educational_level.includes(item.nivel)}
+                  checked={data.educational_level.includes(item.level)}
                   onChange={(e) =>
-                    handleEducationalLevelChange(e.target.checked, item.nivel)
+                    handleEducationalLevelChange(e.target.checked, item.level)
                   }
                 />
-                {item.nivel}°
+                {item.level}°
               </label>
             ))}
           </div>

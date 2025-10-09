@@ -1,6 +1,6 @@
 import * as React from "react";
 import courseService from "../services/Course";
-import { CourseDate } from "../types/course";
+import { type CourseDate } from "../types/course";
 
 type DataCurso = {
     name: "";
@@ -92,7 +92,6 @@ const ViewCourses: React.FC = () => {
                     </p>
                 </div>
             )}
-            <button onClick={() => console.log(cursos)}> debug</button>
         </div>
     );
 };
