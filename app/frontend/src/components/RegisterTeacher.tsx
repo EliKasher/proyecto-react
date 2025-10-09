@@ -1,10 +1,10 @@
 import { useState } from "react";
-import "../styles/course_form.css";
-import { Teacher } from "../types/course";
+import "../styles/course_form.module.css";
+import { type Teacher } from "../types/course";
 import {
-  DocumentsRequiredByEmploymentRelationshipsSchema,
-  EmploymentRelationshipSchema,
-  RequiredDocumentsSchema,
+  type DocumentsRequiredByEmploymentRelationshipsSchema,
+  type EmploymentRelationshipSchema,
+  type RequiredDocumentsSchema,
 } from "../types/coursesSchema";
 
 type Props = {

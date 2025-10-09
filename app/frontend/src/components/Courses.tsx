@@ -1,11 +1,11 @@
 import React from "react";
-import "../styles/course_form.css";
+import "../styles/course_form.module.css";
 import {
   type FacultySchema,
   type EducationalLevelSchema,
   type CourseDateSchema,
 } from "../types/coursesSchema.ts";
-import { CourseData, CourseDate } from "../types/course.ts";
+import { type CourseData, type CourseDate } from "../types/course.ts";
 
 type Props = {
   data: CourseData;
