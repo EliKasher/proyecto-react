@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import "../styles/course_form.module.css";
 import { type DailyPlanification } from "../types/course";
 
 type Props = {

@@ -1,6 +1,5 @@
 import { Route, Routes, Link } from 'react-router';
 import MultiStepForm from './components/Multistep';
-import "./styles/App.module.css"
 import ViewCourses from "./components/ViewCourses";
 
 function RegisterForm() {

@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/course_form.module.css";
+
 
 type ProgramContent = {
   course_purpose: string;

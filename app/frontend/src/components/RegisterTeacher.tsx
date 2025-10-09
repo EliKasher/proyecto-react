@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "../styles/course_form.module.css";
 import { type Teacher } from "../types/course";
 import {
   type DocumentsRequiredByEmploymentRelationshipsSchema,

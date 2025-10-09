@@ -14,7 +14,6 @@ import {
   type RegisterForm,
 } from "../types/course";
 import courseService from "../services/Course";
-import "../styles/course_form.module.css";
 import {
   type CourseDateSchema,
   type DocumentsRequiredByEmploymentRelationshipsSchema,
