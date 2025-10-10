@@ -1,6 +1,7 @@
-import { Route, Routes, Link } from 'react-router';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router';
 import MultiStepForm from './components/Multistep';
 import ViewCourses from "./components/ViewCourses";
+import Header from "./components/Header";
 
 function RegisterForm() {
   return (
@@ -35,14 +36,38 @@ function Home() {
 }
 
 function App() {
+  const userRole = localStorage ? localStorage.getItem('userRole') : "teacher";
+  const userName = localStorage ? localStorage.getItem('name') : "Eve";
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('name');
+    window.location.href = '/';
+  };
+
+  // View courses filtrar por userRole
 
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="course-form" element={<MultiStepForm />}></Route>
-        <Route path="view-courses" element={<ViewCourses />}></Route>
-      </Routes>
+      <Router>
+        <Header 
+          userRole={userRole}
+          userName={userName}
+          onLogout={handleLogout}
+        />
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="course-form" element={<MultiStepForm />}></Route>
+          <Route path="view-courses" element={<ViewCourses />}></Route>
+          <Route path="functionary-profile"></Route>
+          <Route path="teacher-profile"></Route>
+          <Route path="functionary-form"></Route>
+          <Route path="register"></Route>
+          <Route path="login"></Route>
+          <Route path="logout"></Route>
+        </Routes>
+      </Router>
     </>
   )
 }

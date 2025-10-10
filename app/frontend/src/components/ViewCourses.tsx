@@ -22,7 +22,7 @@ type Curso = {
     program_content: ContenidoPrograma;
 };
 
-const ViewCourses: React.FC = () => {
+const ViewCourses = () => {
     const [cursos, setCursos] = React.useState<Curso[]>([]);
 
     React.useEffect(() => {
