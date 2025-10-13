@@ -51,7 +51,7 @@ const TeacherLogin = () => {
           </div>
 
           <button type="submit" className="submit-btn">
-            Guardar
+            Entrar
           </button>
         </div>
       </div>
