@@ -1,6 +1,6 @@
 import * as React from "react";
-import courseService from "../services/Course";
-import { type CourseDate } from "../types/course";
+import courseService from "../../services/Course";
+import { type CourseDate } from "../../types/course";
 
 type DataCurso = {
     name: "";
