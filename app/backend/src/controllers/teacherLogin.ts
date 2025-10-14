@@ -6,7 +6,7 @@ import config from "../utils/config";
 
 const teacherLoginRouter = express.Router();
 
-teacherLoginRouter.post("/", async (request, response) => {
+teacherLoginRouter.post("/", async (request, response, next) => {
     try {
         const { rut, password } = request.body;
 
@@ -35,7 +35,7 @@ teacherLoginRouter.post("/", async (request, response) => {
         }
     } catch (error) {
         // to be replaced to middleware call
-        response.status(400).json(error);
+        next(error);
     }
 });
 

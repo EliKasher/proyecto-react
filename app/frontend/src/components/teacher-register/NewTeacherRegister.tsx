@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 import courseService from "../../services/Course";
 import teacherService from "../../services/Teacher";
 import {
@@ -6,8 +8,11 @@ import {
   type DocumentsSchema,
 } from "../../types/coursesSchema";
 import type { ITeacherRegister } from "../../types/teacher";
+import axios from "axios";
 
 const NewTeacherRegister = () => {
+  const navigate = useNavigate();
+
   const [newTeacher, setNewTeacher] = useState<ITeacherRegister>({
     first_name: "",
     last_name: "",
@@ -24,23 +29,19 @@ const NewTeacherRegister = () => {
   >([]);
 
   const [employment, setEmployment] = useState<EmploymentRelationshipSchema>();
-
-  const [requiredDocuments, setRequiredDocuments] = useState<DocumentsSchema[]>(
-    []
-  );
-
-  const [documentsToUpload, setDocumentsToUpload] = useState<DocumentsSchema[]>(
-    []
-  );
+  const [requiredDocuments, setRequiredDocuments] = useState<DocumentsSchema[]>([]);
+  const [documentsToUpload, setDocumentsToUpload] = useState<DocumentsSchema[]>([]);
 
   useEffect(() => {
     courseService
       .getEmploymentRelationships()
-      .then((relations) => setEmploymentRelationships(relations));
+      .then((relations) => setEmploymentRelationships(relations))
+      .catch(() => toast.error("Error al obtener relaciones contractuales"));
 
     courseService
       .getRequiredDocuments()
-      .then((docs) => setRequiredDocuments(docs));
+      .then((docs) => setRequiredDocuments(docs))
+      .catch(() => toast.error("Error al obtener documentos requeridos"));
   }, []);
 
   useEffect(() => {
@@ -51,22 +52,36 @@ const NewTeacherRegister = () => {
         )
       );
     }
-  }, [employment]);
+  }, [employment, requiredDocuments]);
 
   const handleChange = (field: keyof ITeacherRegister, value: string) => {
     setNewTeacher({ ...newTeacher, [field]: value });
   };
 
   const handleEmploymentChange = (value: string) => {
-    setEmployment(employmentRelationships.find((rel) => rel.relation == value));
+    setEmployment(employmentRelationships.find((rel) => rel.relation === value));
     handleChange("college_relationship", value);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    teacherService.postTeacher(newTeacher);
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      await teacherService.postTeacher(newTeacher);
+      toast.success("Registro Exitoso");
+      navigate("/login");
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        const message = err.response?.data?.error ?? "Error al registrar";
+        toast.error(message);
+      }
+      else if (err instanceof Error) {
+        toast.error(err.message);
+      }
+      else {
+        toast.error("Error desconocido");
+      }
+    }
   };
-
   return (
     <form className="form-container" onSubmit={handleSubmit}>
       <div className="form-section">
@@ -162,6 +177,7 @@ const NewTeacherRegister = () => {
               required
             >
               <option value="">Seleccione</option>
+              <option value="other">Otro</option>
               {employmentRelationships.map((item, index) => (
                 <option key={index} value={item.relation}>
                   {item.relation}

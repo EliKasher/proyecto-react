@@ -15,7 +15,7 @@ teachersRouter.get("/", async (request, response) => {
     }
 });
 
-teachersRouter.get("/:id", async (request, response) => { 
+teachersRouter.get("/:id", async (request, response) => {
     try {
         const teacher = await TeachersModel.findById(request.params.id)
 
@@ -26,7 +26,7 @@ teachersRouter.get("/:id", async (request, response) => {
     }
 });
 
-teachersRouter.post("/", async (request, response) => {
+teachersRouter.post("/", async (request, response, next) => {
     try {
         const {
             first_name,
@@ -58,7 +58,7 @@ teachersRouter.post("/", async (request, response) => {
         response.status(201).json(newTeacher);
     } catch (error) {
         // to be replaced to middleware call
-        response.status(400).json(error);
+        next(error);
     }
 });
 

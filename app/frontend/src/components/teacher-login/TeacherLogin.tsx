@@ -1,30 +1,48 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import teacherService from "../../services/Teacher";
-import { type ITeacherLogin } from "../../types/teacher";
+import type { ITeacherLogin } from "../../types/teacher";
+import type { Teacher } from "../../App";
+import { AxiosError } from "axios";
 
-const TeacherLogin = () => {
+interface TeacherLoginProps {
+  onLogin: (user: Teacher) => void;
+}
 
+const TeacherLogin = ({ onLogin }: TeacherLoginProps) => {
   const [teacherCredentials, setTeacherCredentials] = useState<ITeacherLogin>({
     rut: "",
     password: "",
   });
 
-
   const handleChange = (field: keyof ITeacherLogin, value: string) => {
     setTeacherCredentials({ ...teacherCredentials, [field]: value });
   };
 
- 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    teacherService.teacherLogin(teacherCredentials);
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      const user = await teacherService.teacherLogin(teacherCredentials);
+      onLogin(user);
+      toast.success(`Bienvenido ${user.first_name}`);
+    } catch (err: unknown) {
+      if (err instanceof AxiosError) {
+        const message =
+          err.response?.data?.error ?? "Error al iniciar sesión";
+        toast.error(message);
+      } else if (err instanceof Error) {
+        toast.error(err.message);
+      } else {
+        toast.error("Error desconocido");
+      }
+    }
   };
 
   return (
     <form className="form-container" onSubmit={handleSubmit}>
       <div className="form-section">
         <div className="section-header">
-          <h3>Datos Profesor</h3>
+          <h3>Ingreso Profesor</h3>
         </div>
         <div className="form-group">
           <div className="form-row">
