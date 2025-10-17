@@ -1,28 +1,48 @@
 import { useEffect, useState } from "react";
-import { type Teacher } from "../types/course";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
+import courseService from "../../services/Course";
+import teacherService from "../../services/Teacher";
 import {
   type EmploymentRelationshipSchema,
   type DocumentsSchema,
-} from "../types/coursesSchema";
+} from "../../types/coursesSchema";
+import type { ITeacherRegister } from "../../types/teacher";
+import axios from "axios";
 
-type Props = {
-  data: Teacher;
-  setData: React.Dispatch<React.SetStateAction<Teacher>>;
-  employmentRelationships: EmploymentRelationshipSchema[];
-  requiredDocuments: DocumentsSchema[];
-};
+const NewTeacherRegister = () => {
+  const navigate = useNavigate();
 
-const RegisterTeacher = ({
-  data,
-  setData,
-  employmentRelationships,
-  requiredDocuments,
-}: Props) => {
+  const [newTeacher, setNewTeacher] = useState<ITeacherRegister>({
+    first_name: "",
+    last_name: "",
+    rut: "",
+    email: "",
+    phone: "",
+    degree: "",
+    college_relationship: "",
+    password: "",
+  });
+
+  const [employmentRelationships, setEmploymentRelationships] = useState<
+    EmploymentRelationshipSchema[]
+  >([]);
+
   const [employment, setEmployment] = useState<EmploymentRelationshipSchema>();
+  const [requiredDocuments, setRequiredDocuments] = useState<DocumentsSchema[]>([]);
+  const [documentsToUpload, setDocumentsToUpload] = useState<DocumentsSchema[]>([]);
 
-  const [documentsToUpload, setDocumentsToUpload] = useState<DocumentsSchema[]>(
-    []
-  );
+  useEffect(() => {
+    courseService
+      .getEmploymentRelationships()
+      .then((relations) => setEmploymentRelationships(relations))
+      .catch(() => toast.error("Error al obtener relaciones contractuales"));
+
+    courseService
+      .getRequiredDocuments()
+      .then((docs) => setRequiredDocuments(docs))
+      .catch(() => toast.error("Error al obtener documentos requeridos"));
+  }, []);
 
   useEffect(() => {
     if (employment) {
@@ -32,19 +52,38 @@ const RegisterTeacher = ({
         )
       );
     }
-  }, [employment]);
+  }, [employment, requiredDocuments]);
 
-  const handleChange = (field: keyof Teacher, value: string) => {
-    setData({ ...data, [field]: value });
+  const handleChange = (field: keyof ITeacherRegister, value: string) => {
+    setNewTeacher({ ...newTeacher, [field]: value });
   };
 
   const handleEmploymentChange = (value: string) => {
-    setEmployment(employmentRelationships.find((rel) => rel.relation == value));
+    setEmployment(employmentRelationships.find((rel) => rel.relation === value));
     handleChange("college_relationship", value);
   };
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      await teacherService.postTeacher(newTeacher);
+      toast.success("Registro Exitoso");
+      navigate("/login");
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        const message = err.response?.data?.error ?? "Error al registrar";
+        toast.error(message);
+      }
+      else if (err instanceof Error) {
+        toast.error(err.message);
+      }
+      else {
+        toast.error("Error desconocido");
+      }
+    }
+  };
   return (
-    <form className="form-container">
+    <form className="form-container" onSubmit={handleSubmit}>
       <div className="form-section">
         <div className="section-header">
           <h3>Datos Profesor</h3>
@@ -55,7 +94,7 @@ const RegisterTeacher = ({
             <input
               id="teacher-first-name"
               type="text"
-              value={data.first_name}
+              value={newTeacher.first_name}
               onChange={(e) => handleChange("first_name", e.target.value)}
               required
             />
@@ -66,7 +105,7 @@ const RegisterTeacher = ({
             <input
               id="teacher-last-name"
               type="text"
-              value={data.last_name}
+              value={newTeacher.last_name}
               onChange={(e) => handleChange("last_name", e.target.value)}
               required
             />
@@ -77,7 +116,7 @@ const RegisterTeacher = ({
             <input
               id="teacher-rut"
               type="text"
-              value={data.rut}
+              value={newTeacher.rut}
               placeholder="12345678-9"
               onChange={(e) => handleChange("rut", e.target.value)}
               required
@@ -89,8 +128,19 @@ const RegisterTeacher = ({
             <input
               id="teacher-email"
               type="email"
-              value={data.email}
+              value={newTeacher.email}
               onChange={(e) => handleChange("email", e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="form-row">
+            <label className="required">Contraseña</label>
+            <input
+              id="teacher-password"
+              type="password"
+              value={newTeacher.password}
+              onChange={(e) => handleChange("password", e.target.value)}
               required
             />
           </div>
@@ -100,7 +150,7 @@ const RegisterTeacher = ({
             <input
               id="teacher-phone"
               type="tel"
-              value={data.phone}
+              value={newTeacher.phone}
               placeholder="+56912345678"
               onChange={(e) => handleChange("phone", e.target.value)}
               required
@@ -112,7 +162,7 @@ const RegisterTeacher = ({
             <input
               id="teacher-degree"
               type="text"
-              value={data.degree}
+              value={newTeacher.degree}
               placeholder="ej: Odontólogo / Magíster en Educación"
               onChange={(e) => handleChange("degree", e.target.value)}
               required
@@ -127,6 +177,7 @@ const RegisterTeacher = ({
               required
             >
               <option value="">Seleccione</option>
+              <option value="other">Otro</option>
               {employmentRelationships.map((item, index) => (
                 <option key={index} value={item.relation}>
                   {item.relation}
@@ -157,10 +208,14 @@ const RegisterTeacher = ({
               </ul>
             </div>
           )}
+
+          <button type="submit" className="submit-btn">
+            Guardar
+          </button>
         </div>
       </div>
     </form>
   );
 };
 
-export default RegisterTeacher;
+export default NewTeacherRegister;
