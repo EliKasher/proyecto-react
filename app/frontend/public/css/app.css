@@ -37,6 +37,21 @@ body {
   flex-direction: column;
 }
 
+.main-footer {
+  margin-top: auto;
+  margin-bottom: 1rem;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 80vh;
+  padding: 2rem;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;

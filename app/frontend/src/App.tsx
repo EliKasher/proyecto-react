@@ -41,7 +41,7 @@ function Home({ user, setUser }: { user: Teacher | null; setUser: (u: Teacher) =
     return (
       <div className="login-container">
         <TeacherLogin onLogin={setUser} />
-        <p>
+        <p className="main-footer">
           ¿No tienes cuenta? <Link to="/register-teacher">Regístrate aquí</Link>
         </p>
       </div>
