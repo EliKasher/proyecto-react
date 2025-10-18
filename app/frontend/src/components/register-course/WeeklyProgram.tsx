@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { type DailyPlanification } from "../types/course";
+import { type DailyPlanification } from "../../types/course";
 
 type Props = {
   data: DailyPlanification[];

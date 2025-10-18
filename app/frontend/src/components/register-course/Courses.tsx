@@ -3,8 +3,8 @@ import {
   type FacultySchema,
   type EducationalLevelSchema,
   type CourseDateSchema,
-} from "../types/coursesSchema.ts";
-import { type CourseData, type CourseDate } from "../types/course.ts";
+} from "../../types/coursesSchema.ts";
+import { type CourseData, type CourseDate } from "../../types/course.ts";
 
 type Props = {
   data: CourseData;

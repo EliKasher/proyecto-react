@@ -12,15 +12,15 @@ import {
   type DailyPlanification,
   type Material,
   type RegisterForm,
-} from "../types/course";
-import courseService from "../services/Course";
+} from "../../types/course";
+import courseService from "../../services/Course";
 import {
   type CourseDateSchema,
   type EducationalLevelSchema,
   type EmploymentRelationshipSchema,
   type FacultySchema,
   type DocumentsSchema,
-} from "../types/coursesSchema";
+} from "../../types/coursesSchema";
 
 export default function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(0);

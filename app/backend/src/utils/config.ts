@@ -1,8 +1,27 @@
 import dotenv from "dotenv";
 dotenv.config();
-const PORT = process.env.PORT;
-const HOST = process.env.HOST;
-const MONGODB_URI =  process.env.MONGODB_URI
 
+const { PORT, HOST, MONGODB_URI, JWT_SECRET } = process.env;
 
-export default { PORT, MONGODB_URI, HOST };
+if (!PORT) {
+  throw new Error("PORT is not defined in environment variables");
+}
+
+if (!HOST) {
+  throw new Error("HOST is not defined in environment variables");
+}
+
+if (!MONGODB_URI) {
+  throw new Error("MONGODB_URI is not defined in environment variables");
+}
+
+if (!JWT_SECRET) {
+  throw new Error("JWT_SECRET is not defined in environment variables");
+}
+
+export default {
+  PORT,
+  HOST,
+  MONGODB_URI,
+  JWT_SECRET,
+};
