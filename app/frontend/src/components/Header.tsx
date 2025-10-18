@@ -51,7 +51,7 @@ const Header = ({
     <header className="header">
       <div className="header-logo">
         <Link to="/">
-          <img src={} alt="Logo" className="header-logo-img" />
+          <img src="../assets/react.svg" alt="Logo" className="header-logo-img" />
         </Link>
       </div>
 

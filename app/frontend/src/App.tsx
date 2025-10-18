@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import MultiStepForm from './components/Multistep';
 import ViewCourses from "./components/ViewCourses";
 import Header from "./components/Header";
