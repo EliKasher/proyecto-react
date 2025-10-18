@@ -19,16 +19,10 @@ export const getHeaderItems = (userRole: string): HeaderItem[] => {
     }
   ] : [];
 
-    const profileItems = userRole === 'functionary' ? [
+    const profileItems = userRole ? [ 
     { 
       id: "profile", 
-      path: "/functionary-profile", 
-      label: "Mi Perfil", 
-    }
-  ] : userRole === 'teacher' ? [ 
-    { 
-      id: "profile", 
-      path: "/teacher-profile", 
+      path: "/profile", 
       label: "Mi Perfil", 
     }
   ] : [];
@@ -56,12 +50,12 @@ export const getHeaderItems = (userRole: string): HeaderItem[] => {
   ] : [
     {
       id: "register",
-      path: "/register",
+      path: "/register-teacher",
       label: "Regístrate"
     },
     {
       id: "login",
-      path: "/login",
+      path: "/login-teacher",
       label: "Iniciar Sesión"
     }
   ];
