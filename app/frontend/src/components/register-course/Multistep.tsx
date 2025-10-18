@@ -5,7 +5,7 @@ import RegisterTeacher from "./RegisterTeacher";
 import WeeklyProgramForm from "./WeeklyProgram";
 import StaffForm from "./Staff";
 import MaterialForm from "./MaterialForm";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import {
   type Staff as StaffType,
   type CourseDate,

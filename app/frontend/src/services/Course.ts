@@ -4,6 +4,7 @@ import type { RegisterForm } from "../types/course";
 //usamos por ahora el por defecto de json-server
 const baseUrl = "/api/";
 
+// Course register
 const postCourse = (course: RegisterForm) => {
     const request = axios.post(baseUrl + "courses", course);
     return request.then((response) => {
@@ -12,6 +13,7 @@ const postCourse = (course: RegisterForm) => {
     });
 };
 
+// Faculties available
 const getFaculties = () => {
     const request = axios.get(baseUrl + "faculties");
     return request.then((response) => {
@@ -20,6 +22,7 @@ const getFaculties = () => {
     });
 };
 
+// Educational levels available
 const getEducationalLevels = () => {
     const request = axios.get(baseUrl + "educational-levels");
     return request.then((response) => {
@@ -28,6 +31,7 @@ const getEducationalLevels = () => {
     });
 };
 
+// Dates on which the course can be done
 const getCourseDates = () => {
     const request = axios.get(baseUrl + "course-dates");
     return request.then((response) => {
@@ -36,6 +40,7 @@ const getCourseDates = () => {
     });
 };
 
+// Contractual relationship with the employer
 const getEmploymentRelationships = () => {
     const request = axios.get(baseUrl + "contractual-relations");
     return request.then((response) => {
@@ -44,6 +49,7 @@ const getEmploymentRelationships = () => {
     });
 };
 
+// The documents that have to be uploaded
 const getRequiredDocuments = () => {
     const request = axios.get(baseUrl + "documents");
     return request.then((response) => {
@@ -52,7 +58,7 @@ const getRequiredDocuments = () => {
     });
 };
 
-
+// The registered courses
 const getCourses = () => {
     const request = axios.get(baseUrl + "courses");
     return request.then((response) => {
@@ -60,7 +66,6 @@ const getCourses = () => {
         return response.data;
     });
 };
-
 
 export default {
     postCourse,
