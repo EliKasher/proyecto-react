@@ -6,6 +6,7 @@
   width: 100%;
   margin: 0 auto;
   padding: 2rem;
+  box-sizing: border-box;
 
   --primary-dark: #0f0c29;
   --primary: #47308b;
@@ -29,12 +30,13 @@
 }
 
 body {
-  width: 90%;
-  margin: 0;
-  padding: 0 2rem 2rem 2rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
 }
 
 .main-footer {
@@ -44,12 +46,54 @@ body {
   padding: 1rem 0;
 }
 
+@media (max-width: 768px) {
+  .main-footer {
+    margin-top: 2rem;
+    padding: 0.75rem 0;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-footer {
+    margin-top: 1rem;
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+  }
+}
+
 .login-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   min-height: 80vh;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 800px;
   padding: 2rem;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  #root {
+    padding: 1rem;
+  }
+  
+  .login-container {
+    min-height: 70vh;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  #root {
+    padding: 0.5rem;
+  }
+  
+  .login-container {
+    padding: 1rem;
+    min-height: 60vh;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -65,10 +109,10 @@ body {
   background: var(--bg-glass-dark);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-radius: 16px;
+  border-radius: 18px;
   box-shadow: var(--shadow);
   padding: 1rem 2rem;
-  margin: -2rem -2rem 2rem -2rem;
+  margin: -2rem auto 2rem auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -163,6 +207,7 @@ body {
   background: var(--bg-glass);
   border: 1px solid var(--border-glass);
   border-radius: 12px;
+  box-sizing: border-box;
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
 }
@@ -211,7 +256,7 @@ body {
 @media (max-width: 1024px) {
   .header {
     padding: 1rem;
-    margin: -2rem -1rem 2rem -1rem;
+    margin: -2rem auto 2rem auto;
   }
   
   .header-nav-list {
@@ -233,6 +278,7 @@ body {
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
+    margin: -2rem auto 2rem auto;
   }
   
   .header-nav {
@@ -313,6 +359,15 @@ body {
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     background: linear-gradient(0deg, rgb(184, 50, 132) -30%, rgba(59, 40, 204, 0.8) 50%, rgb(19, 39, 95) 90%);
     backdrop-filter: blur(10px);
+    box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+    .form-container {
+        max-width: 95%;
+        padding: 20px;
+        margin: 0 auto; 
+    }
 }
 
 .form-section {

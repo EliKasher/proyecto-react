@@ -5,7 +5,8 @@ import {
   FaUserPlus, 
   FaBook, 
   FaSignOutAlt,
-  FaUserCircle 
+  FaUserCircle,
+  FaSignInAlt 
 } from 'react-icons/fa';
 import getHeaderItems from '../assets/contents/header';
 
@@ -32,6 +33,8 @@ const Header = ({
         return <FaUser />;
       case 'register':
         return userRole === 'functionary' ? <FaUserPlus /> : <FaBook />;
+      case 'login':  // Nuevo caso para login
+        return <FaSignInAlt />;
       case 'logout':
         return <FaSignOutAlt />;
       default:
