@@ -4,7 +4,7 @@ import { authenticate, requireRole } from "./roles";
 
 const documentsRouter = express.Router();
 
-documentsRouter.get("/", authenticate, requireRole(['teacher', 'functionary']), (request, response) => {
+documentsRouter.get("/", (request, response) => {
     DocumentsModel.find({}).then((docs) =>
         response.json(docs)
     );

@@ -4,7 +4,7 @@ import { authenticate, requireRole } from "./roles";
 
 const contractualRelationshipsRouter = express.Router();
 
-contractualRelationshipsRouter.get("/", authenticate, requireRole(['teacher', 'functionary']), (request, response) => {
+contractualRelationshipsRouter.get("/", (request, response) => {
     ContractualRelationshipsModel.find({}).then((relations) =>
         response.json(relations)
     );
