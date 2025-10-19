@@ -1,10 +1,11 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import TeachersModel from "../models/teacher";
+import { authenticate, requireRole } from "./roles";
 
 const teachersRouter = express.Router();
 
-teachersRouter.get("/", async (request, response) => {
+teachersRouter.get("/", authenticate, requireRole(['teacher']), async (request, response) => {
     try {
         const teachers = await TeachersModel.find({});
 
@@ -15,7 +16,7 @@ teachersRouter.get("/", async (request, response) => {
     }
 });
 
-teachersRouter.get("/:id", async (request, response) => {
+teachersRouter.get("/:id", authenticate, requireRole(['teacher']), async (request, response) => {
     try {
         const teacher = await TeachersModel.findById(request.params.id)
 

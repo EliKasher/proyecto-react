@@ -1,16 +1,16 @@
 import express from "express";
 import CoursesModel from "../models/course";
+import { authenticate, requireRole } from "./roles";
 
 const coursesRouter = express.Router();
 
-coursesRouter.get("/", (request, response) => {
+coursesRouter.get("/", authenticate, requireRole(['teacher', 'functionary']), (request, response) => {
     CoursesModel.find({}).then((courses) =>
         response.json(courses)
     );
 })
 
-coursesRouter.post("/", (request, response) => {
-
+coursesRouter.post("/", authenticate, requireRole(['teacher']), (request, response) => {
     const req_course_data = request.body;
 
     console.log(req_course_data);

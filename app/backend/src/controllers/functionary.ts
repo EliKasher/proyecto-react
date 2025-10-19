@@ -1,10 +1,11 @@
 import express from "express";
 import bcrypt from "bcrypt";
 import FunctionaryModel from "../models/functionary";
+import { authenticate, requireRole } from "./roles";
 
 const functionaryRouter = express.Router();
 
-functionaryRouter.get("/", async (request, response) => {
+functionaryRouter.get("/", authenticate, requireRole(['functionary']), async (request, response) => {
     try {
         const functionaries = await FunctionaryModel.find({});
 
@@ -15,7 +16,7 @@ functionaryRouter.get("/", async (request, response) => {
     }
 });
 
-functionaryRouter.get("/:id", async (request, response) => {
+functionaryRouter.get("/:id", authenticate, requireRole(['functionary']), async (request, response) => {
     try {
         const teacher = await FunctionaryModel.findById(request.params.id)
 
@@ -26,7 +27,7 @@ functionaryRouter.get("/:id", async (request, response) => {
     }
 });
 
-functionaryRouter.post("/", async (request, response, next) => {
+functionaryRouter.post("/", authenticate, requireRole(['functionary']), async (request, response, next) => {
     try {
         const {
             rut,

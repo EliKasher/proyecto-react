@@ -20,6 +20,7 @@ teacherLoginRouter.post("/", async (request, response, next) => {
             } else {
                 const teacherForToken = {
                     rut: teacher.rut,
+                    roles: teacher.roles || ["teacher"],
                     csrf: crypto.randomUUID(),
                     id: teacher._id,
                 };
@@ -32,6 +33,8 @@ teacherLoginRouter.post("/", async (request, response, next) => {
                 });
                 response.status(200).json(teacher);
             }
+        } else {
+            response.status(401).json({ error: "invalid rut or password" });
         }
     } catch (error) {
         // to be replaced to middleware call

@@ -20,6 +20,7 @@ functionaryLoginRouter.post("/", async (request, response, next) => {
             } else {
                 const functionaryForToken = {
                     rut: functionary.rut,
+                    roles: functionary.roles || ["functionary"],
                     csrf: crypto.randomUUID(),
                     id: functionary._id,
                 };
@@ -30,8 +31,11 @@ functionaryLoginRouter.post("/", async (request, response, next) => {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === "production",
                 });
+
                 response.status(200).json(functionary);
             }
+        } else {
+            response.status(401).json({ error: "invalid rut or password" });
         }
     } catch (error) {
         // to be replaced to middleware call
