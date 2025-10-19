@@ -16,6 +16,7 @@ const NewTeacherRegister = () => {
   const [newTeacher, setNewTeacher] = useState<ITeacherRegister>({
     first_name: "",
     last_name: "",
+    role: "teacher",
     rut: "",
     email: "",
     phone: "",

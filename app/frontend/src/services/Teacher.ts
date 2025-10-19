@@ -3,7 +3,7 @@ import type { ITeacherLogin, ITeacherRegister } from "../types/teacher";
 
 //usamos por ahora el por defecto de json-server
 
-const baseUrl = "/api/";
+const baseUrl = 'api/';
 
 const postTeacher = (newTeacher: ITeacherRegister) => {
     const request = axios.post(baseUrl + "teachers", newTeacher);
