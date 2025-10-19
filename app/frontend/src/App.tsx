@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Route, Routes, Link, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { HashRouter as Router, Route, Routes, Link, Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import MultiStepForm from "./components/register-course/Multistep";
 import ViewCourses from "./components/view-courses/ViewCourses";
 import NewTeacherRegister from "./components/teacher-register/NewTeacherRegister";
@@ -12,6 +12,15 @@ export type Teacher = {
   first_name: string;
   last_name: string;
   email: string;
+  roles: string[];
+};
+
+export type Functionary = {
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  roles: string[];
 };
 
 function RegisterForm() {
@@ -53,24 +62,71 @@ function Home({ user, setUser }: { user: Teacher | null; setUser: (u: Teacher) =
 
 function App() {
   const [user, setUser] = useState<Teacher | null>(null);
-    
-  const userRole = localStorage ? localStorage.getItem('userRole') : "teacher";
-  const userName = localStorage ? localStorage.getItem('name') : "Eve";
+  const [loading, setLoading] = useState(true); // ← Estado de carga
 
-  const handleLogout = () => {
+  useEffect(() => {
+    const loadUserFromStorage = () => {
+      try {
+        const savedUser = localStorage.getItem('user');
+        const token = localStorage.getItem('token');
+                
+        if (savedUser && token) {
+          const userData = JSON.parse(savedUser);
+          console.log('Usuario encontrado:', userData);
+          setUser(userData);
+        } else {
+          console.log('No hay usuario en localStorage');
+          setUser(null);
+        }
+      } catch (error) {
+        console.error('Error cargando usuario:', error);
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadUserFromStorage();
+  }, []);
+
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('user');
     localStorage.removeItem('token');
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('name');
-    window.location.href = '/';
+    fetch('/api/logout', { method: 'POST' });
   };
-  
+
+  // Determinar el rol principal para el header
+  const getPrimaryRole = () => {
+    if (!user) return null;
+    
+    if (user.roles && user.roles.length > 0) {
+      if (user.roles.includes('admin')) return 'admin';
+      if (user.roles.includes('functionary')) return 'functionary';
+      if (user.roles.includes('teacher')) return 'teacher';
+      return user.roles[0];
+    }
+    
+    return 'teacher';
+  };
+
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="loading-spinner">Cargando...</div>
+      </div>
+    );
+  }
+
   return (
     <>
       <Router>
         <Header 
-          userRole={userRole}
-          userName={userName}
-          onLogout={handleLogout}
+          userRole={getPrimaryRole()}
+          userName={user?.first_name || null}
+          onLogout={logout}
         />
         <Routes>
           <Route path="/" element={<Home user={user} setUser={setUser} />} />
@@ -97,6 +153,5 @@ function App() {
     </>
   );
 }
-
 
 export default App;

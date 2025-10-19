@@ -1,16 +1,13 @@
-export interface ITeacherRegister {
+export interface IFunctionaryRegister {
     first_name: string;
     last_name: string;
     role: string;
     rut: string;
     email: string;
-    phone: string;
-    degree: string;
-    college_relationship: string;
     password: string;
 }
 
-export interface ITeacherLogin {
+export interface IFunctionaryLogin {
     rut: string;
     password: string;
 }

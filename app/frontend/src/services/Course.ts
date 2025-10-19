@@ -2,7 +2,7 @@ import axios from "axios";
 import type { RegisterForm } from "../types/course";
 
 //usamos por ahora el por defecto de json-server
-const baseUrl = "/api/";
+const baseUrl = 'api/';
 
 // Course register
 const postCourse = (course: RegisterForm) => {
