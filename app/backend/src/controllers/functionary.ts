@@ -1,24 +1,24 @@
 import express from "express";
 import bcrypt from "bcrypt";
-import TeachersModel from "../models/teacher";
+import FunctionaryModel from "../models/functionary";
 import { authenticate, requireRole } from "./roles";
 
-const teachersRouter = express.Router();
+const functionaryRouter = express.Router();
 
-teachersRouter.get("/", authenticate, requireRole(['teacher']), async (request, response) => {
+functionaryRouter.get("/", authenticate, requireRole(['functionary']), async (request, response) => {
     try {
-        const teachers = await TeachersModel.find({});
+        const functionaries = await FunctionaryModel.find({});
 
-        response.status(201).json(teachers);
+        response.status(201).json(functionaries);
     } catch (error) {
         // to be replaced to middleware call
         response.status(400).json(error);
     }
 });
 
-teachersRouter.get("/:id", authenticate, requireRole(['teacher']), async (request, response) => {
+functionaryRouter.get("/:id", authenticate, requireRole(['functionary']), async (request, response) => {
     try {
-        const teacher = await TeachersModel.findById(request.params.id)
+        const teacher = await FunctionaryModel.findById(request.params.id)
 
         response.status(201).json(teacher)
     } catch (error) {
@@ -27,31 +27,25 @@ teachersRouter.get("/:id", authenticate, requireRole(['teacher']), async (reques
     }
 });
 
-teachersRouter.post("/", async (request, response, next) => {
+functionaryRouter.post("/", authenticate, requireRole(['functionary']), async (request, response, next) => {
     try {
         const {
+            rut,
             first_name,
             last_name,
             email,
-            rut,
-            phone,
-            degree,
-            college_relationship,
             password,
         } = request.body;
 
         const saltRounds = 10;
         const passwordHash = await bcrypt.hash(password, saltRounds);
 
-        const user = new TeachersModel({
+        const user = new FunctionaryModel({
             rut: rut,
             email: email,
             password: passwordHash,
             first_name: first_name,
             last_name: last_name,
-            phone: phone,
-            degree: degree,
-            college_relationship: college_relationship,
         });
 
         const newTeacher = await user.save();
@@ -63,4 +57,4 @@ teachersRouter.post("/", async (request, response, next) => {
     }
 });
 
-export default teachersRouter;
+export default functionaryRouter;

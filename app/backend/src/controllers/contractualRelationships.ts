@@ -1,5 +1,6 @@
 import express from "express";
 import ContractualRelationshipsModel from "../models/contractualRelationships";
+import { authenticate, requireRole } from "./roles";
 
 const contractualRelationshipsRouter = express.Router();
 

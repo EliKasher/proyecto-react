@@ -1,10 +1,10 @@
 import express from "express";
 import EducationalLevelsModel from "../models/educationalLevels";
-import e from "express";
+import { authenticate, requireRole } from "./roles";
 
 const educationalLevelsRouter = express.Router();
 
-educationalLevelsRouter.get("/", (request, response) => {
+educationalLevelsRouter.get("/", authenticate, requireRole(['teacher', 'functionary']), (request, response) => {
     EducationalLevelsModel.find({}).then((levels) =>
         response.json(levels)
     );

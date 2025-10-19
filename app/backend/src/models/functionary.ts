@@ -10,7 +10,7 @@ if (uri) {
     });
 }
 
-const teachersSchema = new mongoose.Schema({
+const functionarySchema = new mongoose.Schema({
     first_name: { type: String, required: true, minLength: 3 },
     last_name: { type: String, required: true, minLength: 3 },
     password: { 
@@ -73,27 +73,16 @@ const teachersSchema = new mongoose.Schema({
             validator: (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
         },
     },
-    phone: {
-        type: String,
-        required: true,
-        validate: {
-            //regex de https://gist.github.com/jaimeguaman/5819511
-            validator: (v: string) =>
-                /^(\+?56)?(\s?)(0?9)(\s?)[98765432]\d{7}$/.test(v),
-        },
-    },
-    degree: { type: String, required: true },
-    college_relationship: { type: String, required: true },
     roles: {
         type: [String],
         enum: ["teacher", "admin", "functionary"],
-        default: ["teacher"]
+        default: ["functionary"]
     }
 });
 
-const TeachersModel = mongoose.model("teacher", teachersSchema);
+const FunctionaryModel = mongoose.model("functionary", functionarySchema);
 
-teachersSchema.set("toJSON", {
+functionarySchema.set("toJSON", {
     transform: (
         document,
         returnedObject: {
@@ -110,4 +99,4 @@ teachersSchema.set("toJSON", {
     },
 });
 
-export default TeachersModel;
+export default FunctionaryModel;
