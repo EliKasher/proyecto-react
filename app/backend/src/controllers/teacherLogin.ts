@@ -16,7 +16,7 @@ teacherLoginRouter.post("/", async (request, response, next) => {
             const passwordCorrect = await bcrypt.compare(password, teacher.password);
 
             if (!passwordCorrect) {
-                response.status(401).json({ error: "invalid username or password" });
+                response.status(401).json({ error: "invalid rut or password" });
             } else {
                 const teacherForToken = {
                     rut: teacher.rut,
