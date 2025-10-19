@@ -51,7 +51,7 @@ function Home({ user, setUser }: { user: Teacher | null; setUser: (u: Teacher) =
       <div className="login-container">
         <TeacherLogin onLogin={setUser} />
         <p className="main-footer">
-          ¿No tienes cuenta? <Link to="/register-teacher">Regístrate aquí</Link>
+          ¿Eres funcionario? <Link to="/functionary-login">Ingresa aquí</Link>
         </p>
       </div>
     );
