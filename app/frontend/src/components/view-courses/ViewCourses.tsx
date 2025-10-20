@@ -1,6 +1,7 @@
 import * as React from "react";
-import courseService from "../../services/Course";
+import teacherService from "../../services/Teacher";
 import { type CourseDate } from "../../types/course";
+import { toast } from "react-toastify";
 
 type DataCurso = {
   name: "";
@@ -21,14 +22,29 @@ type Curso = {
   program_content: ContenidoPrograma;
 };
 
-const ViewCourses = () => {
+type User = {
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  roles: string[];
+};
+
+const ViewCourses = (props: { user: User }) => {
   const [cursos, setCursos] = React.useState<Curso[]>([]);
 
   React.useEffect(() => {
-    courseService.getCourses().then((data) => {
-      console.log(data);
-      setCursos(data);
-    });
+    const setup = async () => {
+      try {
+        const cursos = await teacherService.getTeacherCourses(props.user.id);
+        console.log(cursos);
+        setCursos(cursos);
+      } catch (error: any) {
+        toast.error(error.message);
+      }
+    };
+
+    setup();
   }, []);
 
   const [cursoSeleccionado, setCursoSeleccionado] =

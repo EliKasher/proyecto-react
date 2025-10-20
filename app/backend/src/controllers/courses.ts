@@ -47,24 +47,16 @@ coursesRouter.post(
       });
 
       const course = await newCourse.save();
+
+      await TeachersModel.findByIdAndUpdate(request.userId, {
+        $push: { courses: course._id },
+      });
+
       response.status(201).json(course);
     } catch (error) {
       next(error);
     }
   }
 );
-
-coursesRouter.get("/:id", authenticate, requireRole(["teacher", "functionary"]), async (request, response) => {
-  try {
-    const { id } = request.params;
-    const user = await TeachersModel.findById(id);
-    if (!user) return response.status(404).json({ error: "Usuario no encontrado" });
-    const { rut } = user;
-    const courses = await CoursesModel.find({ teacherRut: rut });
-    return response.json(courses);
-  } catch (error) {
-    return response.status(500).json({ error: "Error al obtener los cursos" });
-  }
-});
 
 export default coursesRouter;

@@ -144,7 +144,7 @@ function App() {
           />
           <Route
             path="view-courses"
-            element={user ? <ViewCourses /> : <Navigate to="/" />}
+            element={user ? <ViewCourses user={user} /> : <Navigate to="/" />}
           />
           <Route
             path="register-teacher"

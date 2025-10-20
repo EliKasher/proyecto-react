@@ -13,6 +13,19 @@ const postTeacher = (newTeacher: ITeacherRegister) => {
   });
 };
 
+const getTeacherCourses = async (teacherId: string) => {
+  try {
+    const response = await axiosSecure.get(
+      baseUrl + `teachers/${teacherId}/courses`
+    );
+
+    return response.data;
+  } catch (error: any) {
+    throw new Error(`Ocurrió un error al obtener los cursos: ${error.message}`);
+  }
+};
+
 export default {
   postTeacher,
+  getTeacherCourses,
 };

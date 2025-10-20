@@ -86,7 +86,6 @@ loginRouter.post("/teacher", async (request, response, next) => {
 loginRouter.post("/restore", authenticate, async (request, response, next) => {
   try {
     let rol = request.roles;
-    console.log(rol);
 
     let user;
 
