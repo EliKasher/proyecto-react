@@ -48,7 +48,13 @@ export default function MultiStepForm() {
   // weekly planification
   const [weeklyPlanification, setWeeklyPlanification] = useState<
     DailyPlanification[]
-  >([]);
+  >([1, 2, 3, 4, 5].map((dayNumber) => ({
+    day: dayNumber,
+    first_period: "",
+    first_classroom: "",
+    second_period: "",
+    second_classroom: "",
+  })));
 
   // staff
   const [staff, setStaff] = useState<StaffType[]>([]);

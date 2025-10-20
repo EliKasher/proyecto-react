@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+
 import { type DailyPlanification } from "../../types/course";
 
 type Props = {
@@ -36,6 +36,7 @@ const DayContent = ({
               name={"firstBlockDay" + dayNumber}
               cols={50}
               rows={5}
+              value={data[dayNumber - 1].first_period}
               onChange={(e) => handleChange("first_period", e.target.value)}
             ></textarea>
           </div>
@@ -47,6 +48,7 @@ const DayContent = ({
               maxLength={10}
               size={10}
               placeholder="S19"
+              value={data[dayNumber - 1].first_classroom}
               onChange={(e) => handleChange("first_classroom", e.target.value)}
             />
           </div>
@@ -58,6 +60,7 @@ const DayContent = ({
               name={"secondBlockDay" + dayNumber}
               cols={50}
               rows={5}
+              value={data[dayNumber - 1].second_period}
               onChange={(e) => handleChange("second_period", e.target.value)}
             ></textarea>
           </div>
@@ -69,6 +72,7 @@ const DayContent = ({
               maxLength={10}
               size={10}
               placeholder="S19"
+              value={data[dayNumber - 1].second_classroom}
               onChange={(e) => handleChange("second_classroom", e.target.value)}
             />
           </div>
@@ -79,21 +83,8 @@ const DayContent = ({
 };
 
 const WeeklyProgramForm = ({ data, setData }: Props) => {
-  const dayNumbers = [1, 2, 3, 4, 5];
 
-  useEffect(() => {
-  if (data.length === 0) {
-    setData(
-      dayNumbers.map((dayNumber) => ({
-        day: dayNumber,
-        first_period: "",
-        first_classroom: null,
-        second_period: "",
-        second_classroom: null,
-      }))
-    );
-  }
-},);
+  ;
 
 
   return (
@@ -102,10 +93,10 @@ const WeeklyProgramForm = ({ data, setData }: Props) => {
         <h3>Programación Semanal</h3>
       </div>
       <div className="form-group">
-        {dayNumbers.map((dayNumber) => (
+        {data.map((day) => (
           <DayContent
-            key={dayNumber}
-            dayNumber={dayNumber}
+            key={day.day}
+            dayNumber={day.day}
             data={data}
             setData={setData}
           />

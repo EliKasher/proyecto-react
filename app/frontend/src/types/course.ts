@@ -22,9 +22,9 @@ export interface ProgramContent {
 export interface DailyPlanification {
   day: number;
   first_period: string;
-  first_classroom: string | null;
+  first_classroom: string;
   second_period: string;
-  second_classroom: string | null;
+  second_classroom: string;
 }
 
 export interface Teacher {
