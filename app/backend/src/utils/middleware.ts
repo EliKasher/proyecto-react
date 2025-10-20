@@ -2,76 +2,79 @@ import { MongoServerError } from "mongodb";
 import { NextFunction, Request, Response } from "express";
 import logger from "./logger";
 
-
 const requestLogger = (
-    request: Request,
-    response: Response,
-    next: NextFunction
+  request: Request,
+  response: Response,
+  next: NextFunction
 ) => {
-    logger.info("Method:", request.method);
-    logger.info("Path:  ", request.path);
-    logger.info("Body:  ", request.body);
-    logger.info("---");
-    next();
+  logger.info("Method:", request.method);
+  logger.info("Path:  ", request.path);
+  logger.info("Body:  ", request.body);
+  logger.info("---");
+  next();
 };
 
 const unknownEndpoint = (
-    request: Request,
-    response: Response,
-    next: NextFunction
+  request: Request,
+  response: Response,
+  next: NextFunction
 ) => {
-    response.status(404).send({ error: "unknown endpoint" });
+  response.status(404).send({ error: "unknown endpoint" });
 };
-
-
 
 const errorHandler = (
-    error: any,
-    request: Request,
-    response: Response,
-    next: NextFunction
+  error: any,
+  request: Request,
+  response: Response,
+  next: NextFunction
 ) => {
+  if (error.name === "CastError") {
+    return response.status(400).json({ error: "ID mal formateado" });
+  }
 
-    if (error.name === "CastError") {
-        return response.status(400).json({ error: "ID mal formateado" });
+  if (error.name === "ValidationError") {
+    if (error.errors) {
+      let formattedErrorMessage = "";
+
+      Object.keys(error.errors).map((path) => {
+        formattedErrorMessage += error.errors[path].message;
+      });
+      return response.status(400).json({ error: formattedErrorMessage });
+    } else {
+      return response.status(400).json({ error: error.message });
     }
+  }
 
-    if (error.name === "ValidationError") {
-        return response.status(400).json({ error: error.message });
-    }
+  const mongoError =
+    error instanceof MongoServerError
+      ? error
+      : error.cause instanceof MongoServerError
+      ? error.cause
+      : null;
 
-    const mongoError = error instanceof MongoServerError
-        ? error
-        : error.cause instanceof MongoServerError
-            ? error.cause
-            : null;
+  if (mongoError && mongoError.code === 11000) {
+    const field = mongoError.keyValue
+      ? Object.keys(mongoError.keyValue)[0]
+      : "campo";
+    return response.status(400).json({
+      error: `El ${field} ya está registrado`,
+    });
+  }
 
-    if (mongoError && mongoError.code === 11000) {
-        const field = mongoError.keyValue
-            ? Object.keys(mongoError.keyValue)[0]
-            : "campo";
-        return response.status(400).json({
-            error: `El ${field} ya está registrado`,
-        });
-    }
+  if (error.name === "JsonWebTokenError") {
+    return response.status(401).json({ error: "Token inválido" });
+  }
 
-    if (error.name === "JsonWebTokenError") {
-        return response.status(401).json({ error: "Token inválido" });
-    }
+  if (error.name === "TokenExpiredError") {
+    return response.status(401).json({ error: "Token expirado" });
+  }
 
-    if (error.name === "TokenExpiredError") {
-        return response.status(401).json({ error: "Token expirado" });
-    }
-
-    console.error("Error no manejado:", error);
-    return response.status(500).json({ error: "Error interno del servidor" });
+  console.error("Error no manejado:", error);
+  return response.status(500).json({ error: "Error interno del servidor" });
 };
 
-
-
-
 export default {
-    requestLogger,
-    unknownEndpoint,
-    errorHandler,
+  requestLogger,
+  unknownEndpoint,
+  errorHandler,
 };

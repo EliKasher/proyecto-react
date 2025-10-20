@@ -74,9 +74,9 @@ const functionarySchema = new mongoose.Schema({
         },
     },
     roles: {
-        type: [String],
+        type: String,
         enum: ["teacher", "admin", "functionary"],
-        default: ["functionary"]
+        default: "functionary"
     }
 });
 

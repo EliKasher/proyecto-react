@@ -15,7 +15,6 @@ const courseDateSchema = new mongoose.Schema({
     start_month: String,
     end_date: Number,
     end_month: String,
-
 });
 
 const courseDatesModel = mongoose.model("course_dates", courseDateSchema);

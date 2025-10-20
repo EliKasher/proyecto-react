@@ -42,26 +42,26 @@ export const authenticate = async (
 };
 
 export const requireRole = (roles: string[]) => {
-    return (req: Request, res: Response, next: NextFunction) => {
-        if (!req.userId || !req.roles) {
-            return res.status(401).json({ 
-                error: "Authentication required or user data incomplete",
-                details: "User object or roles property missing from request"
-            });
-        }
+  return (req: Request, res: Response, next: NextFunction) => {
+    if (!req.userId || !req.roles) {
+      res.status(401).json({
+        error: "Authentication required or user data incomplete",
+        details: "User object or roles property missing from request",
+      });
+      return;
+    }
 
-        const hasRequiredRole = req.roles.some(role => 
-            roles.includes(role)
-        );
+    const hasRequiredRole = roles.includes(req.roles);
 
-        if (!hasRequiredRole) {
-            return res.status(403).json({ 
-                error: "Insufficient permissions",
-                required: roles,
-                current: req.roles
-            });
-        }
+    if (!hasRequiredRole) {
+      res.status(403).json({
+        error: "Insufficient permissions",
+        required: roles,
+        current: req.roles,
+      });
+      return;
+    }
 
-        next();
-    };
+    next();
+  };
 };

@@ -1,4 +1,10 @@
-import { HashRouter as Router, Route, Routes, Link, Navigate } from "react-router-dom";
+import {
+  HashRouter as Router,
+  Route,
+  Routes,
+  Link,
+  Navigate,
+} from "react-router-dom";
 import { useState, useEffect } from "react";
 import MultiStepForm from "./components/register-course/Multistep";
 import ViewCourses from "./components/view-courses/ViewCourses";
@@ -6,6 +12,7 @@ import NewTeacherRegister from "./components/teacher-register/NewTeacherRegister
 import TeacherLogin from "./components/teacher-login/TeacherLogin";
 import { ToastContainer } from "react-toastify";
 import Header from "./components/Header";
+import LoginService from "./services/Login";
 
 export type Teacher = {
   id: string;
@@ -45,7 +52,13 @@ function RegisterForm() {
   );
 }
 
-function Home({ user, setUser }: { user: Teacher | null; setUser: (u: Teacher) => void }) {
+function Home({
+  user,
+  setUser,
+}: {
+  user: Teacher | null;
+  setUser: (u: Teacher) => void;
+}) {
   if (!user) {
     return (
       <div className="login-container">
@@ -67,24 +80,20 @@ function App() {
   useEffect(() => {
     const loadUserFromStorage = () => {
       try {
-        const savedUser = localStorage.getItem('user');
-        const token = localStorage.getItem('token');
-                
-        if (savedUser && token) {
-          const userData = JSON.parse(savedUser);
-          console.log('Usuario encontrado:', userData);
-          setUser(userData);
-        } else {
-          console.log('No hay usuario en localStorage');
-          setUser(null);
-        }
+        const init = async () => {
+          const user = await LoginService.restoreLogin();
+
+          if (user) {
+            setUser(user);
+          }
+
+          setLoading(false);
+        };
+        init();
       } catch (error) {
-        console.error('Error cargando usuario:', error);
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
+        console.error("Error cargando usuario:", error);
+        localStorage.removeItem("token");
         setUser(null);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -93,23 +102,22 @@ function App() {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('user');
-    localStorage.removeItem('token');
-    fetch('/api/logout', { method: 'POST' });
+    localStorage.removeItem("token");
+    fetch("/api/logout", { method: "POST" });
   };
 
   // Determinar el rol principal para el header
   const getPrimaryRole = () => {
     if (!user) return null;
-    
+
     if (user.roles && user.roles.length > 0) {
-      if (user.roles.includes('admin')) return 'admin';
-      if (user.roles.includes('functionary')) return 'functionary';
-      if (user.roles.includes('teacher')) return 'teacher';
+      if (user.roles.includes("admin")) return "admin";
+      if (user.roles.includes("functionary")) return "functionary";
+      if (user.roles.includes("teacher")) return "teacher";
       return user.roles[0];
     }
-    
-    return 'teacher';
+
+    return "teacher";
   };
 
   if (loading) {
@@ -123,7 +131,7 @@ function App() {
   return (
     <>
       <Router>
-        <Header 
+        <Header
           userRole={getPrimaryRole()}
           userName={user?.first_name || null}
           onLogout={logout}
@@ -144,12 +152,14 @@ function App() {
           />
           <Route
             path="login-teacher"
-            element={!user ? <TeacherLogin onLogin={setUser} /> : <Navigate to="/" />}
+            element={
+              !user ? <TeacherLogin onLogin={setUser} /> : <Navigate to="/" />
+            }
           />
         </Routes>
 
         <ToastContainer position="top-right" autoClose={3000} />
-      </Router>  
+      </Router>
     </>
   );
 }
