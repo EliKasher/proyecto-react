@@ -1,30 +1,31 @@
-import axios from "axios";
-import type { IFunctionaryLogin, IFunctionaryRegister } from "../types/functionary";
+import axiosSecure from "../utils/axiosSecure";
+import type { ILogin, IFunctionaryRegister } from "../types/users";
 
-//usamos por ahora el por defecto de json-server
-
-const baseUrl = 'api/';
+const baseUrl = "api/";
 
 const postFunctionary = (newFunctionary: IFunctionaryRegister) => {
-    const request = axios.post(baseUrl + "functionaries", newFunctionary);
-    return request.then((response) => {
-        console.log("success");
-        return response.data;
-    });
+  const request = axiosSecure.post(baseUrl + "functionaries", newFunctionary);
+  return request.then((response) => {
+    console.log("success");
+    return response.data;
+  });
 };
 
-const functionaryLogin = async (functionaryCredentials: IFunctionaryLogin) => {
-    const response = await axios.post(baseUrl + "functionary-login", functionaryCredentials)
+const functionaryLogin = async (functionaryCredentials: ILogin) => {
+  const response = await axiosSecure.post(
+    baseUrl + "login/functionary",
+    functionaryCredentials
+  );
 
-    const csrfToken = response.headers['x-csrf-token'];
-    if (csrfToken) {
-        localStorage.setItem('csrfToken', csrfToken);
-    }
+  const csrfToken = response.headers["x-csrf-token"];
+  if (csrfToken) {
+    localStorage.setItem("csrfToken", csrfToken);
+  }
 
-    return response.data;
-}
+  return response.data;
+};
 
 export default {
-    postFunctionary,
-    functionaryLogin
+  postFunctionary,
+  functionaryLogin,
 };

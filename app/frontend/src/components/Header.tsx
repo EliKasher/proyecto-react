@@ -1,14 +1,14 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { 
-  FaHome, 
-  FaUser, 
-  FaUserPlus, 
-  FaBook, 
+import { Link, useNavigate } from "react-router-dom";
+import {
+  FaHome,
+  FaUser,
+  FaUserPlus,
+  FaBook,
   FaSignOutAlt,
   FaUserCircle,
-  FaSignInAlt 
-} from 'react-icons/fa';
-import getHeaderItems from '../assets/contents/header';
+  FaSignInAlt,
+} from "react-icons/fa";
+import getHeaderItems from "../assets/contents/header";
 
 interface HeaderProps {
   userRole: string | null;
@@ -16,26 +16,21 @@ interface HeaderProps {
   onLogout: () => void;
 }
 
-const Header = ({ 
-    userRole,
-    userName, 
-    onLogout 
-    }: HeaderProps
-) => {
+const Header = ({ userRole, userName, onLogout }: HeaderProps) => {
   const navigate = useNavigate();
-  const headerItems = getHeaderItems(userRole || '');
+  const headerItems = getHeaderItems(userRole || "");
 
   const getIcon = (id: string) => {
     switch (id) {
-      case 'home':
+      case "home":
         return <FaHome />;
-      case 'profile':
+      case "profile":
         return <FaUser />;
-      case 'register':
-        return userRole === 'functionary' ? <FaUserPlus /> : <FaBook />;
-      case 'login':  // Nuevo caso para login
+      case "register":
+        return userRole === "functionary" ? <FaUserPlus /> : <FaBook />;
+      case "login": // Nuevo caso para login
         return <FaSignInAlt />;
-      case 'logout':
+      case "logout":
         return <FaSignOutAlt />;
       default:
         return null;
@@ -43,7 +38,7 @@ const Header = ({
   };
 
   const handleNavigation = (path: string, id: string) => {
-    if (id === 'logout') {
+    if (id === "logout") {
       onLogout();
     } else {
       navigate(path);
@@ -54,7 +49,11 @@ const Header = ({
     <header className="header">
       <div className="header-logo">
         <Link to="/">
-          <img src="../assets/react.svg" alt="Logo" className="header-logo-img" />
+          <img
+            src="../assets/react.svg"
+            alt="Logo"
+            className="header-logo-img"
+          />
         </Link>
       </div>
 
@@ -74,7 +73,7 @@ const Header = ({
         </ul>
       </nav>
 
-      {userName ?  (
+      {userName ? (
         <div className="header-user">
           <FaUserCircle className="header-user-icon" />
           <span className="header-user-name">Hola, {userName}</span>
