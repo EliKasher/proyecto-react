@@ -26,7 +26,7 @@ const TeacherLogin = ({ onLogin }: TeacherLoginProps) => {
       const user = await loginService.teacherLogin(teacherCredentials);
       onLogin(user);
       toast.success(`Bienvenido ${user.first_name}`);
-    } catch (err: unknown) {
+    } catch (err) {
       if (err instanceof AxiosError) {
         const message = err.response?.data?.error ?? "Error al iniciar sesión";
         toast.error(message);

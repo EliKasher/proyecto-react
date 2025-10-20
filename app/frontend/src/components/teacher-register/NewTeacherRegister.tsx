@@ -76,7 +76,7 @@ const NewTeacherRegister = () => {
       await teacherService.postTeacher(newTeacher);
       toast.success("Registro Exitoso");
       navigate("/login");
-    } catch (err: unknown) {
+    } catch (err) {
       if (axios.isAxiosError(err)) {
         const message = err.response?.data?.error ?? "Error al registrar";
         toast.error(message);

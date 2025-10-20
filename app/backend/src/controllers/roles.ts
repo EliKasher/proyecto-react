@@ -34,7 +34,7 @@ export const authenticate = async (
         });
       }
     }
-  } catch (error: any) {
+  } catch (error) {
     res.status(401).json({
       error: "invalid token",
     });
