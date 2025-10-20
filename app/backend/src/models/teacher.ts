@@ -85,9 +85,9 @@ const teachersSchema = new mongoose.Schema({
     degree: { type: String, required: true },
     college_relationship: { type: String, required: true },
     roles: {
-        type: [String],
+        type: String,
         enum: ["teacher", "admin", "functionary"],
-        default: ["teacher"]
+        default: "teacher"
     }
 });
 

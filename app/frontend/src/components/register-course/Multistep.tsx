@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import CourseForm from "./Courses";
 import ProgramContentForm from "./ProgramContent";
-import RegisterTeacher from "./RegisterTeacher";
 import WeeklyProgramForm from "./WeeklyProgram";
 import StaffForm from "./Staff";
 import MaterialForm from "./MaterialForm";
@@ -17,13 +16,16 @@ import courseService from "../../services/Course";
 import {
   type CourseDateSchema,
   type EducationalLevelSchema,
-  type EmploymentRelationshipSchema,
   type FacultySchema,
-  type DocumentsSchema,
 } from "../../types/coursesSchema";
+import { toast } from "react-toastify";
+import { AxiosError } from "axios";
+
+type FormProgress = "DONE" | "NOT_DONE";
 
 export default function MultiStepForm() {
   const [currentStep, setCurrentStep] = useState(0);
+  const [formState, setFormState] = useState<FormProgress>("NOT_DONE");
 
   // course data
   const [courseData, setCourseData] = useState({
@@ -40,21 +42,8 @@ export default function MultiStepForm() {
     learning_objectives: [] as string[],
   });
 
-  // teacher data
-  const [teacherData, setTeacherData] = useState({
-    first_name: "",
-    last_name: "",
-    rut: "",
-    email: "",
-    phone: "",
-    degree: "",
-    college_relationship: "",
-  });
-
   // materials
-  const [materials, setMaterials] = useState<Material[]>([
-    { name: "", quantity: 0, link: "" },
-  ]);
+  const [materials, setMaterials] = useState<Material[]>([]);
 
   // weekly planification
   const [weeklyPlanification, setWeeklyPlanification] = useState<
@@ -74,14 +63,6 @@ export default function MultiStepForm() {
 
   const [dates, setDates] = useState<CourseDateSchema[]>([]);
 
-  const [employmentRelationships, setEmploymentRelationships] = useState<
-    EmploymentRelationshipSchema[]
-  >([]);
-
-  const [requiredDocuments, setRequiredDocuments] = useState<DocumentsSchema[]>(
-    []
-  );
-
   useEffect(() => {
     courseService
       .getEducationalLevels()
@@ -90,16 +71,32 @@ export default function MultiStepForm() {
     courseService.getCourseDates().then((data) => setDates(data));
 
     courseService.getFaculties().then((data) => setFaculties(data));
-
-    courseService
-      .getEmploymentRelationships()
-      .then((data) => setEmploymentRelationships(data));
-
-    courseService
-      .getRequiredDocuments()
-      .then((data) => setRequiredDocuments(data));
   }, []);
 
+  const resetForm = () => {
+    setCourseData({
+      name: "",
+      faculty: "",
+      educational_level: [] as string[],
+      quota: 25,
+      course_start: [] as CourseDate[],
+    });
+
+    setProgramContent({
+      course_purpose: "",
+      learning_objectives: [] as string[],
+    });
+
+    setMaterials([{ name: "", quantity: 0, link: "" }]);
+
+    setWeeklyPlanification([]);
+
+    setStaff([]);
+
+    setEducationalLevel([]);
+
+    setDates([]);
+  };
   const steps = [
     <CourseForm
       key="course"
@@ -113,13 +110,6 @@ export default function MultiStepForm() {
       key="program"
       data={programContent}
       setData={setProgramContent}
-    />,
-    <RegisterTeacher
-      key="teacher"
-      data={teacherData}
-      setData={setTeacherData}
-      employmentRelationships={employmentRelationships}
-      requiredDocuments={requiredDocuments}
     />,
     <MaterialForm key="materials" data={materials} setData={setMaterials} />,
     <WeeklyProgramForm
@@ -138,41 +128,76 @@ export default function MultiStepForm() {
       course_data: courseData,
       program_content: programContent,
       weekly_planification: weeklyPlanification,
-      teachers_data: teacherData,
       staff,
       materials,
     };
 
-    courseService
-      .postCourse(newCourse)
-      .then((response) => console.log(response));
+    const submit = async () => {
+      try {
+        const response = await courseService.postCourse(newCourse);
+        console.log(response);
+
+        setCurrentStep(0);
+        resetForm();
+        setFormState("DONE");
+      } catch (error) {
+        console.log(error);
+        if (error instanceof AxiosError) {
+          const message =
+            error.response?.data?.error ?? "Error al iniciar sesión";
+          message.split("\n").map((msg: string) => {
+            if (msg.length > 0) {
+              toast.error(msg, { autoClose: false, draggable: true });
+            }
+          });
+        } else if (error instanceof Error) {
+          toast.error(error.message);
+        } else {
+          toast.error("Error desconocido");
+        }
+      }
+    };
+
+    submit();
   };
 
-  return (
-    <div className="multistep">
-      {steps[currentStep]}
-      <div className="nav-buttons">
-        {currentStep === 0 && <Link to="/">Volver</Link>}
-        {currentStep > 0 && (
-          <button className="back-btn" onClick={prev}>
-            Atrás
-          </button>
-        )}
-        {currentStep < steps.length - 1 ? (
-          <>
-            <button type="button" className="submit-btn">
-              Guardar
+  if (formState === "NOT_DONE") {
+    return (
+      <div className="multistep">
+        {steps[currentStep]}
+        <div className="nav-buttons">
+          {currentStep === 0 && <Link to="/">Volver</Link>}
+          {currentStep > 0 && (
+            <button className="back-btn" onClick={prev}>
+              Atrás
             </button>
-            <button className="next-btn" onClick={next}>
-              Siguiente
+          )}
+          {currentStep < steps.length - 1 ? (
+            <>
+              <button type="button" className="submit-btn">
+                Guardar
+              </button>
+              <button className="next-btn" onClick={next}>
+                Siguiente
+              </button>
+            </>
+          ) : (
+            <button className="submit-btn" onClick={handleSubmit}>
+              Enviar
             </button>
-          </>
-        ) : (
-          <button className="submit-btn" onClick={handleSubmit}>
-            Enviar
-          </button>
-        )}
+          )}
+        </div>
       </div>
+    );
+  }
+
+  return (
+    <div>
+      <h1>Curso registrado con éxito.</h1>
+      <Link to="/">Volver a inicio</Link>
+      <button onClick={() => setFormState("NOT_DONE")}>
+        Registrar otro curso.
+      </button>
     </div>
   );
 }

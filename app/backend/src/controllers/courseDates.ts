@@ -4,10 +4,10 @@ import { authenticate, requireRole } from "./roles";
 
 const coursesDatesRouter = express.Router();
 
-coursesDatesRouter.get("/", authenticate, requireRole(['teacher', 'functionary']), (request, response) => {
-    courseDatesModel.find({}).then((dates) =>
-        response.json(dates)
-    );
+coursesDatesRouter.get("/", authenticate, requireRole(['teacher', 'functionary']), async (request, response) => {
+
+    const dates = await courseDatesModel.find({})
+    response.json(dates)
 })
 
 export default coursesDatesRouter;

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import teacherService from "../../services/Teacher";
-import type { ITeacherLogin } from "../../types/teacher";
+import loginService from "../../services/Login";
+
+import type { ILogin } from "../../types/users";
 import type { Teacher } from "../../App";
 import { AxiosError } from "axios";
 
@@ -10,25 +11,24 @@ interface TeacherLoginProps {
 }
 
 const TeacherLogin = ({ onLogin }: TeacherLoginProps) => {
-  const [teacherCredentials, setTeacherCredentials] = useState<ITeacherLogin>({
+  const [teacherCredentials, setTeacherCredentials] = useState<ILogin>({
     rut: "",
     password: "",
   });
 
-  const handleChange = (field: keyof ITeacherLogin, value: string) => {
+  const handleChange = (field: keyof ILogin, value: string) => {
     setTeacherCredentials({ ...teacherCredentials, [field]: value });
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const user = await teacherService.teacherLogin(teacherCredentials);
+      const user = await loginService.teacherLogin(teacherCredentials);
       onLogin(user);
       toast.success(`Bienvenido ${user.first_name}`);
     } catch (err: unknown) {
       if (err instanceof AxiosError) {
-        const message =
-          err.response?.data?.error ?? "Error al iniciar sesión";
+        const message = err.response?.data?.error ?? "Error al iniciar sesión";
         toast.error(message);
       } else if (err instanceof Error) {
         toast.error(err.message);

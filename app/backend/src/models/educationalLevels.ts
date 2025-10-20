@@ -15,7 +15,7 @@ const educationalLevelsSchema = new mongoose.Schema({
 });
 
 const EducationalLevelsModel = mongoose.model(
-    "EducationalLevels",
+    "educational_levels",
     educationalLevelsSchema
 );
 

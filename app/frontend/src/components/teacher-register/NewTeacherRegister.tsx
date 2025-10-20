@@ -7,7 +7,7 @@ import {
   type EmploymentRelationshipSchema,
   type DocumentsSchema,
 } from "../../types/coursesSchema";
-import type { ITeacherRegister } from "../../types/teacher";
+import type { ITeacherRegister } from "../../types/users";
 import axios from "axios";
 
 const NewTeacherRegister = () => {
@@ -30,8 +30,12 @@ const NewTeacherRegister = () => {
   >([]);
 
   const [employment, setEmployment] = useState<EmploymentRelationshipSchema>();
-  const [requiredDocuments, setRequiredDocuments] = useState<DocumentsSchema[]>([]);
-  const [documentsToUpload, setDocumentsToUpload] = useState<DocumentsSchema[]>([]);
+  const [requiredDocuments, setRequiredDocuments] = useState<DocumentsSchema[]>(
+    []
+  );
+  const [documentsToUpload, setDocumentsToUpload] = useState<DocumentsSchema[]>(
+    []
+  );
 
   useEffect(() => {
     courseService
@@ -60,7 +64,9 @@ const NewTeacherRegister = () => {
   };
 
   const handleEmploymentChange = (value: string) => {
-    setEmployment(employmentRelationships.find((rel) => rel.relation === value));
+    setEmployment(
+      employmentRelationships.find((rel) => rel.relation === value)
+    );
     handleChange("college_relationship", value);
   };
 
@@ -74,11 +80,9 @@ const NewTeacherRegister = () => {
       if (axios.isAxiosError(err)) {
         const message = err.response?.data?.error ?? "Error al registrar";
         toast.error(message);
-      }
-      else if (err instanceof Error) {
+      } else if (err instanceof Error) {
         toast.error(err.message);
-      }
-      else {
+      } else {
         toast.error("Error desconocido");
       }
     }

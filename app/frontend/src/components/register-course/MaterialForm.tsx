@@ -39,7 +39,7 @@ const MaterialForm = ({ data, setData }: Props) => {
           <div key={index} className="card">
             <div className="card-section-header">
               <h2>Material {index + 1}</h2>
-              {data.length > 1 && (
+              {data.length > 0 && (
                 <span onClick={() => handleRemove(index)} className="cancel-btn">
                   <img src="close.svg" alt="Eliminar Material" />
                 </span>
