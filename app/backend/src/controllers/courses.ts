@@ -1,6 +1,7 @@
 import express from "express";
 import CoursesModel from "../models/course";
 import { authenticate, requireRole } from "./roles";
+import TeachersModel from "../models/teacher";
 
 const coursesRouter = express.Router();
 
@@ -14,7 +15,7 @@ coursesRouter.post("/", authenticate, requireRole(['teacher']), (request, respon
     const req_course_data = request.body;
 
     console.log(req_course_data);
-    
+
     const newCourse = new CoursesModel({
         course_data: req_course_data.course_data,
         program_content: req_course_data.program_content,
@@ -29,5 +30,18 @@ coursesRouter.post("/", authenticate, requireRole(['teacher']), (request, respon
         response.status(201).json(course).redirect("/")
     })
 })
+
+coursesRouter.get("/:id", authenticate, requireRole(["teacher", "functionary"]), async (request, response) => {
+    try {
+        const { id } = request.params;
+        const user = await TeachersModel.findById(id);
+        if (!user) return response.status(404).json({ error: "Usuario no encontrado" });
+        const { rut } = user;
+        const courses = await CoursesModel.find({ teacherRut: rut });
+        return response.json(courses);
+    } catch (error) {
+        return response.status(500).json({ error: "Error al obtener los cursos" });
+    }
+});
 
 export default coursesRouter;
