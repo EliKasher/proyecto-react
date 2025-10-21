@@ -156,7 +156,7 @@ const NewTeacherRegister = () => {
               id="teacher-phone"
               type="tel"
               value={newTeacher.phone}
-              placeholder="+56912345678"
+              placeholder="+56 912345678"
               onChange={(e) => handleChange("phone", e.target.value)}
               required
             />
