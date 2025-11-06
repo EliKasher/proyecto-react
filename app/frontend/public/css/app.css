@@ -1,9 +1,10 @@
 #root {
   font-family: 'Segoe UI', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  background: linear-gradient(180deg, #0f0c29 0%, #47308b 60%, rgb(184, 50, 132) 100%);
   line-height: 1.6;
   font-weight: 400;
-  max-width: 1280px;
   width: 100%;
+  min-height: 100vh;
   margin: 0 auto;
   padding: 2rem;
   box-sizing: border-box;
@@ -27,6 +28,71 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0f0c29 0%, #47308b 60%, rgb(184, 50, 132) 100%);
+  background-attachment: fixed;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background: transparent !important;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+a {
+  font-weight: 600;
+  color: rgb(5, 19, 56);
+  text-decoration: none;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  backdrop-filter: blur(10px);
+}
+
+a:visited {
+  opacity: 0.7;
+}
+
+a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(184, 50, 132, 0.4);
+  border-color: var(--accent-pink);
+}
+
+button {
+  border-radius: 12px;
+  border: 1px solid transparent;
+  padding: 0.8em 1.5em;
+  font-size: 1em;
+  font-weight: 600;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+button:hover {
+  border-color: #646cff;
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
 }
 
 body {
@@ -349,36 +415,6 @@ body {
   color: #888;
 }
 
-.form-container {
-    margin: 0 auto;
-    border: 1px solid linear-gradient(0deg, rgb(184, 50, 132) -30%, rgba(59, 40, 204, 0.8) 50%, rgb(19, 39, 95) 90%);
-    border-radius: 12px;
-    padding: 30px;
-    width: 100%;
-    max-width: 900px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    background: linear-gradient(0deg, rgb(184, 50, 132) -30%, rgba(59, 40, 204, 0.8) 50%, rgb(19, 39, 95) 90%);
-    backdrop-filter: blur(10px);
-    box-sizing: border-box;
-}
-
-@media (max-width: 480px) {
-    .form-container {
-        max-width: 95%;
-        padding: 20px;
-        margin: 0 auto; 
-    }
-}
-
-.form-section {
-    width: 90%;
-    margin: 0 auto;
-}
-
-.form-group {
-    width: 100%;
-}
-
 .card-section-header {
     display: flex;
     justify-content: space-between;
@@ -394,80 +430,6 @@ body {
     color: rgb(232, 231, 240);
     text-align: left;
     font-size: larger;
-}
-
-.form-row {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1.8rem;
-    margin-top: 5px;
-    position: relative;
-}
-
-.form-row label {
-    color: #f0f0f5;
-    font-weight: 500;
-    margin-bottom: 8px;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-}
-
-
-.required:after {
-    content: ' *';
-    color: rgb(184, 50, 132);
-    font-weight: bold;
-}
-
-.form-row input, 
-.form-row select {
-    padding: 14px 16px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 8px;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    box-sizing: border-box;
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-}
-
-.form-row textarea {
-    padding: 14px 0px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 8px;
-    font-size: 16px;
-    box-sizing: border-box;
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-}
-
-.form-row input:focus, 
-.form-row select:focus,
-.form-row textarea:focus {
-    border-color: #7b6cf6;
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(123, 108, 246, 0.3);
-    background: rgba(255, 255, 255, 0.15);
-}
-
-.form-row input::placeholder {
-    color: rgba(216, 191, 191, 0.5);
-}
-
-.form-row select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    width: 100%;
-    padding-right: 40px;
-    cursor: pointer;
-}
-
-.form-row select option {
-    background: #47308b;
-    color: #fff;
-    padding: 12px;
 }
 
 .row-flex {
@@ -543,6 +505,23 @@ body {
     margin: 0;
 }
 
+.password-toggle-btn {
+  position: absolute;
+  right: 10px;
+  top: 70%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #f0f0f5;
+  font-size: 18px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .cancel-btn:hover,
 .add-btn:hover,
 .next-btn:hover,
@@ -567,6 +546,118 @@ body {
 
 .date-label input[type="checkbox"] {
     margin-right: 10px;
+}
+
+.form-container {
+    margin: 0 auto;
+    border: 1px solid linear-gradient(0deg, rgb(184, 50, 132) -30%, rgba(59, 40, 204, 0.8) 50%, rgb(19, 39, 95) 90%);
+    border-radius: 12px;
+    padding: 30px;
+    width: 100%;
+    max-width: 900px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(0deg, rgb(184, 50, 132) -30%, rgba(59, 40, 204, 0.8) 50%, rgb(19, 39, 95) 90%);
+    backdrop-filter: blur(10px);
+    box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+    .form-container {
+        max-width: 95%;
+        padding: 20px;
+        margin: 0 auto; 
+    }
+}
+
+.form-section {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.form-group {
+    width: 100%;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.8rem;
+    margin-top: 5px;
+    position: relative;
+}
+
+.form-row ul {
+  list-style-type: none;
+}
+
+.form-row ul li {
+  margin: 10px;
+}
+
+.form-row label {
+    color: #f0f0f5;
+    font-weight: 500;
+    margin-bottom: 8px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+
+.required:after {
+    content: ' *';
+    color: rgb(184, 50, 132);
+    font-weight: bold;
+}
+
+.form-row input, 
+.form-row select {
+    padding: 14px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.form-row textarea {
+    padding: 14px 0px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.form-row input:focus, 
+.form-row select:focus,
+.form-row textarea:focus {
+    border-color: #7b6cf6;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(123, 108, 246, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.form-row input::placeholder {
+    color: rgba(216, 191, 191, 0.5);
+}
+
+.form-row select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 100%;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+.form-row select option {
+    background: #47308b;
+    color: #fff;
+    padding: 12px;
 }
 
 .form-row label:has(input[type="checkbox"]) {
@@ -671,84 +762,4 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     min-width: 120px;
-}
-
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background: linear-gradient(180deg, #0f0c29 0%, #47308b 60%, rgb(184, 50, 132) 100%);
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 600;
-  color: rgb(5, 19, 56);
-  text-decoration: none;
-  background-color: #ffffff;
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  backdrop-filter: blur(10px);
-}
-
-a:visited {
-  opacity: 0.7;
-}
-
-a:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(184, 50, 132, 0.4);
-  border-color: var(--accent-pink);
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 12px;
-  border: 1px solid transparent;
-  padding: 0.8em 1.5em;
-  font-size: 1em;
-  font-weight: 600;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    opacity: 0.7;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }

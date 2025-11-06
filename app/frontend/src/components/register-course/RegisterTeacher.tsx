@@ -141,13 +141,15 @@ const RegisterTeacher = ({
               <ul>
                 {documentsToUpload.map((doc) => (
                   <li key={doc.short_name}>
-                    <label>
-                      {doc.short_name}
+                    <label style={{
+                      margin: '50px',
+                    }}>
+                      {doc.short_name} 
                       <input
                         type="file"
                         name={`doc-${doc.short_name}`}
                         required
-                      />
+                    />
                     </label>
                     {doc.note && (
                       <div className="recommendations">{doc.note}</div>

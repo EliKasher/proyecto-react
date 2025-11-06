@@ -9,6 +9,7 @@ import {
 } from "../../types/coursesSchema";
 import type { ITeacherRegister } from "../../types/users";
 import axios from "axios";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const NewTeacherRegister = () => {
   const navigate = useNavigate();
@@ -30,12 +31,16 @@ const NewTeacherRegister = () => {
   >([]);
 
   const [employment, setEmployment] = useState<EmploymentRelationshipSchema>();
+
   const [requiredDocuments, setRequiredDocuments] = useState<DocumentsSchema[]>(
     []
   );
+
   const [documentsToUpload, setDocumentsToUpload] = useState<DocumentsSchema[]>(
     []
   );
+
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     courseService
@@ -58,6 +63,10 @@ const NewTeacherRegister = () => {
       );
     }
   }, [employment, requiredDocuments]);
+
+  const togglePassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleChange = (field: keyof ITeacherRegister, value: string) => {
     setNewTeacher({ ...newTeacher, [field]: value });
@@ -87,6 +96,7 @@ const NewTeacherRegister = () => {
       }
     }
   };
+
   return (
     <form className="form-container" onSubmit={handleSubmit}>
       <div className="form-section">
@@ -143,11 +153,24 @@ const NewTeacherRegister = () => {
             <label className="required">Contraseña</label>
             <input
               id="teacher-password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               value={newTeacher.password}
               onChange={(e) => handleChange("password", e.target.value)}
               required
             />
+            <button
+                type="button"
+                onClick={togglePassword}
+                className="password-toggle-btn"
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent";
+                }}
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+            </button>
           </div>
 
           <div className="form-row">

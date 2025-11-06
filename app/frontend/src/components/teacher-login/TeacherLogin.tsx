@@ -5,6 +5,7 @@ import loginService from "../../services/Login";
 import type { ILogin } from "../../types/users";
 import type { Teacher } from "../../App";
 import { AxiosError } from "axios";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 interface TeacherLoginProps {
   onLogin: (user: Teacher) => void;
@@ -15,6 +16,12 @@ const TeacherLogin = ({ onLogin }: TeacherLoginProps) => {
     rut: "",
     password: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleChange = (field: keyof ILogin, value: string) => {
     setTeacherCredentials({ ...teacherCredentials, [field]: value });
@@ -61,11 +68,24 @@ const TeacherLogin = ({ onLogin }: TeacherLoginProps) => {
             <label className="required">Contraseña</label>
             <input
               id="teacher-password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               value={teacherCredentials.password}
               onChange={(e) => handleChange("password", e.target.value)}
               required
             />
+            <button
+                type="button"
+                onClick={togglePassword}
+                className="password-toggle-btn"
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent";
+                }}
+              >
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+            </button>
           </div>
 
           <button type="submit" className="submit-btn">
