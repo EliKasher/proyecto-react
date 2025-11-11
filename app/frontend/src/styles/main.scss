@@ -1,0 +1,368 @@
+@import './colors';
+@import './fonts';
+
+#root {
+    font-family: $main-font;
+    font-weight: 400;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: $text-light !important;
+    background: linear-gradient(180deg, $primary-dark 0%, $primary 60%, $accent 100%);;
+}
+
+html, body {
+    background: linear-gradient(180deg, $primary-dark 0%, $primary 60%, $accent 100%);;
+}
+
+body {
+    background: transparent !important;
+}
+
+a {
+    text-decoration: none;
+    font-weight: 600;
+    color: $link-purple;
+    background-color: $text-lighter;
+}
+
+a:hover {
+    box-shadow:  $pink-shadow-big;
+    border-color: $accent-pink;
+}
+
+button {
+    font-size: 1em;
+    font-weight: 600;
+    font-family: inherit;
+    background-color: $button-color;
+    transition: border-color 0.25s;
+}
+
+button:hover {
+    border-color: $button-border-color;
+}
+
+h1 {
+    font-size: 3.2em;
+}
+
+.main-footer {
+    text-align: center;
+}
+
+.header {
+    background: $bg-glass-dark;
+    box-shadow: $black-shadow;
+}
+
+@media (max-width: 480px) {
+    .main-footer {
+        font-size: 0.9rem;
+    }
+}
+
+.header:hover {
+    background: $bg-glass-dark;
+}
+
+.header-logo-img {
+    filter: drop-shadow($black-shadow-med);
+}
+
+.header-nav-list {
+    list-style: none;
+    gap: 1.5rem;
+}
+
+.header-nav-link {
+    gap: 0.5rem;
+    background: $bg-glass;
+    border: 1px solid $border-glass;
+    color: $text-light;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.header-nav-link:hover {
+    background: $nav-color;
+    border-color: $nav-border-color;
+    box-shadow: $nav-shadow;
+}
+
+.header-icon {
+    font-size: 1.1rem;
+}
+
+.header-user {
+    gap: 0.75rem;
+    background: $bg-glass;
+    border: 1px solid $border-glass;
+}
+
+.header-user:hover {
+    background: $header-background;
+    border-color: $header-border-color;
+}
+
+.header-user-icon {
+    font-size: 1.5rem;
+    color: $accent-pink;
+}
+
+.header-user-name {
+    font-weight: 500;
+    color: $text-lighter;
+    white-space: nowrap;
+}
+
+.header-nav-item.active .header-nav-link {
+    background: linear-gradient(135deg, $accent, $accent-light);
+    border-color: $accent-pink;
+    box-shadow: $pink-shadow-med;
+}
+
+.header-user-role {
+    background: linear-gradient(135deg, $primary-light, $accent);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 1024px) {
+    .header-nav-list {
+        gap: 1rem;
+    }
+    
+    .header-nav-link {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        gap: 1rem;
+    }
+    
+    .header-nav-list {
+        gap: 0.5rem;
+    }
+    
+    .header-nav-link {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-user-name {
+        font-size: 0.9rem;
+    }
+}
+
+.header::before {
+    background: linear-gradient(
+        135deg,
+        $nav-color 0%,
+        $nav-color-darker 100%
+    );
+}
+
+.section-header h3 {
+    color: $accent-pink;
+    text-align: center;
+    font-size: x-large;
+}
+
+.section-header h2 {
+    color: $text-creme;
+    text-align: left;
+    font-size: larger;
+}
+
+.card {
+    background: $card-color;
+    color: $text-light;
+    gap: 12px;
+}
+
+.actions {
+    gap: 10px;
+}
+
+.submit-btn {
+    background: $accent-light;
+    color: $text-lighter;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+.cancel-btn {
+    background: none;
+}
+
+.add-btn {
+    background: $blue-button;
+    border: none;
+    color: $text-light;
+}
+
+.next-btn {
+    background: $blue-button;
+    border: none;
+    color: $text-light;
+}
+
+.back-btn {
+    background: $blue-button;
+    border: none;
+    color: $text-light;
+}
+
+.password-toggle-btn {
+    background: none;
+    border: none;
+    color: $text-light;
+    font-size: 18px;
+}
+
+.password-toggle-btn::after {
+    background: none;
+    border: 1px solid $text-creme;
+}
+
+.date-label {
+    color: $text-light;
+    border: none;
+}
+
+.form-container {
+    border: 1px solid linear-gradient(0deg, $accent -30%, $form-border-purple 50%, $blue-button 90%);
+    box-shadow: $midnight-shadow-big;
+    background: linear-gradient(0deg, $accent -30%, $form-border-purple 50%, $blue-button 90%);
+}
+
+
+.form-row ul {
+    list-style-type: none;
+}
+
+.form-row label {
+    color: $text-light;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+
+.required:after {
+    color: $accent;
+    font-weight: bold;
+}
+
+.form-row input, 
+.form-row select {
+    border: 1px solid $border-glass !important;
+    font-size: 16px;
+    background-color: $bg-glass !important;
+    color: $text-lighter !important;
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover, 
+    &:-webkit-autofill:focus {
+        -webkit-text-fill-color: $text-lighter !important;
+        -webkit-box-shadow: 0 0 0px 1000px $bg-glass inset !important;
+        transition: background-color 5000s ease-in-out 0s;
+    }
+}
+
+.form-row textarea {
+    border: 1px solid $border-glass;
+    font-size: 16px;
+    background: $bg-glass;
+    color: $text-lighter;
+}
+
+.form-row input:focus, 
+.form-row select:focus,
+.form-row textarea:focus {
+    border-color: $bright-purple !important;
+    outline: none;
+    box-shadow: $purple-shadow-small;
+    background-color: $border-glass !important;
+}
+
+.form-row input::placeholder {
+    color: $bright-grey !important;
+}
+
+.form-row select option {
+    background: $primary;
+    color: $text-lighter;
+}
+
+.form-column input {
+    border: 1px solid $border-glass !important;
+    font-size: 16px;
+    background-color: $bg-glass !important;
+    color: $text-lighter;
+}
+
+.form-column label {
+    color: $text-light;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: left;
+}
+
+.form-card-group {
+    gap: 40px;
+}
+
+.recommendations {
+    font-weight: 500;
+    font-size: 16px;
+    color: $accent-pink;
+    background: $dark-grey;
+    border-left: 3px solid $light-purple;
+    text-align: left;
+}
+
+.recommendations-col {
+    font-weight: 500;
+    font-size: 16px;
+    color: $accent-pink;
+    background: $dark-grey;
+    border-left: 3px solid $light-purple;
+    text-align: left;
+}
+
+.multistep  {
+    padding: 20px 0;
+}
+
+.nav-btn {
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.error-message {
+    color: $accent-pink;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-left: 3px solid $light-orange;
+    background: $dark-brown;
+}
+
+@media (max-width: 768px) {
+    .error-message {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .error-message {
+        font-size: 0.75rem;
+    }
+}
