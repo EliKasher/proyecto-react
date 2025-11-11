@@ -5,6 +5,7 @@ export interface IRegister {
   rut: string;
   email: string;
   password: string;
+  confirm_password: string;
 }
 
 export interface ITeacherRegister extends IRegister {

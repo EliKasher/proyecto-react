@@ -5,7 +5,12 @@ import path from 'path';
 // https://vite.dev/config/
 export default defineConfig({
   build: {
-    cssCodeSplit: false
+    cssCodeSplit: false,
+    outDir: "dist",
+    assetsDir: "assets",
+    rollupOptions: {
+      input: './index.html'
+    }
   },
   plugins: [react()],
   resolve: {

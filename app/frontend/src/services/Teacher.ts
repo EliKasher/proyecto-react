@@ -6,7 +6,9 @@ import type { ITeacherRegister } from "../types/users";
 const baseUrl = "api/";
 
 const postTeacher = (newTeacher: ITeacherRegister) => {
-  const request = axiosSecure.post(baseUrl + "teachers", newTeacher);
+  const { confirm_password, ...teacherToSend } = newTeacher;
+
+  const request = axiosSecure.post(baseUrl + "teachers", teacherToSend);
   return request.then((response) => {
     console.log("success");
     return response.data;
