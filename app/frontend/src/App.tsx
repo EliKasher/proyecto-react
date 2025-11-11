@@ -134,34 +134,34 @@ function App() {
 
   return (
     <>
-      <Header
-        userRole={getPrimaryRole()}
-        userName={user?.first_name || null}
-        onLogout={logout}
-      />
-      <Routes>
-        <Route path="/" element={<Home user={user} setUser={setUser} />} />
-        <Route
-          path="course-form"
-          element={user ? <MultiStepForm /> : <Navigate to="/" />}
+        <Header
+          userRole={getPrimaryRole()}
+          userName={user?.first_name || null}
+          onLogout={logout}
         />
-        <Route
-          path="view-courses"
-          element={user ? <ViewCourses user={user} /> : <Navigate to="/" />}
-        />
-        <Route
-          path="register-teacher"
-          element={!user ? <NewTeacherRegister /> : <Navigate to="/" />}
-        />
-        <Route
-          path="login-teacher"
-          element={
-            !user ? <TeacherLogin onLogin={setUser} /> : <Navigate replace to="/" />
-          }
-        />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Home user={user} setUser={setUser} />} />
+          <Route
+            path="course-form"
+            element={user ? <MultiStepForm /> : <Navigate to="/" />}
+          />
+          <Route
+            path="view-courses"
+            element={user ? <ViewCourses user={user} /> : <Navigate to="/" />}
+          />
+          <Route
+            path="register-teacher"
+            element={!user ? <NewTeacherRegister /> : <Navigate to="/" />}
+          />
+          <Route
+            path="login-teacher"
+            element={
+              !user ? <TeacherLogin onLogin={setUser} /> : <Navigate replace to="/" />
+            }
+          />
+        </Routes>
 
-      <ToastContainer position="top-right" autoClose={3000} />
+        <ToastContainer position="top-right" autoClose={3000} />
     </>
   );
 }
