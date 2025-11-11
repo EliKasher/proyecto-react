@@ -12,7 +12,11 @@ import axios from "axios";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 function validateRut(rut: string): Boolean {
-  const [digits, lastDigit] = rut.toLowerCase().split("-");
+  const cleanRut = rut.toLowerCase().replace(/[^0-9k-]/g, '');
+
+  if (cleanRut.length < 2) return false;
+
+  const [digits, lastDigit] = cleanRut.toLowerCase().split("-");
   if (!digits || !lastDigit) return false;
 
   const reverseDigits = digits.split("").reverse();
@@ -44,6 +48,7 @@ const NewTeacherRegister = () => {
     degree: "",
     college_relationship: "",
     password: "",
+    confirm_password: ""
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -58,13 +63,17 @@ const NewTeacherRegister = () => {
       case 'rut':
         if (!value) return 'El RUT es requerido';
         if (!/^[0-9]{7,8}-[0-9kK]{1}$/.test(value)) return 'Formato: 12345678-K';
-        if (validateRut(value)) return 'RUT inválido';
+        if (!validateRut(value)) return 'RUT inválido';
         return '';
       
       case 'password':
         if (!value) return 'La contraseña es requerida';
         if (value.length < 6) return 'Mínimo 6 caracteres';
         if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/.test(value)) return 'Debe tener al menos 1 minúscula, 1 mayúscula y 1 número';
+        return '';
+
+      case 'confirm_password':
+        if (value !== newTeacher.password) return 'Las contraseñas no coinciden';
         return '';
 
       case 'phone':
@@ -150,6 +159,7 @@ const NewTeacherRegister = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    
     try {
       await teacherService.postTeacher(newTeacher);
       toast.success("Registro Exitoso");
@@ -246,6 +256,17 @@ const NewTeacherRegister = () => {
                 {showPassword ? <VisibilityOff /> : <Visibility />}
             </button>
             {errors.password && <span className="error-message">{errors.password}</span>}
+          </div>
+
+          <div className="form-row">
+            <label className="required">Confirmar Contraseña</label>
+            <input
+              id="teacher-confirm-password"
+              type="password"
+              onChange={(e) => handleChange("confirm_password", e.target.value)}
+              required
+            />
+            {errors.confirm_password && <span className="error-message">{errors.confirm_password}</span>}
           </div>
 
           <div className="form-row">

@@ -1,5 +1,4 @@
 import {
-  HashRouter as Router,
   Route,
   Routes,
   Link,
@@ -100,10 +99,15 @@ function App() {
     loadUserFromStorage();
   }, []);
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem("token");
-    fetch("/api/logout", { method: "POST" });
+  const logout = async () => {
+    try {
+      LoginService.logout();
+    } catch (error) {
+      console.error("Error en logout del backend:", error);
+    } finally {
+      setUser(null);
+      localStorage.removeItem("token");
+    }
   };
 
   // Determinar el rol principal para el header
@@ -130,36 +134,34 @@ function App() {
 
   return (
     <>
-      <Router>
-        <Header
-          userRole={getPrimaryRole()}
-          userName={user?.first_name || null}
-          onLogout={logout}
+      <Header
+        userRole={getPrimaryRole()}
+        userName={user?.first_name || null}
+        onLogout={logout}
+      />
+      <Routes>
+        <Route path="/" element={<Home user={user} setUser={setUser} />} />
+        <Route
+          path="course-form"
+          element={user ? <MultiStepForm /> : <Navigate to="/" />}
         />
-        <Routes>
-          <Route path="/" element={<Home user={user} setUser={setUser} />} />
-          <Route
-            path="course-form"
-            element={user ? <MultiStepForm /> : <Navigate to="/" />}
-          />
-          <Route
-            path="view-courses"
-            element={user ? <ViewCourses user={user} /> : <Navigate to="/" />}
-          />
-          <Route
-            path="register-teacher"
-            element={!user ? <NewTeacherRegister /> : <Navigate to="/" />}
-          />
-          <Route
-            path="login-teacher"
-            element={
-              !user ? <TeacherLogin onLogin={setUser} /> : <Navigate to="/" />
-            }
-          />
-        </Routes>
+        <Route
+          path="view-courses"
+          element={user ? <ViewCourses user={user} /> : <Navigate to="/" />}
+        />
+        <Route
+          path="register-teacher"
+          element={!user ? <NewTeacherRegister /> : <Navigate to="/" />}
+        />
+        <Route
+          path="login-teacher"
+          element={
+            !user ? <TeacherLogin onLogin={setUser} /> : <Navigate replace to="/" />
+          }
+        />
+      </Routes>
 
-        <ToastContainer position="top-right" autoClose={3000} />
-      </Router>
+      <ToastContainer position="top-right" autoClose={3000} />
     </>
   );
 }

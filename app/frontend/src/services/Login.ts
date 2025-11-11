@@ -41,8 +41,17 @@ const restoreLogin = async () => {
   }
 };
 
+const logout = async () => {
+  try {
+    await axiosSecure.post(baseUrl + "logout");
+  } catch (error) {
+    console.error("Error en logout del backend:", error);
+  }
+}
+
 export default {
   functionaryLogin,
   teacherLogin,
   restoreLogin,
+  logout
 };
