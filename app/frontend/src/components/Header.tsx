@@ -46,7 +46,7 @@ const Header = ({ userRole, userName, onLogout }: HeaderProps) => {
   };
 
   return (
-    <header className="header">
+    <header className="header p-4 mb-8">
       <div className="header-logo">
         <Link to="/">
           <img
@@ -58,11 +58,11 @@ const Header = ({ userRole, userName, onLogout }: HeaderProps) => {
       </div>
 
       <nav className="header-nav">
-        <ul className="header-nav-list">
+        <ul className="header-nav-list gap-4">
           {headerItems.map((item) => (
             <li key={item.id} className="header-nav-item">
               <button
-                className="header-nav-link"
+                className="header-nav-link px-4 py-2"
                 onClick={() => handleNavigation(item.path, item.id)}
               >
                 <span className="header-icon">{getIcon(item.id)}</span>
@@ -74,12 +74,12 @@ const Header = ({ userRole, userName, onLogout }: HeaderProps) => {
       </nav>
 
       {userName ? (
-        <div className="header-user">
+        <div className="header-user px-4 py-2">
           <FaUserCircle className="header-user-icon" />
-          <span className="header-user-name">Hola, {userName}</span>
+          <span className="header-user-name ml-2">Hola, {userName}</span>
         </div>
       ) : (
-        <div className="header-user">
+        <div className="header-user px-4 py-2">
           <FaUserCircle className="header-user-icon" />
           <span className="header-user-name">Bienvenido</span>
         </div>
