@@ -38,10 +38,6 @@ button {
     font-family: inherit;
     background-color: $button-color;
     transition: border-color 0.25s;
-
-    &::after {
-        border-color: transparent;
-    }
 }
 
 button:hover {
@@ -204,6 +200,7 @@ h1 {
     transition: background 0.3s ease;
 
     &:active {
+        outline: none;
         border-color: $accent-pink;
         box-shadow: $pink-shadow-med;
     }
@@ -213,6 +210,7 @@ h1 {
     background: none;
 
     &:active {
+        outline: none;
         border-color: $light-orange;
         box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.3);
     }
@@ -224,6 +222,7 @@ h1 {
     color: $text-light;
 
     &:active {
+        outline: none;
         border-color: $bright-purple;
         box-shadow: $purple-shadow-small;
     }
@@ -235,6 +234,7 @@ h1 {
     color: $text-light;
 
     &:active {
+        outline: none;
         border-color: $light-purple;
         box-shadow: $purple-shadow-small;
     }
@@ -246,6 +246,7 @@ h1 {
     color: $text-light;
 
     &:active {
+        outline: none;
         border-color: $light-purple;
         box-shadow: $purple-shadow-small;
     }

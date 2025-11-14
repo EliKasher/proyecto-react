@@ -243,7 +243,8 @@ button:focus-visible {
   .header {
     flex-direction: column;
     padding: 1rem;
-    margin: 1rem auto 2rem auto;
+    margin: -2rem auto 2rem auto;
+    gap: 10px;
   }
   
   .header-nav {
