@@ -220,7 +220,7 @@ export default function MultiStepForm() {
                         ? "bg-linear-to-br from-[#7b6cf6] to-[#5a3db0] border-[#7b6cf6] text-white shadow-[0_8px_25px_rgba(123,108,246,0.4)]"
                         : "bg-[#16106b] border-[#a685ff] border-opacity-30 text-[#a685ff] shadow-[0_4px_15px_rgba(0,0,0,0.2)]"
                     }
-                     ${isUpcoming ? "opacity-70" : ""}
+                      ${isUpcoming ? "opacity-70" : ""}
                     `}
                   >
                     {isCompleted ? (

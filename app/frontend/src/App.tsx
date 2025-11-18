@@ -73,7 +73,7 @@ function Home({
       <div className="login-container">
         <TeacherLogin onLogin={setUser} />
         <p className="main-footer">
-          ¿Eres funcionario? <Link to="/functionary-login">Ingresa aquí</Link>
+          ¿Eres funcionario? <Link to="/login-functionary">Ingresa aquí</Link>
         </p>
       </div>
     );
@@ -84,7 +84,7 @@ function Home({
 
 function App() {
   const [user, setUser] = useState<Teacher | null>(null);
-  const [loading, setLoading] = useState(true); // ← Estado de carga
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadUserFromStorage = () => {
@@ -120,7 +120,6 @@ function App() {
     }
   };
 
-  // Determinar el rol principal para el header
   const getPrimaryRole = () => {
     if (!user) return null;
 

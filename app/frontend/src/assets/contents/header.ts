@@ -54,9 +54,14 @@ export const getHeaderItems = (userRole: string): HeaderItem[] => {
       label: "Regístrate"
     },
     {
-      id: "login",
+      id: "login-teacher",
       path: "/login-teacher",
-      label: "Iniciar Sesión"
+      label: "Ingreso Profesores"
+    },
+    {
+      id: "login-functionary",
+      path: "/login-functionary",
+      label: "Ingreso Funcionarios"
     }
   ];
 
