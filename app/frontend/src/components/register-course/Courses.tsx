@@ -87,7 +87,7 @@ const CourseForm = ({
         </div>
         <div className="form-group">
           <div className="form-row">
-            <label className="required">Nombre del Curso</label>
+            <label htmlFor="course-name" className="required">Nombre del Curso</label>
             <input
               id="course-name"
               type="text"
@@ -101,10 +101,14 @@ const CourseForm = ({
             </p>
           </div>
           <div className="form-row">
-            <label className="required">
+            <label
+              htmlFor="faculty" 
+              className="required"
+            >
               Facultad en la que se impartirá el curso
             </label>
             <select
+              id="faculty"
               name="faculty"
               value={data.faculty}
               onChange={(e) => setData({ ...data, faculty: e.target.value })}
@@ -119,15 +123,19 @@ const CourseForm = ({
             </select>
           </div>
           <div className="form-row">
-            <label className="required">
+            <label 
+              className="required"
+            >
               Niveles Educativos a los cuales va dirigido el curso
             </label>
             {educationalLevel.map((item, index) => (
-              <label key={index}>
+              <label 
+                key={index}
+              >
                 <input
                   id={`course-level-${item}`}
+                  name={`course-level-${item}`}
                   type="checkbox"
-                  name="levels"
                   checked={data.educational_level.includes(item.level)}
                   onChange={(e) =>
                     handleEducationalLevelChange(e.target.checked, item.level)
@@ -138,7 +146,12 @@ const CourseForm = ({
             ))}
           </div>
           <div className="form-row">
-            <label className="required">Cupo Total pensado para el Curso</label>
+            <label
+              htmlFor="course-quota"
+              className="required"
+            >
+              Cupo Total pensado para el Curso
+            </label>
             <input
               id="course-quota"
               name="course-quota"
@@ -153,7 +166,9 @@ const CourseForm = ({
             </p>
           </div>
           <div className="form-row">
-            <label className="required">Fecha Ideal de Implementación</label>
+            <label className="required">
+              Fecha Ideal de Implementación
+            </label>
             {dates.map(
               ({ start_date, start_month, end_date, end_month }, index) => {
                 const dateText =
@@ -177,9 +192,9 @@ const CourseForm = ({
                   >
                     <input
                       id={`course-start-date-${index}`}
+                      name={`course-start-date-${index}`}
                       type="checkbox"
                       checked={isChecked}
-                      name="course-start-dates"
                       onChange={(e) =>
                         handleDateChange(
                           e.target.checked,

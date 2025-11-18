@@ -12,6 +12,7 @@ import TeacherLogin from "./components/teacher-login/TeacherLogin";
 import { ToastContainer } from "react-toastify";
 import Header from "./components/Header";
 import LoginService from "./services/Login";
+import Profile from "./components/profile/Profile";
 
 export type Teacher = {
   id: string;
@@ -167,6 +168,10 @@ function App() {
             element={
               !user ? <TeacherLogin onLogin={setUser} /> : <Navigate replace to="/" />
             }
+          />
+          <Route
+            path="profile"
+            element={ user ? <Profile user={user} /> : <Navigate to="/" /> }
           />
         </Routes>
 

@@ -48,6 +48,11 @@ const Header = ({ userRole, userName, onLogout }: HeaderProps) => {
     }
   };
 
+  const capitalize = (str: string) => {
+      if (!str) return '';
+      return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  };
+
   return (
     <header className="header p-4 mb-8">
       <div className="header-logo">
@@ -79,7 +84,7 @@ const Header = ({ userRole, userName, onLogout }: HeaderProps) => {
       {userName ? (
         <div className="header-user px-4 py-2">
           <FaUserCircle className="header-user-icon" />
-          <span className="header-user-name ml-2">Hola, {userName}</span>
+          <span className="header-user-name ml-2">Hola, {capitalize(userName)}</span>
         </div>
       ) : (
         <div className="header-user px-4 py-2">

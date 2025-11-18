@@ -378,3 +378,105 @@ db.courses.insertMany([
 '@
 
 mongosh --eval $insertCourses
+
+
+$insertUsers = @'
+db = db.getSiblingDB("main_db");
+db.users.insertMany([
+  {
+    "first_name": "Admin",
+    "last_name": "Sistema",
+    "email": "admin@uchile.cl",
+    "password": "$2b$10$8L7jC1s2J3p4V5g6H7j8u9i0j1k2l3m4n5o6p7q8r9s0t1u2v3w4x5y6z",
+    "roles": ["admin"],
+    "rut": "11111111-1",
+    "phone": "+56912345678",
+    "degree": "Administrador del Sistema",
+    "college_relationship": "Personal de Planta",
+    "createdAt": new Date(),
+    "updatedAt": new Date()
+  }
+]);
+'@
+
+mongosh --eval $insertUsers
+
+$insertAdminCourse = @'
+db = db.getSiblingDB("main_db");
+db.courses.insertOne({
+  "course_data": {
+    "name": "Introducción al Álgebra",
+    "faculty": "Facultad de Ciencias Físicas y Matemáticas",
+    "educational_level": ["I", "II", "III", "IV"],
+    "quota": 50,
+    "course_start": [
+      {
+        "start_date": "5",
+        "end_date": "9",
+        "start_month": "enero",
+        "end_month": "enero"
+      }
+    ]
+  },
+  "program_content": {
+    "course_purpose": "Curso de introducción a nociones de álgebra universitaria",
+    "learning_objectives": [
+      "Lee, escribe y demuestra proposiciones escritas en el lenguaje de las matemáticas, incluyendo en éste la lógica simbólica, el álgebra de conjuntos, las nociones de función y relación, las estructuras y sus morfismos.",
+      "Reconoce la noción de cardinal de un conjunto y de conjuntos numerables y demuestra numerabilidad. "
+    ]
+  },
+  "weekly_planification": [
+    {
+      "day": 1,
+      "first_period": " Nociones básicas: proposiciones, valor de verdad, conectivos y tablas de verdad.",
+      "first_classroom": "A1",
+      "second_period": "Tautologías, Álgebra proposicional y cuantificadores.",
+      "second_classroom": "A1"
+    },
+    {
+      "day": 2,
+      "first_period": " Uso de la lógica simbólica y sus propiedades para realizar demostraciones",
+      "first_classroom": "A2",
+      "second_period": "Idea de conjunto, igualdad, inclusión.",
+      "second_classroom": "A2"
+    }
+  ],
+  "teachers_data": {
+    "first_name": "Admin",
+    "last_name": "Sistema",
+    "rut": "11111111-1",
+    "email": "admin@uchile.cl",
+    "phone": "+56912345678",
+    "degree": "Ingeniería Civil en Computación",
+    "college_relationship": "Profesor"
+  },
+  "staff": [
+    {
+      "first_name": "Asistente",
+      "last_name": "Administrativo",
+      "rut": "22222222-2",
+      "email": "asistente@uchile.cl",
+      "phone": "+56987654321",
+      "position": "Asistente Administrativo"
+    }
+  ],
+  "materials": [
+    {
+      "name": "Manual del Administrador",
+      "quantity": 1,
+      "link": "https://drive.google.com/manual-admin"
+    },
+    {
+      "name": "Guía de Usuario",
+      "quantity": 50,
+      "link": "https://drive.google.com/guia-usuario"
+    }
+  ],
+  "created_by": "11111111-1",
+  "status": "active",
+  "createdAt": new Date(),
+  "updatedAt": new Date()
+});
+'@
+
+mongosh --eval $insertAdminCourse
