@@ -191,18 +191,14 @@ export default function MultiStepForm() {
   if (formState === "NOT_DONE") {
     return (
       <div className="multistep">
-        {/* Stepper */}
         <div className="w-full max-w-4xl mx-auto mb-8">
           <div className="flex items-center justify-between relative">
-            {/* Progress bar background */}
             <div className="absolute top-1/2 left-0 right-0 h-1 bg-gray-600 -translate-y-1/2"
             ></div>
-            {/* Progress bar */}
             <div 
               className="absolute top-1/2 left-0 h-1 bg-[#d32390] -translate-y-1/2 transition-all duration-500"
               style={{ width: `${(currentStep / (steps.length - 1)) * 100}%` }}
             ></div>            
-            {/* Steps */}
             {steps.map((step, index) => {
               const isCompleted = index < currentStep;
               const isActive = index === currentStep;
@@ -210,7 +206,6 @@ export default function MultiStepForm() {
               
               return (
                 <div key={index} className="flex flex-col items-center relative z-10">
-                  {/* Step circle */}
                   <div
                     className={`w-10 h-10 rounded-full flex items-center justify-center border-2 text-sm font-bold transition-all duration-300
                         shadow-lg backdrop-blur-sm 
@@ -244,7 +239,6 @@ export default function MultiStepForm() {
                     )}
                   </div>
                   
-                  {/* Step label */}
                   <span
                     className={`mt-2 text-xs font-semibold text-center max-w-24 transition-all duration-300 
                         ${isCompleted
@@ -263,11 +257,9 @@ export default function MultiStepForm() {
           </div>
         </div>
 
-        {/* Current step content */}
-        <div className="form-container">
+        <div className="multistep">
           {steps[currentStep].component}
           
-          {/* Navigation buttons */}
           <div className="nav-buttons">
             {currentStep === 0 && (
               <Link to="/" className="back-btn">
