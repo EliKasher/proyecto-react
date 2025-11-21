@@ -125,7 +125,6 @@ function App() {
     if (!user) return null;
 
     if (user.roles && user.roles.length > 0) {
-      if (user.roles.includes("admin")) return "admin";
       if (user.roles.includes("functionary")) return "functionary";
       if (user.roles.includes("teacher")) return "teacher";
       return user.roles[0];
@@ -136,8 +135,13 @@ function App() {
 
   if (loading) {
     return (
-      <div className="loading-container">
-        <div className="loading-spinner">Cargando...</div>
+      <div className="min-h-screen bg-linear-to-br from-[#0f0c29] to-[#47308b] py-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#b83284] mx-auto"></div>
+            <p className="mt-4 text-[#f0f0f5]">Cargando...</p>
+          </div>
+        </div>
       </div>
     );
   }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import loginService from "../../services/Login";
 
@@ -12,6 +12,7 @@ interface TeacherLoginProps {
 }
 
 const TeacherLogin = ({ onLogin }: TeacherLoginProps) => {
+  const [isLoading, setIsLoading] = React.useState(true);
   const [teacherCredentials, setTeacherCredentials] = useState<ILogin>({
     rut: "",
     password: "",
@@ -42,8 +43,23 @@ const TeacherLogin = ({ onLogin }: TeacherLoginProps) => {
       } else {
         toast.error("Error desconocido");
       }
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  if (isLoading) {
+      return (
+          <div className="min-h-screen bg-linear-to-br from-[#0f0c29] to-[#47308b] py-12">
+              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className="text-center">
+                      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#b83284] mx-auto"></div>
+                      <p className="mt-4 text-[#f0f0f5]">Cargando información del perfil...</p>
+                  </div>
+              </div>
+          </div>
+      );
+  }
 
   return (
     <form className="form-container" onSubmit={handleSubmit}>
