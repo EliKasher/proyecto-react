@@ -60,13 +60,10 @@ export default function MultiStepForm() {
   const [staff, setStaff] = useState<StaffType[]>([]);
 
   //db contents
-
   const [faculties, setFaculties] = useState<FacultySchema[]>([]);
-
   const [educationalLevel, setEducationalLevel] = useState<
     EducationalLevelSchema[]
   >([]);
-
   const [dates, setDates] = useState<CourseDateSchema[]>([]);
 
   useEffect(() => {
@@ -103,27 +100,51 @@ export default function MultiStepForm() {
 
     setDates([]);
   };
+
   const steps = [
-    <CourseForm
-      key="course"
-      data={courseData}
-      setData={setCourseData}
-      educationalLevel={educationalLevel}
-      faculties={faculties}
-      dates={dates}
-    />,
-    <ProgramContentForm
-      key="program"
-      data={programContent}
-      setData={setProgramContent}
-    />,
-    <MaterialForm key="materials" data={materials} setData={setMaterials} />,
-    <WeeklyProgramForm
-      key="weekly"
-      data={weeklyPlanification}
-      setData={setWeeklyPlanification}
-    />,
-    <StaffForm key="staff" data={staff} setData={setStaff} />,
+    {
+      title: "Curso",
+      component: (
+        <CourseForm
+          key="course"
+          data={courseData}
+          setData={setCourseData}
+          educationalLevel={educationalLevel}
+          faculties={faculties}
+          dates={dates}
+        />
+      ),
+    },
+    {
+      title: "Contenido",
+      component: (
+        <ProgramContentForm
+          key="program"
+          data={programContent}
+          setData={setProgramContent}
+        />
+      ),
+    },
+    {
+      title: "Materiales",
+      component: (
+        <MaterialForm key="materials" data={materials} setData={setMaterials} />
+      ),
+    },
+    {
+      title: "Planificación",
+      component: (
+        <WeeklyProgramForm
+          key="weekly"
+          data={weeklyPlanification}
+          setData={setWeeklyPlanification}
+        />
+      ),
+    },
+    {
+      title: "Personal",
+      component: <StaffForm key="staff" data={staff} setData={setStaff} />,
+    },
   ];
 
   const next = () => setCurrentStep((s) => Math.min(s + 1, steps.length - 1));
@@ -170,40 +191,125 @@ export default function MultiStepForm() {
   if (formState === "NOT_DONE") {
     return (
       <div className="multistep">
-        {steps[currentStep]}
-        <div className="nav-buttons">
-          {currentStep === 0 && <Link to="/">Volver</Link>}
-          {currentStep > 0 && (
-            <button className="back-btn" onClick={prev}>
-              Atrás
-            </button>
-          )}
-          {currentStep < steps.length - 1 ? (
-            <>
-              <button type="button" className="submit-btn">
-                Guardar
+        <div className="w-full max-w-4xl mx-auto mb-8">
+          <div className="flex items-center justify-between relative">
+            <div className="absolute top-1/2 left-0 right-0 h-1 bg-gray-600 -translate-y-1/2"
+            ></div>
+            <div 
+              className="absolute top-1/2 left-0 h-1 bg-[#d32390] -translate-y-1/2 transition-all duration-500"
+              style={{ width: `${(currentStep / (steps.length - 1)) * 100}%` }}
+            ></div>            
+            {steps.map((step, index) => {
+              const isCompleted = index < currentStep;
+              const isActive = index === currentStep;
+              const isUpcoming = index > currentStep;
+              
+              return (
+                <div key={index} className="flex flex-col items-center relative z-10">
+                  <div
+                    className={`w-10 h-10 rounded-full flex items-center justify-center border-2 text-sm font-bold transition-all duration-300
+                        shadow-lg backdrop-blur-sm 
+                      ${isCompleted
+                        ? "bg-linear-to-br from-[#b83284] to-[#d32390] border-[#d32390] text-white shadow-[0_8px_25px_rgba(184,50,132,0.4)]"
+                        : isActive
+                        ? "bg-linear-to-br from-[#7b6cf6] to-[#5a3db0] border-[#7b6cf6] text-white shadow-[0_8px_25px_rgba(123,108,246,0.4)]"
+                        : "bg-[#16106b] border-[#a685ff] border-opacity-30 text-[#a685ff] shadow-[0_4px_15px_rgba(0,0,0,0.2)]"
+                    }
+                      ${isUpcoming ? "opacity-70" : ""}
+                    `}
+                  >
+                    {isCompleted ? (
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={3}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    ) : (
+                      <span className="drop-shadow-sm">
+                        {index + 1}
+                      </span>
+                    )}
+                  </div>
+                  
+                  <span
+                    className={`mt-2 text-xs font-semibold text-center max-w-24 transition-all duration-300 
+                        ${isCompleted
+                          ? "text-[#d32390] drop-shadow-sm"
+                          : isActive
+                          ? "text-[#a685ff] drop-shadow-sm"
+                          : "text-[#f0f0f5] text-opacity-60"
+                        }
+                      `}
+                    >
+                    {step.title}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="multistep">
+          {steps[currentStep].component}
+          
+          <div className="nav-buttons">
+            {currentStep === 0 && (
+              <Link to="/" className="back-btn">
+                Volver
+              </Link>
+            )}
+            {currentStep > 0 && (
+              <button className="back-btn" onClick={prev}>
+                Atrás
               </button>
-              <button className="next-btn" onClick={next}>
-                Siguiente
+            )}
+            {currentStep < steps.length - 1 ? (
+              <>
+                <button type="button" className="submit-btn">
+                  Guardar
+                </button>
+                <button className="next-btn" onClick={next}>
+                  Siguiente
+                </button>
+              </>
+            ) : (
+              <button className="submit-btn" onClick={handleSubmit}>
+                Enviar
               </button>
-            </>
-          ) : (
-            <button className="submit-btn" onClick={handleSubmit}>
-              Enviar
-            </button>
-          )}
+            )}
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div>
-      <h1>Curso registrado con éxito.</h1>
-      <Link to="/">Volver a inicio</Link>
-      <button onClick={() => setFormState("NOT_DONE")}>
-        Registrar otro curso.
-      </button>
+    <div className="text-center">
+      <h1 className="text-3xl font-bold text-text-creme mb-6">
+        Curso registrado con éxito.
+      </h1>
+      <div className="flex gap-4 justify-center">
+        <Link 
+          to="/" 
+          className="bg-blue-button text-white px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
+        >
+          Volver a inicio
+        </Link>
+        <button 
+          onClick={() => setFormState("NOT_DONE")}
+          className="bg-accent-light text-white px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
+        >
+          Registrar otro curso
+        </button>
+      </div>
     </div>
   );
 }

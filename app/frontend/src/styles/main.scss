@@ -44,6 +44,7 @@ button:hover {
     border-color: $button-border-color;
 }
 
+
 h1 {
     font-size: 3.2em;
 }
@@ -197,28 +198,58 @@ h1 {
     color: $text-lighter;
     font-size: 16px;
     transition: background 0.3s ease;
+
+    &:active, &:focus  {
+        outline: none;
+        border-color: $accent-pink;
+        box-shadow: $pink-shadow-med;
+    }
 }
 
 .cancel-btn {
     background: none;
+
+    &:active, &:focus {
+        outline: none;
+        border-color: $light-orange;
+        box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.3);
+    }
 }
 
 .add-btn {
     background: $blue-button;
     border: none;
     color: $text-light;
+
+    &:active, &:focus  {
+        outline: none;
+        border-color: $bright-purple;
+        box-shadow: $purple-shadow-small;
+    }
 }
 
 .next-btn {
     background: $blue-button;
     border: none;
     color: $text-light;
+
+    &:active, &:focus  {
+        outline: none;
+        border-color: $light-purple;
+        box-shadow: $purple-shadow-small;
+    }
 }
 
 .back-btn {
     background: $blue-button;
     border: none;
     color: $text-light;
+
+    &:active, &:focus  {
+        outline: none;
+        border-color: $light-purple;
+        box-shadow: $purple-shadow-small;
+    }
 }
 
 .password-toggle-btn {
@@ -226,6 +257,11 @@ h1 {
     border: none;
     color: $text-light;
     font-size: 18px;
+
+    &:active, &:focus  {
+        border-color: $text-creme;
+        box-shadow: 0 0 0 3px rgba(232, 231, 240, 0.3);
+    }
 }
 
 .password-toggle-btn::after {
@@ -243,7 +279,6 @@ h1 {
     box-shadow: $midnight-shadow-big;
     background: linear-gradient(0deg, $accent -30%, $form-border-purple 50%, $blue-button 90%);
 }
-
 
 .form-row ul {
     list-style-type: none;

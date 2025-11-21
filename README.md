@@ -84,8 +84,17 @@ Este proyecto busca optimizar un proceso que actualmente requiere más de 40 hor
 ## Descripción Tests E2E
 
 ## Librería de Estilos
+# Colores
+Se elige un gradiente de púrpura a rosa por su buen contraste y sobre él otro gradiente de azul a rosa para darle continuidad y mejor visibilidad al contenido importante.
+Se prefiere el púrpura dado que son colores agradables a la vista y aporta una sensación de formalidad a la web dado que sus usuarios principales serán profesores y funcionarios de la UChile.
+Además, se busca que sea llamativa para motivar a dichos usuarios a trasladarse a esta nueva herramienta.
 
+# Estructura
+El formulario de registro se realiza de tal manera que posteriormente sea más expedito el proceso de rellenar campos para la creación de cursos, trayendo dichos datos desde el backend.
+El inicio de sesión se realiza con el RUT dado que es la herramienta de identificación chilena y existe diferenciación entre loggeo de funcionarios y profesores para hacer más seguro el uso de roles.
+El registro de un curso se realiza con la metodología step-by-step para hacer más digerible el rellenado de datos, además de autorellenarse los datos personales requeridos.
 
+La librería de estilos elegida es tailwindcss por su amplio uso en muchas plataformas.
 
 ## URL de la aplicación
 https://fullstack.dcc.uchile.cl/8081
