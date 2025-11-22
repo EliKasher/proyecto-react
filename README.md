@@ -82,8 +82,7 @@ Este proyecto busca optimizar un proceso que actualmente requiere más de 40 hor
 ## Mapa de Rutas y Flujo de Autenticación
 ![auth](https://github.com/EliKasher/proyecto-react/tree/main/app/frontend/src/assets/images/autenticación.png "Flujo de Autenticación")
 
-![Uploading autenticación.png…]()
-
+<img width="1081" height="744" alt="autenticación" src="https://github.com/user-attachments/assets/751b59f9-5f8f-412a-bfd3-0e6f057c42a7" />
 
 ## Descripción Tests E2E
 
