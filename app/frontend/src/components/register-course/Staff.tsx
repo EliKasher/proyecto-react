@@ -1,94 +1,118 @@
-import React from "react";
 import { type Staff } from "../../types/course";
+import { useDispatch } from "react-redux";
+import {
+  setStaff,
+  addStaff,
+  removeStaff,
+  updateIsValid,
+} from "../../reducers/formReducer";
+import {
+  validateRut,
+  validatePhone,
+  validateEmail,
+} from "../../utils/validators";
 
 type Props = {
   data: Staff[];
-  setData: React.Dispatch<React.SetStateAction<Staff[]>>;
+  isValid: boolean;
+  showErrors: boolean;
 };
 
-function validateRut(rut: string): Boolean {
-  const cleanRut = rut.toLowerCase().replace(/[^0-9k-]/g, '');
+const StaffForm = ({ data, isValid, showErrors }: Props) => {
+  const dispatch = useDispatch();
 
-  if (cleanRut.length < 2) return false;
-
-  const [digits, lastDigit] = cleanRut.toLowerCase().split("-");
-  if (!digits || !lastDigit) return false;
-
-  const reverseDigits = digits.split("").reverse();
-
-  const digitsMultiplied = reverseDigits.map(
-    (digit, index) => Number(digit) * (2 + (index % 6))
-  );
-
-  const sum = digitsMultiplied.reduce((acc, val) => acc + val, 0);
-  const mod = sum % 11;
-  const check = 11 - mod;
-
-  const expected =
-    check === 11 ? "0" : check === 10 ? "k" : String(check);
-
-  return lastDigit === expected;
-}
-
-const StaffForm = ({ data, setData }: Props) => {
-  const [errors, setErrors] = React.useState<{ [key: string]: string }>({});
-  
-  const handleChangeStaff = (index: number, field: keyof Staff, value: string) => {
+  const handleChangeStaff = (
+    index: number,
+    field: keyof Staff,
+    value: string
+  ) => {
     const updatedStaff = data.map((member, i) =>
       i === index ? { ...member, [field]: value } : member
     );
-    setData(updatedStaff);
-      
-    const errorKey = `${index}-${field}`;
-    const error = validateField(field, value);
-
-    setErrors(prev => ({
-      ...prev,
-      [errorKey]: error
-    }));
+    dispatch(setStaff(updatedStaff));
   };
 
   const handleAddStaff = () => {
-    setData([
-      ...data,
-      {
+    dispatch(
+      addStaff({
         first_name: "",
         last_name: "",
         rut: "",
         email: "",
         phone: "",
         position: "",
-      },
-    ]);
+      })
+    );
   };
 
   const handleRemoveStaff = (index: number) => {
     if (data.length <= 0) return;
-    setData(data.filter((_, i) => i !== index));
+    dispatch(removeStaff(index));
   };
 
-  const validateField = (field: string, value: string): string => {
-    switch (field) {
-      case 'email':
-        if (!value) return 'El email es requerido';
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Email inválido';
-        return '';
-      
-      case 'rut':
-        if (!value) return 'El RUT es requerido';
-        if (!/^[0-9]{7,8}-[0-9kK]{1}$/.test(value)) return 'Formato: 12345678-K';
-        if (!validateRut(value)) return 'RUT inválido';
-        return '';
+  const errors = Array.from({ length: data.length }, () => ({
+    firstNameError: "",
+    lastNameError: "",
+    rutError: "",
+    emailError: "",
+    phoneError: "",
+  }));
 
-      case 'phone':
-        if (!value) return 'El teléfono es requerido';
-        if (!/^(\+?56)?(\s?)(0?9)(\s?)[98765432]\d{7}$/.test(value)) return 'Formato: (+56) 912345678';
-        return '';
-      
-        default:
-          return '';
+  const max = 50;
+
+  const validate = () => {
+    if (data.length === 0) return true;
+
+    let errorCount = 0;
+
+    for (let i = 0; i < data.length; i++) {
+      const staffMember = data[i];
+
+      if (staffMember.first_name.length == 0) {
+        errors[i].firstNameError = "Por favor introduzca un nombre.";
+        errorCount++;
+      } else if (staffMember.first_name.length > max) {
+        errors[i].firstNameError =
+          "El largo del o los nombres no puede superar los " +
+          max +
+          " carácteres";
+        errorCount++;
+      }
+
+      if (staffMember.last_name.length == 0) {
+        errors[i].lastNameError = "Por favor introduzca uno o mas apellidos.";
+        errorCount++;
+      } else if (staffMember.last_name.length > max) {
+        errors[i].lastNameError =
+          "El largo del o los apellidos no puede superar los " +
+          max +
+          " carácteres.";
+        errorCount++;
+      }
+
+      const { isValid, msg } = validateRut(staffMember.rut);
+
+      if (!isValid) {
+        errors[i].rutError = msg;
+        errorCount++;
+      }
+
+      if (!validateEmail(staffMember.email)) {
+        errors[i].emailError = "Email inválido";
+        errorCount++;
+      }
+
+      if (!validatePhone(staffMember.phone)) {
+        errors[i].phoneError = "El teléfono es inválido";
+        errorCount++;
+      }
     }
-  }
+    return errorCount === 0;
+  };
+
+  const status = validate();
+
+  if (status != isValid) dispatch(updateIsValid(status));
 
   return (
     <form className="form-container">
@@ -96,11 +120,11 @@ const StaffForm = ({ data, setData }: Props) => {
         <div className="section-header">
           <h3>Equipo Docente del Curso</h3>
           <p className="recommendations">
-            Estos datos se utilizarán para la gestión del curso y el procesamiento
-            de pagos. En el caso de los miembros que reciban pagos por beca
-            laboral o convenio, será responsabilidad del equipo docente completar
-            los formularios correspondientes con sus documentos, a fin de no
-            retrasar dichos pagos.
+            Estos datos se utilizarán para la gestión del curso y el
+            procesamiento de pagos. En el caso de los miembros que reciban pagos
+            por beca laboral o convenio, será responsabilidad del equipo docente
+            completar los formularios correspondientes con sus documentos, a fin
+            de no retrasar dichos pagos.
           </p>
         </div>
 
@@ -120,10 +144,8 @@ const StaffForm = ({ data, setData }: Props) => {
 
             <div className="form-card-group">
               <div className="form-column">
-                <label htmlFor={`first-name-${index}`} className="required">Nombres</label>
+                <label className="required">Nombres</label>
                 <input
-                  id={`first-name-${index}`}
-                  name={`first-name-${index}`}
                   type="text"
                   value={member.first_name}
                   onChange={(e) =>
@@ -131,12 +153,16 @@ const StaffForm = ({ data, setData }: Props) => {
                   }
                   required
                 />
+                <p>
+                  {member.first_name.length}/{max}
+                </p>
+                {showErrors && errors[index].firstNameError && (
+                  <p className="errors-col">{errors[index].firstNameError}</p>
+                )}
               </div>
               <div className="form-column">
-                <label htmlFor={`last-name-${index}`} className="required">Apellidos</label>
+                <label className="required">Apellidos</label>
                 <input
-                  id={`last-name-${index}`}
-                  name={`last-name-${index}`}
                   type="text"
                   value={member.last_name}
                   onChange={(e) =>
@@ -144,14 +170,18 @@ const StaffForm = ({ data, setData }: Props) => {
                   }
                   required
                 />
+                <p>
+                  {member.last_name.length}/{max}
+                </p>
+                {showErrors && errors[index].lastNameError && (
+                  <p className="errors-col">{errors[index].lastNameError}</p>
+                )}
               </div>
             </div>
 
             <div className="form-row">
-              <label htmlFor={`rut-${index}`} className="required">RUT</label>
+              <label className="required">RUT</label>
               <input
-                id={`rut-${index}`}
-                name={`rut-${index}`}
                 type="text"
                 value={member.rut}
                 placeholder="12345678-9"
@@ -159,36 +189,30 @@ const StaffForm = ({ data, setData }: Props) => {
                   handleChangeStaff(index, "rut", e.target.value)
                 }
                 required
-                className={errors[`${index}-rut`] ? 'error' : ''}
               />
-              {errors[`${index}-rut`] && (
-                <span className="error-message">{errors[`${index}-rut`]}</span>
+              {showErrors && errors[index].rutError && (
+                <p className="errors-col">{errors[index].rutError}</p>
               )}
             </div>
 
             <div className="form-row">
-              <label htmlFor={`email-${index}`} className="required">Correo Electrónico</label>
+              <label className="required">Correo Electrónico</label>
               <input
-                id={`email-${index}`}
-                name={`email-${index}`}
                 type="email"
                 value={member.email}
                 onChange={(e) =>
                   handleChangeStaff(index, "email", e.target.value)
                 }
                 required
-                className={errors[`${index}-email`] ? 'error' : ''}
               />
-              {errors[`${index}-email`] && (
-                <span className="error-message">{errors[`${index}-email`]}</span>
+              {showErrors && errors[index].emailError && (
+                <p className="errors-col">{errors[index].emailError}</p>
               )}
             </div>
 
             <div className="form-row">
-              <label htmlFor={`phone-${index}`} className="required">Teléfono</label>
+              <label className="required">Teléfono</label>
               <input
-                id={`phone-${index}`}
-                name={`phone-${index}`}
                 type="tel"
                 value={member.phone}
                 placeholder="+56912345678"
@@ -196,10 +220,9 @@ const StaffForm = ({ data, setData }: Props) => {
                   handleChangeStaff(index, "phone", e.target.value)
                 }
                 required
-                className={errors[`${index}-phone`] ? 'error' : ''}
               />
-              {errors[`${index}-phone`] && (
-                <span className="error-message">{errors[`${index}-phone`]}</span>
+              {showErrors && errors[index].phoneError && (
+                <p className="errors-col">{errors[index].phoneError}</p>
               )}
             </div>
           </div>

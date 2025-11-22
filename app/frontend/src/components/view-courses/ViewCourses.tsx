@@ -2,6 +2,8 @@ import * as React from "react";
 import teacherService from "../../services/Teacher";
 import { type CourseDate } from "../../types/course";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import type { AppState } from "../../store";
 
 type DataCurso = {
   name: "";
@@ -22,22 +24,16 @@ type Curso = {
   program_content: ContenidoPrograma;
 };
 
-type User = {
-  id: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  roles: string[];
-};
+const ViewCourses = () => {
+  const user = useSelector((state: AppState) => state.user);
 
-const ViewCourses = (props: { user: User }) => {
   const [cursos, setCursos] = React.useState<Curso[]>([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
     const setup = async () => {
       try {
-        const cursos = await teacherService.getTeacherCourses(props.user.id);
+        const cursos = await teacherService.getTeacherCourses(user.id);
         setCursos(cursos);
       } catch (error: any) {
         toast.error(error.message);
@@ -47,12 +43,12 @@ const ViewCourses = (props: { user: User }) => {
     };
 
     setup();
-  }, [props.user.id]);
+  }, [user.id]);
 
   const [cursoSeleccionado, setCursoSeleccionado] =
     React.useState<Curso | null>(null);
 
-  
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-linear-to-br from-[#0f0c29] to-[#47308b] py-12">
@@ -96,11 +92,10 @@ const ViewCourses = (props: { user: User }) => {
                     <button
                       key={curso.id}
                       onClick={() => setCursoSeleccionado(curso)}
-                      className={`w-full text-left p-4 rounded-lg transition-all duration-200 ${
-                        cursoSeleccionado?.id === curso.id
+                      className={`w-full text-left p-4 rounded-lg transition-all duration-200 ${cursoSeleccionado?.id === curso.id
                           ? 'bg-[rgba(184,50,132,0.2)] border border-[rgba(184,50,132,0.5)] shadow-[0_4px_15px_rgba(184,50,132,0.4)]'
                           : 'bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] hover:bg-[rgba(184,50,132,0.1)] hover:border-[rgba(184,50,132,0.3)]'
-                      }`}
+                        }`}
                     >
                       <h3 className="font-semibold text-[#f0f0f5] mb-1 line-clamp-2 wrap-break-word">
                         {curso.course_data.name}
@@ -136,7 +131,7 @@ const ViewCourses = (props: { user: User }) => {
                       <h3 className="text-lg font-semibold text-[#f0f0f5] border-b border-[rgba(123,108,246,0.5)] pb-2">
                         Información del Curso
                       </h3>
-                      
+
                       <div className="space-y-2">
                         <label className="text-sm font-medium text-[#a685ff]">Niveles Educativos</label>
                         <div className="flex flex-wrap gap-2">

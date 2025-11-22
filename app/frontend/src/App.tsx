@@ -1,9 +1,4 @@
-import {
-  Route,
-  Routes,
-  Link,
-  Navigate,
-} from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import MultiStepForm from "./components/register-course/Multistep";
 import ViewCourses from "./components/view-courses/ViewCourses";
@@ -13,6 +8,11 @@ import FunctionaryLogin from "./components/functionary-login/FunctionaryLogin.ts
 import { ToastContainer } from "react-toastify";
 import Header from "./components/Header";
 import LoginService from "./services/Login";
+import Home from "./components/home/Home.tsx";
+
+import { useDispatch, useSelector } from "react-redux";
+import { resetUser, setUser } from "./reducers/userReducer.ts";
+import { type AppState } from "./store.ts";
 import Profile from "./components/profile/Profile";
 
 export type Teacher = {
@@ -31,62 +31,12 @@ export type Functionary = {
   roles: string[];
 };
 
-function RegisterForm() {
-  return (
-    <div className="course-register p-6">
-      <div className="register-header mb-8 text-center">
-        <h1 className="text-3xl font-bold mb-4">Formulario Inscripción EdV Verano 2026</h1>
-        <h4 className="text-lg mb-4">
-          Este formulario pretende optimizar y sistematizar los programas e
-          información asociadas a los cursos EdV.
-        </h4>
-        <h4 className="register-precaution text-lg mb-8">
-          Recuerda que todos los campos marcados con
-          <span className="required"></span> son obligatorios.
-        </h4>
-      </div>
-      <div className="course-form-container flex gap-6 justify-center">
-        <Link
-          to="/course-form"
-          className="px-8 py-4 rounded-lg text-lg font-semibold transition-colors duration-200"
-        >
-          Registrar Curso
-        </Link>
-        <Link
-          to="/view-courses"
-          className="px-8 py-4 rounded-lg text-lg font-semibold transition-colors duration-200"
-        >
-          Ver Cursos
-        </Link>
-      </div>
-    </div>
-  );
-}
-
-function Home({
-  user,
-  setUser,
-}: {
-  user: Teacher | null;
-  setUser: (u: Teacher) => void;
-}) {
-  if (!user) {
-    return (
-      <div className="login-container">
-        <TeacherLogin onLogin={setUser} />
-        <p className="main-footer">
-          ¿Eres funcionario? <Link to="/login-functionary">Ingresa aquí</Link>
-        </p>
-      </div>
-    );
-  }
-
-  return <RegisterForm />;
-}
-
 function App() {
-  const [user, setUser] = useState<Teacher | null>(null);
+  const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(true);
+
+  const user = useSelector((state: AppState) => state.user);
 
   useEffect(() => {
     const loadUserFromStorage = () => {
@@ -95,7 +45,7 @@ function App() {
           const user = await LoginService.restoreLogin();
 
           if (user) {
-            setUser(user);
+            dispatch(setUser({ ...user, logged: true }));
           }
 
           setLoading(false);
@@ -104,7 +54,6 @@ function App() {
       } catch (error) {
         console.error("Error cargando usuario:", error);
         localStorage.removeItem("token");
-        setUser(null);
       }
     };
 
@@ -117,21 +66,9 @@ function App() {
     } catch (error) {
       console.error("Error en logout del backend:", error);
     } finally {
-      setUser(null);
+      dispatch(resetUser());
       localStorage.removeItem("token");
     }
-  };
-
-  const getPrimaryRole = () => {
-    if (!user) return null;
-
-    if (user.roles && user.roles.length > 0) {
-      if (user.roles.includes("functionary")) return "functionary";
-      if (user.roles.includes("teacher")) return "teacher";
-      return user.roles[0];
-    }
-
-    return "teacher";
   };
 
   if (loading) {
@@ -149,44 +86,40 @@ function App() {
 
   return (
     <>
-        <Header
-          userRole={getPrimaryRole()}
-          userName={user?.first_name || null}
-          onLogout={logout}
+      <Header
+        userRole={user.roles}
+        userName={user?.first_name || null}
+        onLogout={logout}
+      />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="course-form"
+          element={user.logged ? <MultiStepForm /> : <Navigate to="/" />}
         />
-        <Routes>
-          <Route path="/" element={<Home user={user} setUser={setUser} />} />
-          <Route
-            path="course-form"
-            element={user ? <MultiStepForm /> : <Navigate to="/" />}
-          />
-          <Route
-            path="view-courses"
-            element={user ? <ViewCourses user={user} /> : <Navigate to="/" />}
-          />
-          <Route
-            path="register-teacher"
-            element={!user ? <NewTeacherRegister /> : <Navigate to="/" />}
-          />
-          <Route
-            path="login-teacher"
-            element={
-              !user ? <TeacherLogin onLogin={setUser} /> : <Navigate replace to="/" />
-            }
-          />
-          <Route
-            path="profile"
-            element={ user ? <Profile user={user} /> : <Navigate to="/" /> }
-          />
-            <Route
-            path="functionary-login"
-            element={
-                !user ? <FunctionaryLogin onLogin={setUser} /> : <Navigate replace to="/" />
-            }
+        <Route
+          path="view-courses"
+          element={user.logged ? <ViewCourses /> : <Navigate to="/" />}
         />
-        </Routes>
+        <Route
+          path="register-teacher"
+          element={!user.logged ? <NewTeacherRegister /> : <Navigate to="/" />}
+        />
+        <Route
+          path="login-teacher"
+          element={!user.logged ? <TeacherLogin /> : <Navigate to="/" />}
+        />
+        <Route
+          path="functionary-login"
+          element={!user.logged ? <FunctionaryLogin /> : <Navigate to="/" />}
+        />
+        <Route
+          path="profile"
+          element={user ? <Profile /> : <Navigate to="/" />}
+        />
+      </Routes>
 
-        <ToastContainer position="top-right" autoClose={3000} />
+      <ToastContainer position="top-right" autoClose={3000} />
     </>
   );
 }
