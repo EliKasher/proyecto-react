@@ -25,11 +25,11 @@ a {
     font-weight: 600;
     color: $link-purple;
     background-color: $text-lighter;
-}
 
-a:hover {
-    box-shadow:  $pink-shadow-big;
-    border-color: $accent-pink;
+    &:hover {
+        box-shadow:  $pink-shadow-big;
+        border-color: $accent-pink;
+    }
 }
 
 button {
@@ -38,12 +38,11 @@ button {
     font-family: inherit;
     background-color: $button-color;
     transition: border-color 0.25s;
-}
 
-button:hover {
-    border-color: $button-border-color;
+    &:hover {
+        border-color: $button-border-color;
+    }
 }
-
 
 h1 {
     font-size: 3.2em;
@@ -56,16 +55,24 @@ h1 {
 .header {
     background: $bg-glass-dark;
     box-shadow: $black-shadow;
+
+    &:hover {
+        background: $bg-glass-dark;
+    }
+
+    &::before {
+        background: linear-gradient(
+            135deg,
+            $nav-color 0%,
+            $nav-color-darker 100%
+        );
+    }
 }
 
 @media (max-width: 480px) {
     .main-footer {
         font-size: 0.9rem;
     }
-}
-
-.header:hover {
-    background: $bg-glass-dark;
 }
 
 .header-logo-img {
@@ -85,12 +92,12 @@ h1 {
     text-decoration: none;
     font-weight: 500;
     font-size: 0.95rem;
-}
 
-.header-nav-link:hover {
-    background: $nav-color;
-    border-color: $nav-border-color;
-    box-shadow: $nav-shadow;
+    &:hover, &:focus, &:active, &::after {
+        background: $nav-color;
+        border-color: $nav-border-color;
+        box-shadow: $nav-shadow;
+    }
 }
 
 .header-icon {
@@ -101,11 +108,11 @@ h1 {
     gap: 0.75rem;
     background: $bg-glass;
     border: 1px solid $border-glass;
-}
 
-.header-user:hover {
-    background: $header-background;
-    border-color: $header-border-color;
+    &:hover {
+        background: $header-background;
+        border-color: $header-border-color;
+    }
 }
 
 .header-user-icon {
@@ -161,14 +168,6 @@ h1 {
     .header-user-name {
         font-size: 0.9rem;
     }
-}
-
-.header::before {
-    background: linear-gradient(
-        135deg,
-        $nav-color 0%,
-        $nav-color-darker 100%
-    );
 }
 
 .section-header h3 {
@@ -262,11 +261,11 @@ h1 {
         border-color: $text-creme;
         box-shadow: 0 0 0 3px rgba(232, 231, 240, 0.3);
     }
-}
 
-.password-toggle-btn::after {
-    background: none;
-    border: 1px solid $text-creme;
+    &::after {
+        background: none;
+        border: 1px solid $text-creme;
+    }
 }
 
 .date-label {

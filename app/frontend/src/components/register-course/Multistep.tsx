@@ -193,10 +193,10 @@ export default function MultiStepForm() {
       <div className="multistep">
         <div className="w-full max-w-4xl mx-auto mb-8">
           <div className="flex items-center justify-between relative">
-            <div className="absolute top-1/2 left-0 right-0 h-1 bg-gray-600 -translate-y-1/2"
+            <div className="absolute top-1/3 left-0 right-0 h-1 bg-gray-600 -translate-y-1/3"
             ></div>
             <div 
-              className="absolute top-1/2 left-0 h-1 bg-[#d32390] -translate-y-1/2 transition-all duration-500"
+              className="absolute top-1/3 left-0 h-1 bg-[#d32390] -translate-y-1/3 transition-all duration-500"
               style={{ width: `${(currentStep / (steps.length - 1)) * 100}%` }}
             ></div>            
             {steps.map((step, index) => {

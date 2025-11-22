@@ -31,7 +31,7 @@ const DayContent = ({
         </div>
         <div className="row-flex">
           <div className="form-column">
-            <label className="required">Primer Bloque (09:00 a 10:30)</label>
+            <label htmlFor={"firstBlockDay" + dayNumber} className="required">Primer Bloque (09:00 a 10:30)</label>
             <textarea
               name={"firstBlockDay" + dayNumber}
               cols={50}
@@ -41,7 +41,7 @@ const DayContent = ({
             ></textarea>
           </div>
           <div className="form-column" id="classroom-1">
-            <label>Sala</label>
+            <label htmlFor={"firstBlockClassroomDay" + dayNumber}>Sala</label>
             <input
               type="text"
               name={"firstBlockClassroomDay" + dayNumber}
@@ -55,7 +55,7 @@ const DayContent = ({
         </div>
         <div className="row-flex">
           <div className="form-column">
-            <label className="required">Segundo Bloque (11:00 a 12:30)</label>
+            <label htmlFor={"secondBlockDay" + dayNumber} className="required">Segundo Bloque (11:00 a 12:30)</label>
             <textarea
               name={"secondBlockDay" + dayNumber}
               cols={50}
@@ -65,7 +65,7 @@ const DayContent = ({
             ></textarea>
           </div>
           <div className="form-column" id="classroom-2">
-            <label>Sala</label>
+            <label htmlFor={"secondBlockClassroomDay" + dayNumber}>Sala</label>
             <input
               type="text"
               name={"secondBlockClassroomDay" + dayNumber}

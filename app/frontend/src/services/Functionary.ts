@@ -3,10 +3,14 @@ import type { ILogin, IFunctionaryRegister } from "../types/users";
 
 const baseUrl = "api/";
 
+const getFunctionary = (id: string) => {
+  const request = axiosSecure.get(baseUrl + `functionaries/${id}`);
+  return request.then((response) => { return response.data });
+};
+
 const postFunctionary = (newFunctionary: IFunctionaryRegister) => {
   const request = axiosSecure.post(baseUrl + "functionaries", newFunctionary);
   return request.then((response) => {
-    console.log("success");
     return response.data;
   });
 };
@@ -26,6 +30,7 @@ const functionaryLogin = async (functionaryCredentials: ILogin) => {
 };
 
 export default {
+  getFunctionary,
   postFunctionary,
   functionaryLogin,
 };

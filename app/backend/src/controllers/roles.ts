@@ -30,13 +30,14 @@ export const authenticate = async (
         next();
       } else {
         res.status(401).json({
-          error: "invalid token",
+          error: "Invalid or expired token",
         });
       }
     }
   } catch (error) {
     res.status(401).json({
-      error: "invalid token",
+      error: "Authentication failed",
+      details: error instanceof Error ? error.message : "Unknown error"
     });
   }
 };
@@ -50,7 +51,7 @@ export const requireRole = (roles: string[]) => {
       });
       return;
     }
-
+    
     const hasRequiredRole = roles.includes(req.roles);
 
     if (!hasRequiredRole) {

@@ -10,7 +10,7 @@ const MaterialForm = ({ data, setData }: Props) => {
   const handleChange = (index: number, field: keyof Material, value: string) => {
     const nuevos = [...data];
     if (field === "quantity") {
-      nuevos[index][field] = Number(value);
+      nuevos[index][field] = value === "" ? 0 : Number(value);
     } else {
       nuevos[index][field] = value;
     }
@@ -47,22 +47,24 @@ const MaterialForm = ({ data, setData }: Props) => {
             </div>
             <div className="form-card-group">
               <div className="form-column">
-                <label className="required">Nombre</label>
+                <label htmlFor={`material-name-${index}`} className="required">Nombre</label>
                 <input
+                  id={`material-name-${index}`}
+                  name={`material-name-${index}`}
                   type="text"
                   value={mat.name}
                   onChange={(e) => handleChange(index, "name", e.target.value)}
-                  name="materialName"
                 />
                 <p className="recommendations-col">El nombre del material.</p>
               </div>
               <div className="form-column">
-                <label className="required">Cantidad</label>
+                <label htmlFor={`material-quantity-${index}`} className="required">Cantidad</label>
                 <input
+                  id={`material-quantity-${index}`}
+                  name={`material-quantity-${index}`}
                   type="number"
-                  value={mat.quantity}
+                  value={mat.quantity === 0 ? "" : mat.quantity}
                   onChange={(e) => handleChange(index, "quantity", e.target.value)}
-                  name="materialQuantity"
                 />
                 <p className="recommendations-col">
                   Número de unidades necesarias de este material.
@@ -70,12 +72,13 @@ const MaterialForm = ({ data, setData }: Props) => {
               </div>
             </div>
             <div className="form-row">
-              <label className="required">Link</label>
+              <label htmlFor={`material-link-${index}`} className="required">Link</label>
               <input
+                id={`material-link-${index}`}
+                name={`material-link-${index}`}
                 type="url"
                 value={mat.link}
                 onChange={(e) => handleChange(index, "link", e.target.value)}
-                name="materialLink"
               />
               <p className="recommendations">
                 Enlace de referencia o compra del material.
