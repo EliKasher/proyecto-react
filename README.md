@@ -96,7 +96,7 @@ El formulario de registro se realiza de tal manera que posteriormente sea más e
 El inicio de sesión se realiza con el RUT dado que es la herramienta de identificación chilena y existe diferenciación entre loggeo de funcionarios y profesores para hacer más seguro el uso de roles.
 El registro de un curso se realiza con la metodología step-by-step para hacer más digerible el rellenado de datos, además de autorellenarse los datos personales requeridos.
 
-La librería de estilos elegida es tailwindcss por su amplio uso en muchas plataformas.
+La librería de estilos elegida es tailwindcss por su amplio uso en muchas plataformas, su comodidad de uso y especificidad.
 
 ## URL de la aplicación
 https://fullstack.dcc.uchile.cl/7181
