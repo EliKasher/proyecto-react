@@ -9,8 +9,7 @@ import type { ILogin } from "../../types/users";
 import { useDispatch } from "react-redux";
 
 import { AxiosError } from "axios";
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const TeacherLogin = () => {
   const dispatch = useDispatch();
@@ -80,7 +79,8 @@ const TeacherLogin = () => {
               onClick={togglePassword}
               className="password-toggle-btn"
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+                e.currentTarget.style.backgroundColor =
+                  "rgba(255, 255, 255, 0.1)";
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.backgroundColor = "transparent";
@@ -100,5 +100,3 @@ const TeacherLogin = () => {
 };
 
 export default TeacherLogin;
-
-

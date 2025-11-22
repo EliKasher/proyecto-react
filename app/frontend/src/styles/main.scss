@@ -372,6 +372,15 @@ h1 {
     text-align: left;
 }
 
+.errors-col {
+    font-weight: 500;
+    font-size: 16px;
+    color: $text-light;
+    background: $dark-grey;
+    border-left: 3px solid $strong-red;
+    text-align: left;
+}
+
 .multistep  {
     padding: 20px 0;
 }

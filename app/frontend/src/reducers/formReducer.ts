@@ -41,6 +41,9 @@ const initialState: RegisterForm = {
   weekly_planification: initialWeeklyPlanification,
   staff: initialStaff,
   materials: initialMaterials,
+  currentPageNumber: 0,
+  currentPageIsValid: false,
+  showErrors: false,
 };
 
 const slice = createSlice({
@@ -114,6 +117,37 @@ const slice = createSlice({
     removeMaterial: (state, action: PayloadAction<number>) => {
       state.materials = state.materials.filter((_, i) => i !== action.payload);
     },
+
+    increasePage: (state) => {
+      if (state.currentPageIsValid) {
+        state.currentPageNumber =
+          state.currentPageNumber === 5 ? 5 : state.currentPageNumber + 1;
+        state.showErrors = false;
+        state.currentPageIsValid = false;
+      } else {
+        state.showErrors = true;
+      }
+    },
+
+    decreasePage: (state) => {
+      if (state.currentPageNumber > 0) {
+        state.currentPageNumber = state.currentPageNumber - 1;
+        state.showErrors = false;
+        state.currentPageIsValid = false;
+      }
+    },
+
+    updateIsValid: (state, action: PayloadAction<boolean>) => {
+      state.currentPageIsValid = action.payload;
+
+      if (action.payload) {
+        state.showErrors = false;
+      }
+    },
+
+    setShowErrors: (state, action: PayloadAction<boolean>) => {
+      state.showErrors = action.payload;
+    },
   },
 });
 
@@ -129,6 +163,10 @@ export const {
   updateMaterial,
   addMaterial,
   removeMaterial,
+  increasePage,
+  decreasePage,
+  updateIsValid,
+  setShowErrors,
 } = slice.actions;
 
 export default slice.reducer;

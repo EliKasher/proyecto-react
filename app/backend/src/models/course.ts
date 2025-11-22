@@ -49,7 +49,7 @@ const CourseDataSchema = new mongoose.Schema(
       type: Number,
       required: [true, "El cupo del curso es obligatorio.\n"],
       validate: {
-        validator: (v: Number) => Number(v) > 25,
+        validator: (v: Number) => Number(v) > 24,
         message: "El cupo minimo del curso debe ser de 25.\n",
       },
     },

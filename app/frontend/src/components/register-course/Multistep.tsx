@@ -15,7 +15,12 @@ import {
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { resetForm } from "../../reducers/formReducer";
+import {
+  decreasePage,
+  increasePage,
+  resetForm,
+  setShowErrors,
+} from "../../reducers/formReducer";
 import type { AppState } from "../../store";
 
 type FormProgress = "DONE" | "NOT_DONE";
@@ -25,7 +30,10 @@ export default function MultiStepForm() {
 
   const newCourse: RegisterForm = useSelector((state: AppState) => state.form);
 
-  const [currentStep, setCurrentStep] = useState(0);
+  //const [currentStep, setCurrentStep] = useState(0);
+
+  const currentStep = newCourse.currentPageNumber;
+
   const [formState, setFormState] = useState<FormProgress>("NOT_DONE");
   const [faculties, setFaculties] = useState<FacultySchema[]>([]);
   const [educationalLevel, setEducationalLevel] = useState<
@@ -49,45 +57,74 @@ export default function MultiStepForm() {
       component: (
         <CourseForm
           key="course"
-          educationalLevel={educationalLevel}
+          educationalLevels={educationalLevel}
           faculties={faculties}
           dates={dates}
           data={newCourse.course_data}
+          showErrors={newCourse.showErrors}
+          isValid={newCourse.currentPageIsValid}
         />
       ),
     },
     {
       title: "Contenido",
       component: (
-        <ProgramContentForm key="program" data={newCourse.program_content} />
+        <ProgramContentForm
+          key="program"
+          data={newCourse.program_content}
+          isValid={newCourse.currentPageIsValid}
+          showErrors={newCourse.showErrors}
+        />
       ),
     },
     {
       title: "Materiales",
-      component: <MaterialForm key="materials" data={newCourse.materials} />,
+      component: (
+        <MaterialForm
+          key="materials"
+          data={newCourse.materials}
+          isValid={newCourse.currentPageIsValid}
+          showErrors={newCourse.showErrors}
+        />
+      ),
     },
     {
       title: "Planificación",
       component: (
-        <WeeklyProgramForm key="weekly" data={newCourse.weekly_planification} />
+        <WeeklyProgramForm
+          key="weekly"
+          data={newCourse.weekly_planification}
+          isValid={newCourse.currentPageIsValid}
+          showErrors={newCourse.showErrors}
+        />
       ),
     },
     {
       title: "Personal",
-      component: <StaffForm key="staff" data={newCourse.staff} />,
+      component: (
+        <StaffForm
+          key="staff"
+          data={newCourse.staff}
+          isValid={newCourse.currentPageIsValid}
+          showErrors={newCourse.showErrors}
+        />
+      ),
     },
   ];
 
-  const next = () => setCurrentStep((s) => Math.min(s + 1, steps.length - 1));
-  const prev = () => setCurrentStep((s) => Math.max(s - 1, 0));
-
   const handleSubmit = () => {
+    if (
+      newCourse.currentPageNumber != steps.length - 1 ||
+      !newCourse.currentPageIsValid
+    ) {
+      dispatch(setShowErrors(true));
+      return;
+    }
+
     const submit = async () => {
       try {
-        const response = await courseService.postCourse(newCourse);
-        console.log(response);
+        await courseService.postCourse(newCourse);
 
-        setCurrentStep(0);
         dispatch(resetForm());
         setFormState("DONE");
       } catch (error) {
@@ -190,7 +227,10 @@ export default function MultiStepForm() {
               </Link>
             )}
             {currentStep > 0 && (
-              <button className="back-btn" onClick={prev}>
+              <button
+                className="back-btn"
+                onClick={() => dispatch(decreasePage())}
+              >
                 Atrás
               </button>
             )}
@@ -199,7 +239,10 @@ export default function MultiStepForm() {
                 <button type="button" className="submit-btn">
                   Guardar
                 </button>
-                <button className="next-btn" onClick={next}>
+                <button
+                  className="next-btn"
+                  onClick={() => dispatch(increasePage())}
+                >
                   Siguiente
                 </button>
               </>

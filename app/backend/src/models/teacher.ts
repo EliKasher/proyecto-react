@@ -1,6 +1,7 @@
 import config from "../utils/config";
+import validators from "../utils/validators";
 
-import mongoose, { Mongoose } from "mongoose";
+import mongoose from "mongoose";
 
 const uri = config.MONGODB_URI;
 
@@ -18,16 +19,8 @@ const teachersSchema = new mongoose.Schema({
     required: true,
     minLength: 8,
     validate: {
-      validator: function (password: string) {
-        // Regex que verifica:
-        // Al menos una mayúscula (?=.*[A-Z])
-        // Al menos una minúscula (?=.*[a-z])
-        // Al menos un número (?=.*\d)
-        // Mínimo 8 caracteres .{8,}
-        return /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/.test(password);
-      },
-      message:
-        "Password must contain at least one uppercase letter, one lowercase letter, one number, and be at least 8 characters long.",
+      validator: validators.passwordValidator.validator,
+      message: validators.passwordValidator.errorMessage,
     },
   },
   rut: {

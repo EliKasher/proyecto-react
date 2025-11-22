@@ -24,10 +24,8 @@ type Curso = {
   program_content: ContenidoPrograma;
 };
 
-
 const ViewCourses = () => {
-
-  const user = useSelector((state: AppState) => state.user)
+  const user = useSelector((state: AppState) => state.user);
 
   const [cursos, setCursos] = React.useState<Curso[]>([]);
 
