@@ -13,6 +13,7 @@ import FunctionaryLogin from "./components/functionary-login/FunctionaryLogin.ts
 import { ToastContainer } from "react-toastify";
 import Header from "./components/Header";
 import LoginService from "./services/Login";
+import Profile from "./components/profile/Profile";
 
 export type Teacher = {
   id: string;
@@ -125,7 +126,6 @@ function App() {
     if (!user) return null;
 
     if (user.roles && user.roles.length > 0) {
-      if (user.roles.includes("admin")) return "admin";
       if (user.roles.includes("functionary")) return "functionary";
       if (user.roles.includes("teacher")) return "teacher";
       return user.roles[0];
@@ -136,8 +136,13 @@ function App() {
 
   if (loading) {
     return (
-      <div className="loading-container">
-        <div className="loading-spinner">Cargando...</div>
+      <div className="min-h-screen bg-linear-to-br from-[#0f0c29] to-[#47308b] py-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#b83284] mx-auto"></div>
+            <p className="mt-4 text-[#f0f0f5]">Cargando...</p>
+          </div>
+        </div>
       </div>
     );
   }
@@ -168,6 +173,10 @@ function App() {
             element={
               !user ? <TeacherLogin onLogin={setUser} /> : <Navigate replace to="/" />
             }
+          />
+          <Route
+            path="profile"
+            element={ user ? <Profile user={user} /> : <Navigate to="/" /> }
           />
             <Route
             path="functionary-login"

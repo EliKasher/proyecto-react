@@ -42,11 +42,11 @@ const ProgramContentForm = ({ data, setData }: Props) => {
         </div>
 
         <div className="form-row">
-          <label className="required">¿Qué aprenderemos en este curso?</label>
+          <label htmlFor="course-purpose" className="required">¿Qué aprenderemos en este curso?</label>
           <input
             id="course-purpose"
             type="text"
-            name="coursePurpose"
+            name="course-purpose"
             value={data.course_purpose}
             onChange={(e) => handleCoursePurposeChange(e.target.value)}
             required
@@ -69,7 +69,8 @@ const ProgramContentForm = ({ data, setData }: Props) => {
             <div className="form-group">
               <div className="form-row">
                 <input
-                  name="objective"
+                  id={`objective-${index}`}
+                  name={`objective-${index}`}
                   type="text"
                   value={objective}
                   onChange={(e) => handleObjectiveChange(index, e.target.value)}
