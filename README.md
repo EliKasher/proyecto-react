@@ -80,6 +80,7 @@ Este proyecto busca optimizar un proceso que actualmente requiere más de 40 hor
 ## Estructura del Estado Global
 
 ## Mapa de Rutas y Flujo de Autenticación
+![auth](assets/images/autenticación.png)
 
 ## Descripción Tests E2E
 
