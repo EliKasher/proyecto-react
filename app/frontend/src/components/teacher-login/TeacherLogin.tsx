@@ -2,16 +2,18 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import loginService from "../../services/Login";
 
+import { setUser } from "../../reducers/userReducer";
+
 import type { ILogin } from "../../types/users";
-import type { Teacher } from "../../App";
+
+import { useDispatch } from "react-redux";
+
 import { AxiosError } from "axios";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
-interface TeacherLoginProps {
-  onLogin: (user: Teacher) => void;
-}
 
-const TeacherLogin = ({ onLogin }: TeacherLoginProps) => {
+const TeacherLogin = () => {
+  const dispatch = useDispatch();
   const [teacherCredentials, setTeacherCredentials] = useState<ILogin>({
     rut: "",
     password: "",
@@ -31,7 +33,7 @@ const TeacherLogin = ({ onLogin }: TeacherLoginProps) => {
     event.preventDefault();
     try {
       const user = await loginService.teacherLogin(teacherCredentials);
-      onLogin(user);
+      dispatch(setUser({ ...user, logged: true }));
       toast.success(`Bienvenido ${user.first_name}`);
     } catch (err) {
       if (err instanceof AxiosError) {
@@ -74,17 +76,17 @@ const TeacherLogin = ({ onLogin }: TeacherLoginProps) => {
               required
             />
             <button
-                type="button"
-                onClick={togglePassword}
-                className="password-toggle-btn"
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = "transparent";
-                }}
-              >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
+              type="button"
+              onClick={togglePassword}
+              className="password-toggle-btn"
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = "transparent";
+              }}
+            >
+              {showPassword ? <VisibilityOff /> : <Visibility />}
             </button>
           </div>
 
@@ -98,3 +100,5 @@ const TeacherLogin = ({ onLogin }: TeacherLoginProps) => {
 };
 
 export default TeacherLogin;
+
+

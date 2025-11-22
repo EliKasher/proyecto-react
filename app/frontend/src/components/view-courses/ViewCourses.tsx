@@ -2,6 +2,8 @@ import * as React from "react";
 import teacherService from "../../services/Teacher";
 import { type CourseDate } from "../../types/course";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import type { AppState } from "../../store";
 
 type DataCurso = {
   name: "";
@@ -22,21 +24,17 @@ type Curso = {
   program_content: ContenidoPrograma;
 };
 
-type User = {
-  id: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  roles: string[];
-};
 
-const ViewCourses = (props: { user: User }) => {
+const ViewCourses = () => {
+
+  const user = useSelector((state: AppState) => state.user)
+
   const [cursos, setCursos] = React.useState<Curso[]>([]);
 
   React.useEffect(() => {
     const setup = async () => {
       try {
-        const cursos = await teacherService.getTeacherCourses(props.user.id);
+        const cursos = await teacherService.getTeacherCourses(user.id);
         console.log(cursos);
         setCursos(cursos);
       } catch (error: any) {

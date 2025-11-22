@@ -6,11 +6,15 @@ import '../public/css/app.css';
 import {
   HashRouter as Router,
 } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./store.ts"
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
+    <Provider store={store}>
       <Router>
         <App />
-    </Router>
+      </Router>
+    </Provider>
   </StrictMode>
 )
