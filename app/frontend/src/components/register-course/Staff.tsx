@@ -157,7 +157,7 @@ const StaffForm = ({ data, isValid, showErrors }: Props) => {
                   {member.first_name.length}/{max}
                 </p>
                 {showErrors && errors[index].firstNameError && (
-                  <p className="errors-col">{errors[index].firstNameError}</p>
+                  <p className="error-message">{errors[index].firstNameError}</p>
                 )}
               </div>
               <div className="form-column">
@@ -174,7 +174,7 @@ const StaffForm = ({ data, isValid, showErrors }: Props) => {
                   {member.last_name.length}/{max}
                 </p>
                 {showErrors && errors[index].lastNameError && (
-                  <p className="errors-col">{errors[index].lastNameError}</p>
+                  <p className="error-message">{errors[index].lastNameError}</p>
                 )}
               </div>
             </div>
@@ -191,7 +191,7 @@ const StaffForm = ({ data, isValid, showErrors }: Props) => {
                 required
               />
               {showErrors && errors[index].rutError && (
-                <p className="errors-col">{errors[index].rutError}</p>
+                <p className="error-message">{errors[index].rutError}</p>
               )}
             </div>
 
@@ -206,7 +206,7 @@ const StaffForm = ({ data, isValid, showErrors }: Props) => {
                 required
               />
               {showErrors && errors[index].emailError && (
-                <p className="errors-col">{errors[index].emailError}</p>
+                <p className="error-message">{errors[index].emailError}</p>
               )}
             </div>
 
@@ -222,7 +222,7 @@ const StaffForm = ({ data, isValid, showErrors }: Props) => {
                 required
               />
               {showErrors && errors[index].phoneError && (
-                <p className="errors-col">{errors[index].phoneError}</p>
+                <p className="error-message">{errors[index].phoneError}</p>
               )}
             </div>
           </div>

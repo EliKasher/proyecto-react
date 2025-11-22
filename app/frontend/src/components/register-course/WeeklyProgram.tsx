@@ -138,7 +138,7 @@ const WeeklyProgramForm = ({ data, isValid, showErrors }: Props) => {
                     mínimo es {periodMin}
                   </p>
                   {showErrors && errors[day.day - 1].firstPeriodError && (
-                    <p className="errors-col">
+                    <p className="error-message">
                       {errors[day.day - 1].firstPeriodError}
                     </p>
                   )}
@@ -161,7 +161,7 @@ const WeeklyProgramForm = ({ data, isValid, showErrors }: Props) => {
                     largo mínimo es {classroomMin}
                   </p>
                   {showErrors && errors[day.day - 1].firstClassroomError && (
-                    <p className="errors-col">
+                    <p className="error-message">
                       {errors[day.day - 1].firstClassroomError}
                     </p>
                   )}
@@ -187,7 +187,7 @@ const WeeklyProgramForm = ({ data, isValid, showErrors }: Props) => {
                     largo mínimo es {periodMin}
                   </p>
                   {showErrors && errors[day.day - 1].secondPeriodError && (
-                    <p className="errors-col">
+                    <p className="error-message">
                       {errors[day.day - 1].secondPeriodError}
                     </p>
                   )}
@@ -210,7 +210,7 @@ const WeeklyProgramForm = ({ data, isValid, showErrors }: Props) => {
                     El largo mínimo es {classroomMin}
                   </p>
                   {showErrors && errors[day.day - 1].secondClassroomError && (
-                    <p className="errors-col">
+                    <p className="error-message">
                       {errors[day.day - 1].secondClassroomError}
                     </p>
                   )}

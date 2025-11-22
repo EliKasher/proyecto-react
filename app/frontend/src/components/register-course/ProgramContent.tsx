@@ -115,7 +115,7 @@ const ProgramContentForm = ({ data, showErrors, isValid }: Props) => {
           />
           <p> {data.course_purpose.length}/500 Mínimo 250 carácteres</p>
           {showErrors && errors.purpose && (
-            <p className="errors-col">{errors.purpose}</p>
+            <p className="error-message">{errors.purpose}</p>
           )}
         </div>
 
@@ -144,14 +144,14 @@ const ProgramContentForm = ({ data, showErrors, isValid }: Props) => {
                 />
                 <p> {objective.length}/250 Mínimo 100 carácteres</p>
                 {showErrors && errors.objectives[index] && (
-                  <p className="errors-col">{errors.objectives[index]}</p>
+                  <p className="error-message">{errors.objectives[index]}</p>
                 )}
               </div>
             </div>
           </div>
         ))}
         {data.learning_objectives.length === 0 && showErrors && (
-          <p className="errors-col">{errors.zeroObjectives}</p>
+          <p className="error-message">{errors.zeroObjectives}</p>
         )}
 
         <div className="actions">

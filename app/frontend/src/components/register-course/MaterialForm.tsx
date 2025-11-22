@@ -118,7 +118,7 @@ const MaterialForm = ({ data, isValid, showErrors }: Props) => {
                 />
                 <p className="recommendations-col">El nombre del material.</p>
                 {showErrors && errors[index].name.msg && (
-                  <p className="errors-col">{errors[index].name.msg}</p>
+                  <p className="error-message">{errors[index].name.msg}</p>
                 )}
               </div>
               <div className="form-column">
@@ -137,7 +137,7 @@ const MaterialForm = ({ data, isValid, showErrors }: Props) => {
                 </p>
 
                 {showErrors && errors[index].quantity.msg && (
-                  <p className="errors-col">{errors[index].quantity.msg}</p>
+                  <p className="error-message">{errors[index].quantity.msg}</p>
                 )}
               </div>
             </div>
@@ -154,7 +154,7 @@ const MaterialForm = ({ data, isValid, showErrors }: Props) => {
                 Enlace de referencia o compra del material.
               </p>
               {showErrors && errors[index].link.msg && (
-                <p className="errors-col">{errors[index].link.msg}</p>
+                <p className="error-message">{errors[index].link.msg}</p>
               )}
             </div>
           </div>
