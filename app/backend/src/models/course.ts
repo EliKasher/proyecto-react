@@ -10,6 +10,9 @@ if (uri) {
   });
 }
 
+const courseNameMaxLength = 40;
+const courseNameMinLength = 5;
+
 const CourseStartSchema = new mongoose.Schema(
   {
     start_date: String,
@@ -26,7 +29,8 @@ const CourseDataSchema = new mongoose.Schema(
       type: String,
       required: [true, "Nombre del curso es obligatorio.\n"],
       validate: {
-        validator: (v: string) => v.length > 3,
+        validator: (v: string) =>
+          v.length > courseNameMinLength && v.length < courseNameMaxLength,
         message: "Nombre del curso debe ser de al menos 3 carácteres.\n",
       },
     },
