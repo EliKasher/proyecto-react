@@ -9,6 +9,7 @@ import MultiStepForm from "./components/register-course/Multistep";
 import ViewCourses from "./components/view-courses/ViewCourses";
 import NewTeacherRegister from "./components/teacher-register/NewTeacherRegister";
 import TeacherLogin from "./components/teacher-login/TeacherLogin";
+import FunctionaryLogin from "./components/functionary-login/FunctionaryLogin.tsx";
 import { ToastContainer } from "react-toastify";
 import Header from "./components/Header";
 import LoginService from "./services/Login";
@@ -177,6 +178,12 @@ function App() {
             path="profile"
             element={ user ? <Profile user={user} /> : <Navigate to="/" /> }
           />
+            <Route
+            path="functionary-login"
+            element={
+                !user ? <FunctionaryLogin onLogin={setUser} /> : <Navigate replace to="/" />
+            }
+        />
         </Routes>
 
         <ToastContainer position="top-right" autoClose={3000} />
