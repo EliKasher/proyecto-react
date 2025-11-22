@@ -5,37 +5,145 @@ import {
   type CourseDateSchema,
 } from "../../types/coursesSchema.ts";
 import { type CourseData, type CourseDate } from "../../types/course.ts";
+import { useDispatch } from "react-redux";
+import { setCourseData, updateIsValid } from "../../reducers/formReducer.ts";
 
 type Props = {
   data: CourseData;
-  setData: React.Dispatch<React.SetStateAction<CourseData>>;
   faculties: FacultySchema[];
-  educationalLevel: EducationalLevelSchema[];
+  educationalLevels: EducationalLevelSchema[];
   dates: CourseDateSchema[];
+  isValid: boolean;
+  showErrors: boolean;
 };
 
 const CourseForm = ({
-  data,
-  setData,
   faculties,
-  educationalLevel,
+  educationalLevels,
   dates,
+  data,
+  isValid,
+  showErrors,
 }: Props) => {
+  const dispatch = useDispatch();
+
   const handleEducationalLevelChange = (checked: boolean, value: string) => {
     if (checked && !data.educational_level.includes(value)) {
-      setData({
-        ...data,
-        educational_level: [...data.educational_level, value],
-      });
+      dispatch(
+        setCourseData({
+          ...data,
+          educational_level: [...data.educational_level, value],
+        })
+      );
     } else if (!checked) {
-      setData({
-        ...data,
-        educational_level: data.educational_level.filter(
-          (val) => val !== value
-        ),
-      });
+      dispatch(
+        setCourseData({
+          ...data,
+          educational_level: data.educational_level.filter(
+            (val) => val !== value
+          ),
+        })
+      );
     }
   };
+
+  const errors = {
+    name: "",
+    faculty: "",
+    levels: "",
+    quota: "",
+    dates: "",
+  };
+
+  const validate: () => boolean = () => {
+    let errs = 0;
+
+    // Name validation
+    if (data.name.length < 5) {
+      errs++;
+      errors.name = "El nombre debe tener mínimo 5 carácteres.";
+    }
+
+    // Check faculty is valid
+    if (!faculties.map((f) => f.name).includes(data.faculty)) {
+      errs++;
+      errors.faculty = "Por favor seleccionar una facultad.";
+    }
+
+    const educationalLevelsNames = educationalLevels.map((e) => e.level);
+
+    // At least one level
+    if (data.educational_level.length === 0) {
+      errs++;
+      errors.levels = "Por favor seleccione al menos un nivel.";
+    } else {
+      const uniqueLevels = new Set(data.educational_level);
+
+      // Check no dupes
+      if (uniqueLevels.size !== data.educational_level.length) {
+        errs++;
+        errors.levels = "No puede seleccionar el mismo nivel dos veces.";
+      }
+
+      // Check all levels are valid, break when at least one isn't
+      for (let i = 0; i < data.educational_level.length; i++) {
+        const lvl = data.educational_level[i];
+        if (!educationalLevelsNames.includes(lvl)) {
+          errs++;
+          const errMsg = "Un nivel seleccionado no es una opción valida.";
+          errors.levels =
+            errors.levels === "" ? errMsg : errors.levels + "\\" + errMsg;
+          break;
+        }
+      }
+    }
+
+    // Quota
+    if (data.quota < 25) {
+      errs++;
+      errors.quota = "El mínimo cupo es 25, actual: " + data.quota;
+    }
+
+    // Fechas
+    if (data.course_start.length === 0) {
+      errs++;
+      errors.dates = "Seleccione al menos una fecha.";
+    } else {
+      // JSON.stringify to compare objects by value (not reference)
+      const datesSet = new Set(data.course_start.map((d) => JSON.stringify(d)));
+      if (datesSet.size !== data.course_start.length) {
+        errs++;
+        errors.dates =
+          "No puede seleccionar la misma fecha de inicio mas de una vez.";
+      }
+
+      const datesNoId = dates.map((d) => {
+        const { id, ...rest } = d;
+        return rest;
+      });
+
+      for (let i = 0; i < data.course_start.length; i++) {
+        const start = data.course_start[i];
+        const found = datesNoId.some(
+          (d) => JSON.stringify(d) === JSON.stringify(start)
+        );
+        if (!found) {
+          errs++;
+          const errMsg = "Una fecha seleccionada no es una opción valida.";
+          errors.dates =
+            errors.dates === "" ? errMsg : errors.dates + "\\" + errMsg;
+          break;
+        }
+      }
+    }
+
+    return errs === 0;
+  };
+
+  const status = validate();
+  if (status !== isValid) {
+    dispatch(updateIsValid(status));
+  }
 
   const handleQuotaChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let newQuota = Number(event.target.value);
@@ -44,7 +152,7 @@ const CourseForm = ({
       newQuota = 25;
     }
 
-    setData({ ...data, quota: newQuota });
+    dispatch(setCourseData({ ...data, quota: newQuota }));
   };
 
   const handleDateChange = (
@@ -62,20 +170,27 @@ const CourseForm = ({
     };
 
     if (checked) {
-      setData({ ...data, course_start: [...data.course_start, newDate] });
+      dispatch(
+        setCourseData({
+          ...data,
+          course_start: [...data.course_start, newDate],
+        })
+      );
     } else {
-      setData({
-        ...data,
-        course_start: data.course_start.filter(
-          (d) =>
-            !(
-              d.start_date === newDate.start_date &&
-              d.end_date === newDate.end_date &&
-              d.start_month === newDate.start_month &&
-              d.end_month === newDate.end_month
-            )
-        ),
-      });
+      dispatch(
+        setCourseData({
+          ...data,
+          course_start: data.course_start.filter(
+            (d) =>
+              !(
+                d.start_date === newDate.start_date &&
+                d.end_date === newDate.end_date &&
+                d.start_month === newDate.start_month &&
+                d.end_month === newDate.end_month
+              )
+          ),
+        })
+      );
     }
   };
 
@@ -94,15 +209,20 @@ const CourseForm = ({
               placeholder="ej: Álgebra Universitaria"
               name="course-name"
               value={data.name}
-              onChange={(e) => setData({ ...data, name: e.target.value })}
+              onChange={(e) =>
+                dispatch(setCourseData({ ...data, name: e.target.value }))
+              }
             />
             <p className="recommendations">
               Recuerda usar un nombre atractivo para las y los estudiantes
             </p>
+            {showErrors && errors.name && (
+              <p className="errors-col">{errors.name}</p>
+            )}
           </div>
           <div className="form-row">
             <label
-              htmlFor="faculty" 
+              htmlFor="faculty"
               className="required"
             >
               Facultad en la que se impartirá el curso
@@ -111,7 +231,9 @@ const CourseForm = ({
               id="faculty"
               name="faculty"
               value={data.faculty}
-              onChange={(e) => setData({ ...data, faculty: e.target.value })}
+              onChange={(e) =>
+                dispatch(setCourseData({ ...data, faculty: e.target.value }))
+              }
               required
             >
               <option value="">Seleccione</option>
@@ -121,17 +243,18 @@ const CourseForm = ({
                 </option>
               ))}
             </select>
+            {showErrors && errors.faculty && (
+              <p className="errors-col">{errors.faculty}</p>
+            )}
           </div>
           <div className="form-row">
-            <label 
+            <label
               className="required"
             >
               Niveles Educativos a los cuales va dirigido el curso
             </label>
-            {educationalLevel.map((item, index) => (
-              <label 
-                key={index}
-              >
+            {educationalLevels.map((item, index) => (
+              <label key={index}>
                 <input
                   id={`course-level-${item}`}
                   name={`course-level-${item}`}
@@ -144,6 +267,9 @@ const CourseForm = ({
                 {item.level}°
               </label>
             ))}
+            {showErrors && errors.levels && (
+              <p className="errors-col">{errors.levels}</p>
+            )}
           </div>
           <div className="form-row">
             <label
@@ -164,6 +290,9 @@ const CourseForm = ({
             <p className="recommendations">
               Esta cantidad no puede ser menor a 25 estudiantes
             </p>
+            {showErrors && errors.quota && (
+              <p className="errors-col">{errors.quota}</p>
+            )}
           </div>
           <div className="form-row">
             <label className="required">
@@ -209,6 +338,9 @@ const CourseForm = ({
                   </label>
                 );
               }
+            )}
+            {showErrors && errors.dates && (
+              <p className="errors-col">{errors.dates}</p>
             )}
           </div>
         </div>

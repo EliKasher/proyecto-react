@@ -21,8 +21,8 @@
   }
 }
 
-
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -232,11 +232,11 @@ button:focus-visible {
     padding: 1rem;
     margin: -2rem auto 2rem auto;
   }
-  
+
   .header-nav-link {
     padding: 0.6rem 1.2rem;
   }
-  
+
   .header-user {
     padding: 0.6rem 1.2rem;
   }
@@ -249,29 +249,29 @@ button:focus-visible {
     margin: -2rem auto 2rem auto;
     gap: 10px;
   }
-  
+
   .header-nav {
     width: 100%;
   }
-  
+
   .header-nav-list {
     flex-wrap: wrap;
     justify-content: center;
   }
-  
+
   .header-nav-link {
     padding: 0.5rem 1rem;
   }
-  
+
   .header-user {
     width: 100%;
     justify-content: center;
   }
-  
+
   .header-label {
     display: none;
   }
-  
+
   .header-nav-link {
     padding: 0.75rem;
   }
@@ -283,29 +283,29 @@ button:focus-visible {
     padding: 1rem;
     margin: -2rem auto 2rem auto;
   }
-  
+
   .header-nav {
     width: 100%;
   }
-  
+
   .header-nav-list {
     flex-wrap: wrap;
     justify-content: center;
   }
-  
+
   .header-nav-link {
     padding: 0.5rem 1rem;
   }
-  
+
   .header-user {
     width: 100%;
     justify-content: center;
   }
-  
+
   .header-label {
     display: none;
   }
-  
+
   .header-nav-link {
     padding: 0.75rem;
   }
@@ -319,7 +319,7 @@ button:focus-visible {
 }
 
 .header::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -334,14 +334,14 @@ button:focus-visible {
 }
 
 .card-section-header {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .row-flex {
-    display: flex;
-    flex-direction: row;
-    justify-content:space-around;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .card {
@@ -356,16 +356,16 @@ button:focus-visible {
 }
 
 .actions {
-    display: flex;
-    justify-content: left;
-    width: 100% ;
+  display: flex;
+  justify-content: left;
+  width: 100%;
 }
 
 .submit-btn {
-    padding: 12px 30px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 .cancel-btn {
@@ -376,24 +376,24 @@ button:focus-visible {
 }
 
 .add-btn {
-    align-self: flex-start;
-    padding: 12px 30px;
-    cursor: pointer;
-    margin: 0;
+  align-self: flex-start;
+  padding: 12px 30px;
+  cursor: pointer;
+  margin: 0;
 }
 
 .next-btn {
-    align-self: flex-start;
-    padding: 12px 30px;
-    cursor: pointer;
-    margin: 0;
+  align-self: flex-start;
+  padding: 12px 30px;
+  cursor: pointer;
+  margin: 0;
 }
 
 .back-btn {
-    align-self: flex-start;
-    padding: 12px 30px;
-    cursor: pointer;
-    margin: 0;
+  align-self: flex-start;
+  padding: 12px 30px;
+  cursor: pointer;
+  margin: 0;
 }
 
 .password-toggle-btn {
@@ -416,61 +416,61 @@ button:focus-visible {
 .add-btn:hover,
 .next-btn:hover,
 .back-btn:hover {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 .submit-btn:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 .date-label {
-    display: flex;
-    align-items: center;
-    margin: 5px 0;
-    cursor: pointer;
-    padding: 8px 12px;
-    border-radius: 6px;
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 6px;
 }
 
 .date-label input[type="checkbox"] {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .form-container {
-    margin: 0 auto;
-    border-radius: 12px;
-    padding: 30px;
-    width: 100%;
-    max-width: 900px;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    box-sizing: border-box;
+  margin: 0 auto;
+  border-radius: 12px;
+  padding: 30px;
+  width: 100%;
+  max-width: 900px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-sizing: border-box;
 }
 
 @media (max-width: 480px) {
-    .form-container {
-        max-width: 95%;
-        padding: 20px;
-        margin: 0 auto; 
-    }
+  .form-container {
+    max-width: 95%;
+    padding: 20px;
+    margin: 0 auto;
+  }
 }
 
 .form-section {
-    width: 90%;
-    margin: 0 auto;
+  width: 90%;
+  margin: 0 auto;
 }
 
 .form-group {
-    width: 100%;
+  width: 100%;
 }
 
 .form-row {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 2.5rem;
-    margin-top: 5px;
-    position: relative;
-    min-height: 85px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2.5rem;
+  margin-top: 5px;
+  position: relative;
+  min-height: 85px;
 }
 
 .form-row ul li {
@@ -478,118 +478,123 @@ button:focus-visible {
 }
 
 .form-row label {
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
 }
-
 
 .required:after {
-    content: ' *';
+  content: " *";
 }
 
-.form-row input, 
+.form-row input,
 .form-row select {
-    padding: 14px 16px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    box-sizing: border-box;
+  padding: 14px 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
 .form-row textarea {
-    padding: 14px 0px;
-    border-radius: 8px;
-    box-sizing: border-box;
+  padding: 14px 0px;
+  border-radius: 8px;
+  box-sizing: border-box;
 }
 
 .form-row select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    width: 100%;
-    padding-right: 40px;
-    cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  padding-right: 40px;
+  cursor: pointer;
 }
 
 .form-row select option {
-    padding: 12px;
+  padding: 12px;
 }
 
 .form-row label:has(input[type="checkbox"]) {
-    display: flex;
-    align-items: center;
-    margin: 5px 0;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+  cursor: pointer;
 }
 
 .form-row label:has(input[type="checkbox"]) input {
-    margin-right: 8px;
+  margin-right: 8px;
 }
 
 .form-column {
-    min-width: 0;
-    width: 100%;
-    max-width: 500px;
+  min-width: 0;
+  width: 100%;
+  max-width: 500px;
 }
 
 #classroom-1,
 #classroom-2 {
-    width: 100%;
-    max-width: 200px;
+  width: 100%;
+  max-width: 200px;
 }
 
 .form-column textarea {
-    box-sizing: border-box;
-    width: 90%;
-    max-width: 500px;
-    resize: vertical;
+  box-sizing: border-box;
+  width: 90%;
+  max-width: 500px;
+  resize: vertical;
 }
 
 .form-column input {
-    padding: 14px 14px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    box-sizing: border-box;
-    width: 100%;
-    margin-top: 8px;
+  padding: 14px 14px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 8px;
 }
 
 .form-card-group {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
 
 .recommendations {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: 8px 12px;
-    border-radius: 6px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  border-radius: 6px;
 }
 
 .recommendations-col {
-    margin-top: 8px;
-    padding: 8px 12px;
-    border-radius: 6px;
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
 }
 
-.multistep  {
-    padding: 20px 0;
+.errors-col {
+  margin-top: 8px;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.multistep {
+  padding: 20px 0;
 }
 
 .multistep .nav-buttons {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-top: 30px;
-    padding: 20px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 30px;
+  padding: 20px 0;
 }
 
 .nav-btn {
-    padding: 12px 30px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    min-width: 120px;
+  padding: 12px 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
 }
 
 .error-message {
@@ -602,6 +607,20 @@ button:focus-visible {
   border-radius: 4px;
 }
 
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 16px;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #f0f0f5;
+  font-size: 1rem;
+  line-height: 1.4;
+  resize: vertical;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
 @media (max-width: 768px) {
   .password-toggle-btn {
     right: 8px;
@@ -609,7 +628,7 @@ button:focus-visible {
     width: 32px;
     padding: 6px;
   }
-  
+
   .error-message {
     font-size: 0.8rem;
   }
@@ -621,7 +640,7 @@ button:focus-visible {
     height: 30px;
     width: 30px;
   }
-  
+
   .error-message {
     bottom: -40px;
   }

@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import TeachersModel from "../models/teacher";
 import { authenticate, requireRole } from "./roles";
 import CoursesModel from "../models/course";
+import validators from "../utils/validators";
 
 const teachersRouter = express.Router();
 
@@ -51,8 +52,17 @@ teachersRouter.post("/", async (request, response, next) => {
       password,
     } = request.body;
 
-    const saltRounds = 10;
-    const passwordHash = await bcrypt.hash(password, saltRounds);
+    let passwordHash = password;
+
+    console.log(!validators.passwordValidator.validator(password));
+
+    if (validators.passwordValidator.validator(password)) {
+      // only hash when password satisfies constraints
+      // if not, then it will break when trying to use it as a valid password
+      // this way we also catch other form errors
+      const saltRounds = 10;
+      passwordHash = await bcrypt.hash(password, saltRounds);
+    }
 
     const user = new TeachersModel({
       rut: rut,

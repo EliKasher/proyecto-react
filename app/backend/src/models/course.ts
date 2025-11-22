@@ -49,7 +49,7 @@ const CourseDataSchema = new mongoose.Schema(
       type: Number,
       required: [true, "El cupo del curso es obligatorio.\n"],
       validate: {
-        validator: (v: Number) => Number(v) > 25,
+        validator: (v: Number) => Number(v) > 24,
         message: "El cupo minimo del curso debe ser de 25.\n",
       },
     },
@@ -115,7 +115,6 @@ const courseSchema = new mongoose.Schema({
           second_classroom: String;
         }>
       ) => {
-
         if (!v) {
           return false;
         }
@@ -123,7 +122,7 @@ const courseSchema = new mongoose.Schema({
         for (let i = 0; i < v.length; i++) {
           if (
             !v[i]?.first_classroom ||
-            !v[i]?.second_classroom||
+            !v[i]?.second_classroom ||
             !v[i]?.first_period ||
             !v[i]?.second_period ||
             (v[i]?.first_period.length === 0 &&
@@ -162,6 +161,11 @@ const courseSchema = new mongoose.Schema({
     quantity: Number;
     link: String;
   }>,
+  state: {
+    // 1 = valid and saved // 0 = incomplete
+    type: Number,
+    required: true,
+  },
 });
 
 const CoursesModel = mongoose.model("courses", courseSchema);

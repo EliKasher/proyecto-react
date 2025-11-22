@@ -1,4 +1,7 @@
 export interface RegisterForm {
+  currentPageNumber: number;
+  currentPageIsValid: boolean;
+  showErrors: boolean;
   course_data: CourseData;
   program_content: ProgramContent;
   weekly_planification: DailyPlanification[]; // 5 days

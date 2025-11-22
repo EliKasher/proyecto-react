@@ -2,6 +2,8 @@ import React from "react";
 import { toast } from "react-toastify";
 import teacherService from "../../services/Teacher";
 import functionaryService from "../../services/Functionary";
+import { useSelector } from "react-redux";
+import type { AppState } from "../../store";
 
 
 export type User = {
@@ -20,12 +22,13 @@ type UserInfo = {
     roles: string[];
     rut: string,
     phone: string | null,
-    degree: string | null, 
+    degree: string | null,
     college_relationship: string | null,
 };
 
-const Profile = (props: { user: User }) => {
-    const user = props.user;
+const Profile = () => {
+    //c //onst user = props.user;
+    const user = useSelector((state: AppState) => state.user)
     const [userInfo, setUserInfo] = React.useState<UserInfo | null>(null);
     const [isLoading, setIsLoading] = React.useState(true);
 
@@ -109,7 +112,7 @@ const Profile = (props: { user: User }) => {
                                     <h3 className="text-lg font-semibold text-[#f0f0f5] border-b border-[rgba(123,108,246,0.5)] pb-2">
                                         Información Personal
                                     </h3>
-                                    
+
                                     {userInfo.email && (
                                         <div className="space-y-2">
                                             <label className="text-sm font-medium text-[#a685ff]">Correo Electrónico</label>
@@ -172,7 +175,7 @@ const Profile = (props: { user: User }) => {
                                                 <svg className="w-5 h-5 text-[#7b6cf6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                                                 </svg>
-                                                <p className="text-[#f0f0f5]">{userInfo.college_relationship === "other" ?  "Otra" : userInfo.college_relationship}</p>
+                                                <p className="text-[#f0f0f5]">{userInfo.college_relationship === "other" ? "Otra" : userInfo.college_relationship}</p>
                                             </div>
                                         </div>
                                     )}

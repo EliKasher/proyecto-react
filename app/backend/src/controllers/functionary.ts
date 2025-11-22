@@ -2,59 +2,76 @@ import express from "express";
 import bcrypt from "bcrypt";
 import FunctionaryModel from "../models/functionary";
 import { authenticate, requireRole } from "./roles";
+import validators from "../utils/validators";
 
 const functionaryRouter = express.Router();
 
-functionaryRouter.get("/", authenticate, requireRole(['functionary']), async (request, response) => {
+functionaryRouter.get(
+  "/",
+  authenticate,
+  requireRole(["functionary"]),
+  async (request, response) => {
     try {
-        const functionaries = await FunctionaryModel.find({});
+      const functionaries = await FunctionaryModel.find({});
 
-        response.status(201).json(functionaries);
+      response.status(201).json(functionaries);
     } catch (error) {
-        // to be replaced to middleware call
-        response.status(400).json(error);
+      // to be replaced to middleware call
+      response.status(400).json(error);
     }
-});
+  }
+);
 
-functionaryRouter.get("/:id", authenticate, requireRole(['functionary']), async (request, response) => {
+functionaryRouter.get(
+  "/:id",
+  authenticate,
+  requireRole(["functionary"]),
+  async (request, response) => {
     try {
-        const teacher = await FunctionaryModel.findById(request.params.id)
+      const teacher = await FunctionaryModel.findById(request.params.id);
 
-        response.status(201).json(teacher)
+      response.status(201).json(teacher);
     } catch (error) {
-        // to be replaced to middleware call
-        response.status(400).json(error);
+      // to be replaced to middleware call
+      response.status(400).json(error);
     }
-});
+  }
+);
 
-functionaryRouter.post("/", authenticate, requireRole(['functionary']), async (request, response, next) => {
+functionaryRouter.post(
+  "/",
+  authenticate,
+  requireRole(["functionary"]),
+  async (request, response, next) => {
     try {
-        const {
-            rut,
-            first_name,
-            last_name,
-            email,
-            password,
-        } = request.body;
+      const { rut, first_name, last_name, email, password } = request.body;
 
+      let passwordHash = password;
+
+      if (validators.passwordValidator.validator(password)) {
+        // only hash when password satisfies constraints
+        // if not, then it will break when trying to use it as a valid password
+        // this way we also catch other form errors
         const saltRounds = 10;
-        const passwordHash = await bcrypt.hash(password, saltRounds);
+        passwordHash = await bcrypt.hash(password, saltRounds);
+      }
 
-        const user = new FunctionaryModel({
-            rut: rut,
-            email: email,
-            password: passwordHash,
-            first_name: first_name,
-            last_name: last_name,
-        });
+      const user = new FunctionaryModel({
+        rut: rut,
+        email: email,
+        password: passwordHash,
+        first_name: first_name,
+        last_name: last_name,
+      });
 
-        const newTeacher = await user.save();
+      const newTeacher = await user.save();
 
-        response.status(201).json(newTeacher);
+      response.status(201).json(newTeacher);
     } catch (error) {
-        // to be replaced to middleware call
-        next(error);
+      // to be replaced to middleware call
+      next(error);
     }
-});
+  }
+);
 
 export default functionaryRouter;

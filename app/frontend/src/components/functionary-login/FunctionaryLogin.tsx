@@ -2,16 +2,16 @@ import { toast } from "react-toastify";
 import loginService from "../../services/Login";
 
 import type { ILogin } from "../../types/users";
-import type { Functionary } from "../../App";
 import { AxiosError } from "axios";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import {useState} from "react";
+import { useState } from "react";
 
-interface FunctionaryLoginProps {
-    onLogin: (user: Functionary) => void;
-}
+import { setUser } from "../../reducers/userReducer";
+import { useDispatch } from "react-redux";
 
-const FunctionaryLogin = ({ onLogin }: FunctionaryLoginProps) => {
+
+const FunctionaryLogin = () => {
+    const dispatch = useDispatch();
     const [functionaryCredentials, setFunctionaryCredentials] = useState<ILogin>({
         rut: "",
         password: "",
@@ -31,7 +31,7 @@ const FunctionaryLogin = ({ onLogin }: FunctionaryLoginProps) => {
         event.preventDefault();
         try {
             const user = await loginService.functionaryLogin(functionaryCredentials);
-            onLogin(user);
+            dispatch(setUser({ ...user, logged: true }));
             toast.success(`Bienvenido ${user.first_name}`);
         } catch (err) {
             if (err instanceof AxiosError) {
