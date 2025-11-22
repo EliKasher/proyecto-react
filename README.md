@@ -97,4 +97,4 @@ El registro de un curso se realiza con la metodología step-by-step para hacer m
 La librería de estilos elegida es tailwindcss por su amplio uso en muchas plataformas.
 
 ## URL de la aplicación
-https://fullstack.dcc.uchile.cl/8081
+https://fullstack.dcc.uchile.cl/7181
