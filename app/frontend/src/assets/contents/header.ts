@@ -60,7 +60,7 @@ export const getHeaderItems = (userRole: string): HeaderItem[] => {
     },
     {
       id: "login-functionary",
-      path: "/login-functionary",
+      path: "/functionary-login",
       label: "Ingreso Funcionarios"
     }
   ];
