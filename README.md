@@ -80,7 +80,7 @@ Este proyecto busca optimizar un proceso que actualmente requiere más de 40 hor
 ## Estructura del Estado Global
 
 ## Mapa de Rutas y Flujo de Autenticación
-![auth](https://github.com/EliKasher/proyecto-react/tree/main/app/frontend/src/assets/images/autenticación.png)
+![auth](https://github.com/EliKasher/proyecto-react/tree/main/app/frontend/src/assets/images/autenticación.png "Flujo de Autenticación")
 
 ## Descripción Tests E2E
 
