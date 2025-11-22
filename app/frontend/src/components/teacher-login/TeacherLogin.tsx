@@ -42,8 +42,8 @@ const TeacherLogin = ({ onLogin }: TeacherLoginProps) => {
       } else {
         toast.error("Error desconocido");
       }
+    } 
   };
-
 
   return (
     <form className="form-container" onSubmit={handleSubmit}>
