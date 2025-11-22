@@ -100,7 +100,7 @@ loginRouter.post("/restore", authenticate, async (request, response, next) => {
         break;
       default:
         console.log("Unmatched case: ", rol);
-        response.status(401).json({ error: "Invalid token" });
+        response.status(401).json({ error: "Invalid user role in token" });
     }
   } catch (error) {
     next(error);

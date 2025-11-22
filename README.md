@@ -80,6 +80,8 @@ Este proyecto busca optimizar un proceso que actualmente requiere más de 40 hor
 ## Estructura del Estado Global
 
 ## Mapa de Rutas y Flujo de Autenticación
+<img width="1081" height="744" alt="autenticación" src="https://github.com/user-attachments/assets/751b59f9-5f8f-412a-bfd3-0e6f057c42a7" />
+
 
 ## Descripción Tests E2E
 
@@ -94,7 +96,7 @@ El formulario de registro se realiza de tal manera que posteriormente sea más e
 El inicio de sesión se realiza con el RUT dado que es la herramienta de identificación chilena y existe diferenciación entre loggeo de funcionarios y profesores para hacer más seguro el uso de roles.
 El registro de un curso se realiza con la metodología step-by-step para hacer más digerible el rellenado de datos, además de autorellenarse los datos personales requeridos.
 
-La librería de estilos elegida es tailwindcss por su amplio uso en muchas plataformas.
+La librería de estilos elegida es tailwindcss por su amplio uso en muchas plataformas, su comodidad de uso y especificidad.
 
 ## URL de la aplicación
-https://fullstack.dcc.uchile.cl/8081
+https://fullstack.dcc.uchile.cl/7181

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import loginService from "../../services/Login";
 
@@ -43,7 +43,7 @@ const TeacherLogin = () => {
       } else {
         toast.error("Error desconocido");
       }
-    }
+    } 
   };
 
   return (

@@ -13,6 +13,7 @@ import Home from "./components/home/Home.tsx";
 import { useDispatch, useSelector } from "react-redux";
 import { resetUser, setUser } from "./reducers/userReducer.ts";
 import { type AppState } from "./store.ts";
+import Profile from "./components/profile/Profile";
 
 export type Teacher = {
   id: string;
@@ -72,8 +73,13 @@ function App() {
 
   if (loading) {
     return (
-      <div className="loading-container">
-        <div className="loading-spinner">Cargando...</div>
+      <div className="min-h-screen bg-linear-to-br from-[#0f0c29] to-[#47308b] py-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#b83284] mx-auto"></div>
+            <p className="mt-4 text-[#f0f0f5]">Cargando...</p>
+          </div>
+        </div>
       </div>
     );
   }
@@ -106,6 +112,10 @@ function App() {
         <Route
           path="functionary-login"
           element={!user.logged ? <FunctionaryLogin /> : <Navigate to="/" />}
+        />
+        <Route
+          path="profile"
+          element={user ? <Profile /> : <Navigate to="/" />}
         />
       </Routes>
 
