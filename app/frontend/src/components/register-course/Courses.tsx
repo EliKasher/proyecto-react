@@ -217,7 +217,7 @@ const CourseForm = ({
               Recuerda usar un nombre atractivo para las y los estudiantes
             </p>
             {showErrors && errors.name && (
-              <p className="errors-col">{errors.name}</p>
+              <p className="error-message">{errors.name}</p>
             )}
           </div>
           <div className="form-row">
@@ -244,7 +244,7 @@ const CourseForm = ({
               ))}
             </select>
             {showErrors && errors.faculty && (
-              <p className="errors-col">{errors.faculty}</p>
+              <p className="error-message">{errors.faculty}</p>
             )}
           </div>
           <div className="form-row">
@@ -268,7 +268,7 @@ const CourseForm = ({
               </label>
             ))}
             {showErrors && errors.levels && (
-              <p className="errors-col">{errors.levels}</p>
+              <p className="error-message">{errors.levels}</p>
             )}
           </div>
           <div className="form-row">
@@ -291,7 +291,7 @@ const CourseForm = ({
               Esta cantidad no puede ser menor a 25 estudiantes
             </p>
             {showErrors && errors.quota && (
-              <p className="errors-col">{errors.quota}</p>
+              <p className="error-message">{errors.quota}</p>
             )}
           </div>
           <div className="form-row">
@@ -340,7 +340,7 @@ const CourseForm = ({
               }
             )}
             {showErrors && errors.dates && (
-              <p className="errors-col">{errors.dates}</p>
+              <p className="error-message">{errors.dates}</p>
             )}
           </div>
         </div>
