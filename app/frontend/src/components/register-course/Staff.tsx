@@ -1,36 +1,41 @@
-import React from "react";
 import { type Staff } from "../../types/course";
+import { useDispatch } from "react-redux";
+import { setStaff, addStaff, removeStaff } from "../../reducers/formReducer";
 
 type Props = {
   data: Staff[];
-  setData: React.Dispatch<React.SetStateAction<Staff[]>>;
 };
 
-const StaffForm = ({ data, setData }: Props) => {
-  const handleChangeStaff = (index: number, field: keyof Staff, value: string) => {
+const StaffForm = ({ data }: Props) => {
+  const dispatch = useDispatch();
+
+  const handleChangeStaff = (
+    index: number,
+    field: keyof Staff,
+    value: string
+  ) => {
     const updatedStaff = data.map((member, i) =>
       i === index ? { ...member, [field]: value } : member
     );
-    setData(updatedStaff);
+    dispatch(setStaff(updatedStaff));
   };
 
   const handleAddStaff = () => {
-    setData([
-      ...data,
-      {
+    dispatch(
+      addStaff({
         first_name: "",
         last_name: "",
         rut: "",
         email: "",
         phone: "",
         position: "",
-      },
-    ]);
+      })
+    );
   };
 
   const handleRemoveStaff = (index: number) => {
     if (data.length <= 0) return;
-    setData(data.filter((_, i) => i !== index));
+    dispatch(removeStaff(index));
   };
 
   return (
@@ -39,11 +44,11 @@ const StaffForm = ({ data, setData }: Props) => {
         <div className="section-header">
           <h3>Equipo Docente del Curso</h3>
           <p className="recommendations">
-            Estos datos se utilizarán para la gestión del curso y el procesamiento
-            de pagos. En el caso de los miembros que reciban pagos por beca
-            laboral o convenio, será responsabilidad del equipo docente completar
-            los formularios correspondientes con sus documentos, a fin de no
-            retrasar dichos pagos.
+            Estos datos se utilizarán para la gestión del curso y el
+            procesamiento de pagos. En el caso de los miembros que reciban pagos
+            por beca laboral o convenio, será responsabilidad del equipo docente
+            completar los formularios correspondientes con sus documentos, a fin
+            de no retrasar dichos pagos.
           </p>
         </div>
 

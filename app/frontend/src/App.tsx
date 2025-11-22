@@ -1,8 +1,4 @@
-import {
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import MultiStepForm from "./components/register-course/Multistep";
 import ViewCourses from "./components/view-courses/ViewCourses";
@@ -16,7 +12,7 @@ import Home from "./components/home/Home.tsx";
 
 import { useDispatch, useSelector } from "react-redux";
 import { resetUser, setUser } from "./reducers/userReducer.ts";
-import { type AppState } from "./store.ts"
+import { type AppState } from "./store.ts";
 
 export type Teacher = {
   id: string;
@@ -34,13 +30,12 @@ export type Functionary = {
   roles: string[];
 };
 
-
 function App() {
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(true);
 
-  const user = useSelector((state: AppState) => state.user)
+  const user = useSelector((state: AppState) => state.user);
 
   useEffect(() => {
     const loadUserFromStorage = () => {
@@ -58,7 +53,6 @@ function App() {
       } catch (error) {
         console.error("Error cargando usuario:", error);
         localStorage.removeItem("token");
-        //setUser(null);
       }
     };
 
@@ -75,8 +69,6 @@ function App() {
       localStorage.removeItem("token");
     }
   };
-
-
 
   if (loading) {
     return (
@@ -109,15 +101,11 @@ function App() {
         />
         <Route
           path="login-teacher"
-          element={
-            !user.logged ? <TeacherLogin /> : <Navigate to="/" />
-          }
+          element={!user.logged ? <TeacherLogin /> : <Navigate to="/" />}
         />
         <Route
           path="functionary-login"
-          element={
-            !user.logged ? <FunctionaryLogin /> : <Navigate to="/" />
-          }
+          element={!user.logged ? <FunctionaryLogin /> : <Navigate to="/" />}
         />
       </Routes>
 

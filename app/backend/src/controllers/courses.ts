@@ -44,6 +44,7 @@ coursesRouter.post(
         },
         staff: req_course_data.staff,
         materials: req_course_data.materials,
+        state: 1,
       });
 
       const course = await newCourse.save();

@@ -1,25 +1,29 @@
-
 import { type DailyPlanification } from "../../types/course";
+import { useDispatch } from "react-redux";
+import { updatePlanForDay } from "../../reducers/formReducer";
 
 type Props = {
   data: DailyPlanification[];
-  setData: React.Dispatch<React.SetStateAction<DailyPlanification[]>>;
 };
 
 const DayContent = ({
   dayNumber,
   data,
-  setData,
 }: {
   dayNumber: number;
   data: DailyPlanification[];
-  setData: React.Dispatch<React.SetStateAction<DailyPlanification[]>>;
 }) => {
-  const handleChange = (field: keyof DailyPlanification, value: string | null) => {
-    setData(
-      data.map((dayPlan) =>
-        dayPlan.day === dayNumber ? { ...dayPlan, [field]: value } : dayPlan
-      )
+  const dispatch = useDispatch();
+
+  const handleChange = (
+    field: keyof DailyPlanification,
+    value: string | null
+  ) => {
+    dispatch(
+      updatePlanForDay({
+        day: dayNumber,
+        plan: { ...data[dayNumber - 1], [field]: value },
+      })
     );
   };
 
@@ -82,11 +86,7 @@ const DayContent = ({
   );
 };
 
-const WeeklyProgramForm = ({ data, setData }: Props) => {
-
-  ;
-
-
+const WeeklyProgramForm = ({ data }: Props) => {
   return (
     <div className="form-container">
       <div className="section-header">
@@ -98,7 +98,7 @@ const WeeklyProgramForm = ({ data, setData }: Props) => {
             key={day.day}
             dayNumber={day.day}
             data={data}
-            setData={setData}
+          //setData={setData}
           />
         ))}
       </div>

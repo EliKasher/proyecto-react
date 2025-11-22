@@ -35,7 +35,6 @@ const ViewCourses = () => {
     const setup = async () => {
       try {
         const cursos = await teacherService.getTeacherCourses(user.id);
-        console.log(cursos);
         setCursos(cursos);
       } catch (error: any) {
         toast.error(error.message);

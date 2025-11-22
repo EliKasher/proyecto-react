@@ -5,35 +5,36 @@ import {
   type CourseDateSchema,
 } from "../../types/coursesSchema.ts";
 import { type CourseData, type CourseDate } from "../../types/course.ts";
+import { useDispatch } from "react-redux";
+import { setCourseData } from "../../reducers/formReducer.ts";
 
 type Props = {
   data: CourseData;
-  setData: React.Dispatch<React.SetStateAction<CourseData>>;
   faculties: FacultySchema[];
   educationalLevel: EducationalLevelSchema[];
   dates: CourseDateSchema[];
 };
 
-const CourseForm = ({
-  data,
-  setData,
-  faculties,
-  educationalLevel,
-  dates,
-}: Props) => {
+const CourseForm = ({ faculties, educationalLevel, dates, data }: Props) => {
+  const dispatch = useDispatch();
+
   const handleEducationalLevelChange = (checked: boolean, value: string) => {
     if (checked && !data.educational_level.includes(value)) {
-      setData({
-        ...data,
-        educational_level: [...data.educational_level, value],
-      });
+      dispatch(
+        setCourseData({
+          ...data,
+          educational_level: [...data.educational_level, value],
+        })
+      );
     } else if (!checked) {
-      setData({
-        ...data,
-        educational_level: data.educational_level.filter(
-          (val) => val !== value
-        ),
-      });
+      dispatch(
+        setCourseData({
+          ...data,
+          educational_level: data.educational_level.filter(
+            (val) => val !== value
+          ),
+        })
+      );
     }
   };
 
@@ -44,7 +45,7 @@ const CourseForm = ({
       newQuota = 25;
     }
 
-    setData({ ...data, quota: newQuota });
+    dispatch(setCourseData({ ...data, quota: newQuota }));
   };
 
   const handleDateChange = (
@@ -62,20 +63,27 @@ const CourseForm = ({
     };
 
     if (checked) {
-      setData({ ...data, course_start: [...data.course_start, newDate] });
+      dispatch(
+        setCourseData({
+          ...data,
+          course_start: [...data.course_start, newDate],
+        })
+      );
     } else {
-      setData({
-        ...data,
-        course_start: data.course_start.filter(
-          (d) =>
-            !(
-              d.start_date === newDate.start_date &&
-              d.end_date === newDate.end_date &&
-              d.start_month === newDate.start_month &&
-              d.end_month === newDate.end_month
-            )
-        ),
-      });
+      dispatch(
+        setCourseData({
+          ...data,
+          course_start: data.course_start.filter(
+            (d) =>
+              !(
+                d.start_date === newDate.start_date &&
+                d.end_date === newDate.end_date &&
+                d.start_month === newDate.start_month &&
+                d.end_month === newDate.end_month
+              )
+          ),
+        })
+      );
     }
   };
 
@@ -94,7 +102,9 @@ const CourseForm = ({
               placeholder="ej: Álgebra Universitaria"
               name="course-name"
               value={data.name}
-              onChange={(e) => setData({ ...data, name: e.target.value })}
+              onChange={(e) =>
+                dispatch(setCourseData({ ...data, name: e.target.value }))
+              }
             />
             <p className="recommendations">
               Recuerda usar un nombre atractivo para las y los estudiantes
@@ -107,7 +117,9 @@ const CourseForm = ({
             <select
               name="faculty"
               value={data.faculty}
-              onChange={(e) => setData({ ...data, faculty: e.target.value })}
+              onChange={(e) =>
+                dispatch(setCourseData({ ...data, faculty: e.target.value }))
+              }
               required
             >
               <option value="">Seleccione</option>

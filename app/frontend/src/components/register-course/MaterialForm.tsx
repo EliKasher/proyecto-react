@@ -1,28 +1,34 @@
 import React from "react";
 import { type Material } from "../../types/course";
 
+import { useDispatch } from "react-redux";
+import {
+  updateMaterial,
+  addMaterial,
+  removeMaterial,
+} from "../../reducers/formReducer";
+
 type Props = {
   data: Material[];
-  setData: React.Dispatch<React.SetStateAction<Material[]>>;
 };
 
-const MaterialForm = ({ data, setData }: Props) => {
-  const handleChange = (index: number, field: keyof Material, value: string) => {
-    const nuevos = [...data];
-    if (field === "quantity") {
-      nuevos[index][field] = Number(value);
-    } else {
-      nuevos[index][field] = value;
-    }
-    setData(nuevos);
+const MaterialForm = ({ data }: Props) => {
+  const dispatch = useDispatch();
+
+  const handleChange = (
+    index: number,
+    field: keyof Material,
+    value: string
+  ) => {
+    dispatch(updateMaterial({ index, field, value }));
   };
 
   const handleAdd = () => {
-    setData([...data, { name: "", quantity: 0, link: "" }]);
+    dispatch(addMaterial({ name: "", quantity: 0, link: "" }));
   };
 
   const handleRemove = (index: number) => {
-    setData(data.filter((_, i) => i !== index));
+    dispatch(removeMaterial(index));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -40,7 +46,10 @@ const MaterialForm = ({ data, setData }: Props) => {
             <div className="card-section-header">
               <h2>Material {index + 1}</h2>
               {data.length > 0 && (
-                <span onClick={() => handleRemove(index)} className="cancel-btn">
+                <span
+                  onClick={() => handleRemove(index)}
+                  className="cancel-btn"
+                >
                   <img src="close.svg" alt="Eliminar Material" />
                 </span>
               )}
@@ -61,7 +70,9 @@ const MaterialForm = ({ data, setData }: Props) => {
                 <input
                   type="number"
                   value={mat.quantity}
-                  onChange={(e) => handleChange(index, "quantity", e.target.value)}
+                  onChange={(e) =>
+                    handleChange(index, "quantity", e.target.value)
+                  }
                   name="materialQuantity"
                 />
                 <p className="recommendations-col">

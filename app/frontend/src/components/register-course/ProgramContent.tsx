@@ -1,34 +1,43 @@
-import React from "react";
+import { useDispatch } from "react-redux";
+import { setProgramContent } from "../../reducers/formReducer";
 
-
-type ProgramContent = {
-  course_purpose: string;
-  learning_objectives: string[];
-};
+import { type ProgramContent } from "../../types/course";
 
 type Props = {
   data: ProgramContent;
-  setData: React.Dispatch<React.SetStateAction<ProgramContent>>;
 };
 
-const ProgramContentForm = ({ data, setData }: Props) => {
+const ProgramContentForm = ({ data }: Props) => {
+  const dispatch = useDispatch();
+
   const handleCoursePurposeChange = (value: string) => {
-    setData({ ...data, course_purpose: value });
+    dispatch(setProgramContent({ ...data, course_purpose: value }));
   };
 
   const handleObjectiveChange = (index: number, value: string) => {
     const newObjectives = [...data.learning_objectives];
     newObjectives[index] = value;
-    setData({ ...data, learning_objectives: newObjectives });
+    dispatch(
+      setProgramContent({ ...data, learning_objectives: newObjectives })
+    );
   };
 
   const handleAddObjective = () => {
-    setData({ ...data, learning_objectives: [...data.learning_objectives, ""] });
+    dispatch(
+      setProgramContent({
+        ...data,
+        learning_objectives: [...data.learning_objectives, ""],
+      })
+    );
   };
 
   const handleRemoveObjective = (index: number) => {
-    const newObjectives = data.learning_objectives.filter((_, i) => i !== index);
-    setData({ ...data, learning_objectives: newObjectives });
+    const newObjectives = data.learning_objectives.filter(
+      (_, i) => i !== index
+    );
+    dispatch(
+      setProgramContent({ ...data, learning_objectives: newObjectives })
+    );
   };
 
   return (
@@ -37,7 +46,8 @@ const ProgramContentForm = ({ data, setData }: Props) => {
         <div className="section-header">
           <h3>Contenido del Programa</h3>
           <p className="recommendations">
-            Recuerda que los datos que ingreses serán tu carta de presentación para los y las estudiantes
+            Recuerda que los datos que ingreses serán tu carta de presentación
+            para los y las estudiantes
           </p>
         </div>
 
@@ -80,7 +90,11 @@ const ProgramContentForm = ({ data, setData }: Props) => {
         ))}
 
         <div className="actions">
-          <button type="button" onClick={handleAddObjective} className="add-btn">
+          <button
+            type="button"
+            onClick={handleAddObjective}
+            className="add-btn"
+          >
             Agregar Objetivo
           </button>
         </div>
