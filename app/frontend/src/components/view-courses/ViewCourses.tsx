@@ -102,10 +102,10 @@ const ViewCourses = (props: { user: User }) => {
                           : 'bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] hover:bg-[rgba(184,50,132,0.1)] hover:border-[rgba(184,50,132,0.3)]'
                       }`}
                     >
-                      <h3 className="font-semibold text-[#f0f0f5] mb-1">
+                      <h3 className="font-semibold text-[#f0f0f5] mb-1 line-clamp-2 wrap-break-word">
                         {curso.course_data.name}
                       </h3>
-                      <p className="text-sm text-[#a685ff]">
+                      <p className="text-sm text-[#a685ff] line-clamp-1 wrap-break-word">
                         {curso.course_data.faculty}
                       </p>
                       <div className="flex justify-between items-center mt-2">
@@ -123,10 +123,10 @@ const ViewCourses = (props: { user: User }) => {
               {cursoSeleccionado ? (
                 <div className="bg-[#16106b] rounded-xl shadow-[0_15px_35px_rgba(0,0,0,0.2)] p-8 border border-[rgba(123,108,246,0.5)]">
                   <div className="border-b border-[rgba(123,108,246,0.5)] pb-6 mb-6">
-                    <h2 className="text-2xl font-bold text-[#f0f0f5] mb-2">
+                    <h2 className="text-2xl font-bold text-[#f0f0f5] mb-2 line-clamp-2 wrap-break-word">
                       {cursoSeleccionado.course_data.name}
                     </h2>
-                    <p className="text-lg text-[#a685ff]">
+                    <p className="text-lg text-[#a685ff] line-clamp-2 wrap-break-word">
                       {cursoSeleccionado.course_data.faculty}
                     </p>
                   </div>
@@ -193,7 +193,7 @@ const ViewCourses = (props: { user: User }) => {
                       <div className="space-y-2">
                         <label className="text-sm font-medium text-[#a685ff]">Propósito del Curso</label>
                         <div className="p-4 bg-[rgba(255,255,255,0.08)] rounded-lg border border-[rgba(255,255,255,0.15)]">
-                          <p className="text-[#f0f0f5] leading-relaxed">
+                          <p className="text-[#f0f0f5] leading-relaxed wrap-break-word whitespace-pre-wrap">
                             {cursoSeleccionado.program_content.course_purpose}
                           </p>
                         </div>
@@ -211,7 +211,7 @@ const ViewCourses = (props: { user: User }) => {
                                 <svg className="w-4 h-4 text-[#b83284] mt-1 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                                 </svg>
-                                <p className="text-[#f0f0f5] text-sm">{objetivo}</p>
+                                <p className="text-[#f0f0f5] text-sm wrap-break-word whitespace-pre-wrap">{objetivo}</p>
                               </div>
                             ))}
                           </div>
