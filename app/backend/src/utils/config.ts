@@ -1,5 +1,10 @@
 import dotenv from "dotenv";
-dotenv.config();
+
+if (process.env.NODE_ENV === "test") {
+  dotenv.config({ path: ".env.test" });
+} else {
+  dotenv.config();
+}
 
 const { PORT, HOST, MONGODB_URI, JWT_SECRET } = process.env;
 
