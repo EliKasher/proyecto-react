@@ -86,7 +86,7 @@ const ViewCourses = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-1">
               <div className="bg-[#16106b] rounded-xl shadow-[0_15px_35px_rgba(0,0,0,0.2)] p-6 border border-[rgba(123,108,246,0.5)]">
-                <div className="space-y-3">
+                <div className="space-y-3 overflow-y-auto max-h-180">
                   {cursos.map((curso) => (
                     <button
                       key={curso.id}
@@ -97,13 +97,13 @@ const ViewCourses = () => {
                         }`}
                     >
                       {curso.state === 0 && (
-                        <button 
+                        <button
                           className="bg-[rgba(123,108,246,0.2)] hover:bg-[rgba(123,108,246,0.3)] text-[#f0f0f5] text-xs font-medium py-1 px-3 rounded-lg border border-[rgba(123,108,246,0.4)] hover:border-[rgba(123,108,246,0.6)] transition-all duration-200 hover:scale-105 hover:shadow-[0_2px_8px_rgba(123,108,246,0.3)] mr-auto"
                           onClick={() => handleContinueForm(curso)}
                         >
                           Completar
                         </button>
-                                              )}
+                      )}
                       <h3 className="font-semibold text-[#f0f0f5] mb-1 line-clamp-2 wrap-break-word">
                         {curso.course_data.name}
                       </h3>
