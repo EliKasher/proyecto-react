@@ -4,7 +4,7 @@ import type { RegisterForm } from "../types/course";
 const baseUrl = "api/";
 
 // Course register
-const postCourse = async (course: RegisterForm) => {
+const postCourse = async (course: RegisterForm & { state: number }) => {
   try {
     const response = await axiosSecure.post(baseUrl + "courses", course);
     return response.data;

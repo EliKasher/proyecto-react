@@ -47,11 +47,11 @@ const logout = async () => {
   } catch (error) {
     console.error("Error en logout del backend:", error);
   }
-}
+};
 
 export default {
   functionaryLogin,
   teacherLogin,
   restoreLogin,
-  logout
+  logout,
 };

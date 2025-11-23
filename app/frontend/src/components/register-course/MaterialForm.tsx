@@ -50,7 +50,7 @@ const MaterialForm = ({ data, isValid, showErrors }: Props) => {
     let errorCount = 0;
 
     const nameLengthError = {
-      msg: "El largo del nombre del material debe ser de al menos 5 carácteres.",
+      msg: "El largo del nombre del material debe ser entre 5 y 50 carácteres.",
     };
     const quantitySizeError = {
       msg: "La cantidad del material debe ser al menos 1",
@@ -63,7 +63,7 @@ const MaterialForm = ({ data, isValid, showErrors }: Props) => {
       // check link
 
       for (let i = 0; i < data.length; i++) {
-        if (data[i].name.length < 5) {
+        if (data[i].name.length < 5 || data[i].name.length > 50) {
           errorCount++;
           errors[i].name = nameLengthError;
         }

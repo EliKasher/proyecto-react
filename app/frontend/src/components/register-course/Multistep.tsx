@@ -23,6 +23,7 @@ import {
 } from "../../reducers/formReducer";
 import type { AppState } from "../../store";
 
+
 type FormProgress = "DONE" | "NOT_DONE";
 
 export default function MultiStepForm() {
@@ -112,9 +113,9 @@ export default function MultiStepForm() {
     },
   ];
 
-  const handleSubmit = () => {
+  const handleSubmit = (state: number) => {
     if (
-      newCourse.currentPageNumber != steps.length - 1 ||
+      newCourse.currentPageNumber != steps.length - 1 && state == 1 ||
       !newCourse.currentPageIsValid
     ) {
       dispatch(setShowErrors(true));
@@ -123,21 +124,22 @@ export default function MultiStepForm() {
 
     const submit = async () => {
       try {
-        await courseService.postCourse(newCourse);
+        await courseService.postCourse({ ...newCourse, state: state });
 
         dispatch(resetForm());
         setFormState("DONE");
       } catch (error) {
-        console.log(error);
+
         if (error instanceof AxiosError) {
-          const message =
-            error.response?.data?.error ?? "Error al iniciar sesión";
-          message.split("\n").map((msg: string) => {
-            if (msg.length > 0) {
-              toast.error(msg, { autoClose: false, draggable: true });
-            }
-          });
-        } else if (error instanceof Error) {
+          const data = (error.response?.data as any)?.error?.errors;
+          if (data && typeof data === "object") {
+            const paths: string[] = Object.keys(data);
+
+            console.log(paths);
+
+          }
+        }
+        else if (error instanceof Error) {
           toast.error(error.message);
         } else {
           toast.error("Error desconocido");
@@ -236,7 +238,8 @@ export default function MultiStepForm() {
             )}
             {currentStep < steps.length - 1 ? (
               <>
-                <button type="button" className="submit-btn">
+                <button type="button" className="submit-btn"
+                  onClick={() => handleSubmit(0)}>
                   Guardar
                 </button>
                 <button
@@ -247,7 +250,7 @@ export default function MultiStepForm() {
                 </button>
               </>
             ) : (
-              <button className="submit-btn" onClick={handleSubmit}>
+              <button className="submit-btn" onClick={() => handleSubmit(1)}>
                 Enviar
               </button>
             )}

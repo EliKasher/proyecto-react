@@ -137,6 +137,12 @@ const slice = createSlice({
       }
     },
 
+    setPage: (state, action: PayloadAction<number>) => {
+      if (0 <= action.payload && action.payload < 5) {
+        state.currentPageNumber = action.payload;
+      }
+    },
+
     updateIsValid: (state, action: PayloadAction<boolean>) => {
       state.currentPageIsValid = action.payload;
 
@@ -165,6 +171,7 @@ export const {
   removeMaterial,
   increasePage,
   decreasePage,
+  setPage,
   updateIsValid,
   setShowErrors,
 } = slice.actions;
