@@ -53,6 +53,13 @@ a {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
+.header-logo a {
+    padding: 0 !important;
+    border-radius: 0 !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: none !important;
+}
 
 a:visited {
   opacity: 0.7;
@@ -141,11 +148,13 @@ button:focus-visible {
   align-items: center;
 }
 
+
 .header-logo-img {
-  height: 40px;
-  width: auto;
-  transition: transform 0.3s ease;
+    height: 80px;
+    width: 80px;
+    object-fit: cover;
 }
+
 
 .header-logo-img:hover {
   transform: scale(1.05);

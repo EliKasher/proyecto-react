@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+
 import {
   FaHome,
   FaUser,
@@ -58,7 +59,7 @@ const Header = ({ userRole, userName, onLogout }: HeaderProps) => {
       <div className="header-logo">
         <Link to="/">
           <img
-            src="../assets/react.svg"
+            src="/img.jpg"
             alt="Logo"
             className="header-logo-img"
           />
