@@ -4,9 +4,21 @@ import type { RegisterForm } from "../types/course";
 const baseUrl = "api/";
 
 // Course register
-const postCourse = async (course: RegisterForm & { state: number }) => {
+
+// we can delete state, the controller will decide it in the backend
+const postCourse = async (course: RegisterForm) => {
   try {
     const response = await axiosSecure.post(baseUrl + "courses", course);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+// Course saving
+const putCourse = async (course: RegisterForm) => {
+  try {
+    const response = await axiosSecure.put(baseUrl + "courses", course);
     return response.data;
   } catch (error) {
     throw error;
@@ -69,6 +81,7 @@ const getCourses = () => {
 
 export default {
   postCourse,
+  putCourse,
   getCourseDates,
   getFaculties,
   getEducationalLevels,

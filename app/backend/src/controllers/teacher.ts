@@ -54,8 +54,6 @@ teachersRouter.post("/", async (request, response, next) => {
 
     let passwordHash = password;
 
-    console.log(!validators.passwordValidator.validator(password));
-
     if (validators.passwordValidator.validator(password)) {
       // only hash when password satisfies constraints
       // if not, then it will break when trying to use it as a valid password

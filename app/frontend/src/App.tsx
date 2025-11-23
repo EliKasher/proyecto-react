@@ -5,6 +5,7 @@ import ViewCourses from "./components/view-courses/ViewCourses";
 import NewTeacherRegister from "./components/teacher-register/NewTeacherRegister";
 import TeacherLogin from "./components/teacher-login/TeacherLogin";
 import FunctionaryLogin from "./components/functionary-login/FunctionaryLogin.tsx";
+
 import { ToastContainer } from "react-toastify";
 import Header from "./components/Header";
 import LoginService from "./services/Login";
@@ -14,6 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { resetUser, setUser } from "./reducers/userReducer.ts";
 import { type AppState } from "./store.ts";
 import Profile from "./components/profile/Profile";
+import FunctionaryHome from "./components/functionary-home/FunctionaryHome.tsx";
+
 
 export type Teacher = {
   id: string;
@@ -117,6 +120,11 @@ function App() {
           path="functionary-login"
           element={!user.logged ? <FunctionaryLogin /> : <Navigate to="/" />}
         />
+          <Route
+          path= "functionary-home"
+          element={!user.logged ? <FunctionaryHome /> : <Navigate to="/" />}
+          />
+
         <Route
           path="profile"
           element={user ? <Profile /> : <Navigate to="/" />}

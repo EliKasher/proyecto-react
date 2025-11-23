@@ -28,14 +28,20 @@ test("login fails with wrong password", async ({ page }) => {
     await expect(page.getByText("invalid rut or password")).toBeVisible();
 });
 test("teacher can access courses list", async ({ page }) => {
-    await loginWith(page, "11111111-1", "estanoeslacontraseña");
-    await page.goto("http://localhost:3001/#/view-courses");
-    await expect(page.getByText("Lista de Cursos")).toBeVisible();
+    await loginWith(page, "11111111-1", "Test123.");
+    await page.getByRole("button", { name: "Mis Cursos" }).click();
+    await expect(page.getByRole("heading", { name: "Mis Cursos" })).toBeVisible();
 });
 
-test("teacher can access course form", async ({ page }) => {
+test("teacher can access profile", async ({ page }) => {
     await loginWith(page, "11111111-1", "Test123.");
-    await page.goto("http://localhost:3001/#/course-form");
+    await page.getByRole("button", { name: "Mi Perfil" }).click();
+    await expect(page.getByRole("heading", { name: "Información Personal" })).toBeVisible();
+});
+
+test("teacher can access register course form", async ({ page }) => {
+    await loginWith(page, "11111111-1", "Test123.");
+    await page.getByRole("button", { name: "Registrar Curso" }).click();
     await expect(page.getByText("Información del Curso")).toBeVisible();
 });
 

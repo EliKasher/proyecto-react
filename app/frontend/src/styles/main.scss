@@ -32,18 +32,6 @@ a {
     }
 }
 
-button {
-    font-size: 1em;
-    font-weight: 600;
-    font-family: inherit;
-    background-color: $button-color;
-    transition: border-color 0.25s;
-
-    &:hover {
-        border-color: $button-border-color;
-    }
-}
-
 h1 {
     font-size: 3.2em;
 }
@@ -190,6 +178,13 @@ h1 {
 
 .actions {
     gap: 10px;
+}
+
+button {
+    &:active {
+        border: none;
+        outline: none;
+    }
 }
 
 .submit-btn {

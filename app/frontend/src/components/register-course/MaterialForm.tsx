@@ -113,6 +113,7 @@ const MaterialForm = ({ data, isValid, showErrors }: Props) => {
                   id={`material-name-${index}`}
                   name={`material-name-${index}`}
                   type="text"
+                  maxLength={50}
                   value={mat.name}
                   onChange={(e) => handleChange(index, "name", e.target.value)}
                 />

@@ -27,12 +27,10 @@ import type { AppState } from "../../store";
 type FormProgress = "DONE" | "NOT_DONE";
 
 export default function MultiStepForm() {
+
   const dispatch = useDispatch();
 
   const newCourse: RegisterForm = useSelector((state: AppState) => state.form);
-
-  //const [currentStep, setCurrentStep] = useState(0);
-
   const currentStep = newCourse.currentPageNumber;
 
   const [formState, setFormState] = useState<FormProgress>("NOT_DONE");
@@ -115,8 +113,7 @@ export default function MultiStepForm() {
 
   const handleSubmit = (state: number) => {
     if (
-      newCourse.currentPageNumber != steps.length - 1 && state == 1 ||
-      !newCourse.currentPageIsValid
+      newCourse.currentPageNumber != steps.length - 1 && state == 1 // trying to save an incomplete form
     ) {
       dispatch(setShowErrors(true));
       return;
@@ -124,8 +121,14 @@ export default function MultiStepForm() {
 
     const submit = async () => {
       try {
-        await courseService.postCourse({ ...newCourse, state: state });
 
+        const toSave = { ...newCourse, state };
+
+        if (toSave.id) { // called when an id exits 
+          await courseService.putCourse(toSave);
+        } else {
+          await courseService.postCourse(toSave); // called when id is null
+        }
         dispatch(resetForm());
         setFormState("DONE");
       } catch (error) {
@@ -134,9 +137,8 @@ export default function MultiStepForm() {
           const data = (error.response?.data as any)?.error?.errors;
           if (data && typeof data === "object") {
             const paths: string[] = Object.keys(data);
-
             console.log(paths);
-
+            dispatch(setShowErrors(true))
           }
         }
         else if (error instanceof Error) {
@@ -220,6 +222,17 @@ export default function MultiStepForm() {
         </div>
 
         <div className="multistep">
+          {newCourse.id !== null && (
+            <div className="text-center mb-8">
+              <p className="text-text-light mb-4 text-lg">Se encuentra modificando un curso existente.</p>
+              <button 
+                  className="submit-btn bg-accent-pink hover:bg-accent text-text-lighter font-medium py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent-pink focus:ring-opacity-50"
+                  onClick={() => dispatch(resetForm())}
+              >
+                  Descartar cambios y crear curso nuevo
+              </button>
+          </div>
+          )}
           {steps[currentStep].component}
 
           <div className="nav-buttons">
@@ -274,7 +287,7 @@ export default function MultiStepForm() {
         </Link>
         <button
           onClick={() => setFormState("NOT_DONE")}
-          className="bg-accent-light text-white px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
+          className="submit-btn bg-accent-light text-white px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
         >
           Registrar otro curso
         </button>

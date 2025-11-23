@@ -169,7 +169,7 @@ const NewTeacherRegister = () => {
     try {
       await teacherService.postTeacher(newTeacher);
       toast.success("Registro Exitoso");
-      navigate("/login");
+      navigate("/login-teacher");
     } catch (err) {
       if (!validateForm()) {
         toast.error("Por favor corrige los errores en el formulario");
