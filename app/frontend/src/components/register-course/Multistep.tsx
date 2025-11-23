@@ -226,7 +226,7 @@ export default function MultiStepForm() {
             <div className="text-center mb-8">
               <p className="text-text-light mb-4 text-lg">Se encuentra modificando un curso existente.</p>
               <button 
-                  className="bg-accent-pink hover:bg-accent text-text-lighter font-medium py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent-pink focus:ring-opacity-50"
+                  className="submit-btn bg-accent-pink hover:bg-accent text-text-lighter font-medium py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent-pink focus:ring-opacity-50"
                   onClick={() => dispatch(resetForm())}
               >
                   Descartar cambios y crear curso nuevo
@@ -287,7 +287,7 @@ export default function MultiStepForm() {
         </Link>
         <button
           onClick={() => setFormState("NOT_DONE")}
-          className="bg-accent-light text-white px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
+          className="submit-btn bg-accent-light text-white px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
         >
           Registrar otro curso
         </button>

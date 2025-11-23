@@ -85,26 +85,29 @@ const ViewCourses = () => {
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-1">
-              <div className="bg-[rgba(184,50,132,0.15)] rounded-xl shadow-[0_15px_35px_rgba(184,50,132,0.2)] p-6 border border-[rgba(184,50,132,0.3)]">
+              <div className="bg-[#16106b] rounded-xl shadow-[0_15px_35px_rgba(0,0,0,0.2)] p-6 border border-[rgba(123,108,246,0.5)]">
                 <div className="space-y-3">
                   {cursos.map((curso) => (
                     <button
                       key={curso.id}
                       onClick={() => setCursoSeleccionado(curso)}
                       className={`w-full text-left p-4 rounded-lg transition-all duration-200 ${cursoSeleccionado?.id === curso.id
-                        ? 'bg-[rgba(184,50,132,0.3)] border border-[rgba(184,50,132,0.6)] shadow-[0_4px_15px_rgba(184,50,132,0.5)]'
-                        : 'bg-[rgba(184,50,132,0.05)] border border-[rgba(184,50,132,0.2)] hover:bg-[rgba(184,50,132,0.15)] hover:border-[rgba(184,50,132,0.4)]'
+                        ? 'bg-[rgba(211,35,144,0.25)] border border-[rgba(211,35,144,0.6)]'
+                        : 'bg-[rgba(184,50,132,0.1)] border border-[rgba(184,50,132,0.3)] hover:bg-[rgba(211,35,144,0.15)] hover:border hover:border-[rgba(211,35,144,0.5)] hover:shadow-[0_4px_15px_rgba(230,81,150,0.3)]'
                         }`}
                     >
                       {curso.state === 0 && (
-                        <button onClick={() => handleContinueForm(curso)}>
+                        <button 
+                          className="bg-[rgba(123,108,246,0.2)] hover:bg-[rgba(123,108,246,0.3)] text-[#f0f0f5] text-xs font-medium py-1 px-3 rounded-lg border border-[rgba(123,108,246,0.4)] hover:border-[rgba(123,108,246,0.6)] transition-all duration-200 hover:scale-105 hover:shadow-[0_2px_8px_rgba(123,108,246,0.3)] mr-auto"
+                          onClick={() => handleContinueForm(curso)}
+                        >
                           Completar
                         </button>
-                      )}
+                                              )}
                       <h3 className="font-semibold text-[#f0f0f5] mb-1 line-clamp-2 wrap-break-word">
                         {curso.course_data.name}
                       </h3>
-                      <p className="text-sm text-[#a685ff] line-clamp-1 wrap-break-word">
+                      <p className="text-sm text-[#a02a65] line-clamp-1 wrap-break-word">
                         {curso.course_data.faculty}
                       </p>
                       <div className="flex justify-between items-center mt-2">
