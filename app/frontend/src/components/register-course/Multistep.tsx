@@ -122,10 +122,12 @@ export default function MultiStepForm() {
     const submit = async () => {
       try {
 
-        if (state === 0) { // put
-          await courseService.putCourse(newCourse)
-        } else { // post
-          await courseService.postCourse(newCourse);
+        const toSave = { ...newCourse, state };
+
+        if (toSave.id) { // called when an id exits 
+          await courseService.putCourse(toSave);
+        } else {
+          await courseService.postCourse(toSave); // called when id is null
         }
         dispatch(resetForm());
         setFormState("DONE");

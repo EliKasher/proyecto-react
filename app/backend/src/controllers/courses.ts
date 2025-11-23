@@ -29,6 +29,16 @@ coursesRouter.post(
         return;
       }
 
+      const state: number =
+        typeof req_course_data.state === "number"
+          ? req_course_data.state > 1
+            ? 1
+            : req_course_data.state < 0
+            ? 0
+            : req_course_data.state
+          : 0; // limit to 0 and 1
+      // if no state comes, we asume 0
+
       const newCourse = new CoursesModel({
         course_data: req_course_data.course_data,
         program_content: req_course_data.program_content,
@@ -44,7 +54,7 @@ coursesRouter.post(
         },
         staff: req_course_data.staff,
         materials: req_course_data.materials,
-        state: 1,
+        state: state,
       });
 
       const course = await newCourse.save();
@@ -68,30 +78,44 @@ coursesRouter.put(
     try {
       const req_course_data = request.body;
 
+      const state: number =
+        typeof req_course_data.state === "number"
+          ? req_course_data.state > 1
+            ? 1
+            : req_course_data.state < 0
+            ? 0
+            : req_course_data.state
+          : 0; // limit to 0 and 1
+      // if no state comes, we asume 0
+
       const teacher = await TeachersModel.findById(request.userId);
 
       const existingCourse = await CoursesModel.findById(req_course_data.id);
 
       if (
-        // check if course is not complete
-        existingCourse &&
-        req_course_data.id &&
-        !(existingCourse._id.toString() === req_course_data.id)
+        !existingCourse // can only update existing courses
+        // check if course exits
       ) {
-        throw new Error("El curso ya se encuentra registrado");
+        throw new Error("El curso no se encuentra guardado");
       }
 
       if (
-        existingCourse &&
-        teacher &&
-        teacher.courses.includes(existingCourse._id)
+        // check if course is already complete
+        existingCourse.state === 1
       ) {
-        throw new Error("Curso no pertenece al profesor");
+        throw new Error("El curso ya se encuentra registrado");
       }
 
       if (!teacher) {
         response.status(401).json({ error: "Invalid user" });
         return;
+      }
+
+      if (
+        // check ownership
+        !teacher.courses.includes(existingCourse._id)
+      ) {
+        throw new Error("Curso no pertenece al profesor");
       }
 
       // formatted course data
@@ -111,7 +135,7 @@ coursesRouter.put(
         },
         staff: req_course_data.staff,
         materials: req_course_data.materials,
-        state: 0,
+        state: state,
       };
 
       // course store
