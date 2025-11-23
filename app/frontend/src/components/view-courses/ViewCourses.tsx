@@ -85,21 +85,19 @@ const ViewCourses = () => {
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-1">
-              <div className="bg-[#16106b] rounded-xl shadow-[0_15px_35px_rgba(0,0,0,0.2)] p-6 border border-[rgba(123,108,246,0.5)]">
+              <div className="bg-[rgba(184,50,132,0.15)] rounded-xl shadow-[0_15px_35px_rgba(184,50,132,0.2)] p-6 border border-[rgba(184,50,132,0.3)]">
                 <div className="space-y-3">
                   {cursos.map((curso) => (
                     <button
                       key={curso.id}
                       onClick={() => setCursoSeleccionado(curso)}
                       className={`w-full text-left p-4 rounded-lg transition-all duration-200 ${cursoSeleccionado?.id === curso.id
-                        ? 'bg-[rgba(184,50,132,0.2)] border border-[rgba(184,50,132,0.5)] shadow-[0_4px_15px_rgba(184,50,132,0.4)]'
-                        : 'bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] hover:bg-[rgba(184,50,132,0.1)] hover:border-[rgba(184,50,132,0.3)]'
+                        ? 'bg-[rgba(184,50,132,0.3)] border border-[rgba(184,50,132,0.6)] shadow-[0_4px_15px_rgba(184,50,132,0.5)]'
+                        : 'bg-[rgba(184,50,132,0.05)] border border-[rgba(184,50,132,0.2)] hover:bg-[rgba(184,50,132,0.15)] hover:border-[rgba(184,50,132,0.4)]'
                         }`}
                     >
                       {curso.state === 0 && (
-                        <button onClick={() =>
-                          handleContinueForm(curso)
-                        }>
+                        <button onClick={() => handleContinueForm(curso)}>
                           Completar
                         </button>
                       )}

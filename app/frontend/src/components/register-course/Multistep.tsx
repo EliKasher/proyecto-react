@@ -223,12 +223,15 @@ export default function MultiStepForm() {
 
         <div className="multistep">
           {newCourse.id !== null && (
-            <div>
-              <p>Se encuentra modificando un curso existente.</p>
-              <button onClick={() => dispatch(resetForm())}>
-                Descartar cambios y crear curso nuevo
+            <div className="text-center mb-8">
+              <p className="text-text-light mb-4 text-lg">Se encuentra modificando un curso existente.</p>
+              <button 
+                  className="bg-accent-pink hover:bg-accent text-text-lighter font-medium py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent-pink focus:ring-opacity-50"
+                  onClick={() => dispatch(resetForm())}
+              >
+                  Descartar cambios y crear curso nuevo
               </button>
-            </div>
+          </div>
           )}
           {steps[currentStep].component}
 
