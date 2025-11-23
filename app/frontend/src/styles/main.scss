@@ -63,8 +63,8 @@ h1 {
     &::before {
         background: linear-gradient(
             135deg,
-            $nav-color 0%,
-            $nav-color-darker 100%
+            $link-purple 0%,
+            $blue-button 100%
         );
     }
 }
