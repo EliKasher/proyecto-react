@@ -27,12 +27,10 @@ import type { AppState } from "../../store";
 type FormProgress = "DONE" | "NOT_DONE";
 
 export default function MultiStepForm() {
+
   const dispatch = useDispatch();
 
   const newCourse: RegisterForm = useSelector((state: AppState) => state.form);
-
-  //const [currentStep, setCurrentStep] = useState(0);
-
   const currentStep = newCourse.currentPageNumber;
 
   const [formState, setFormState] = useState<FormProgress>("NOT_DONE");
@@ -115,8 +113,7 @@ export default function MultiStepForm() {
 
   const handleSubmit = (state: number) => {
     if (
-      newCourse.currentPageNumber != steps.length - 1 && state == 1 ||
-      !newCourse.currentPageIsValid
+      newCourse.currentPageNumber != steps.length - 1 && state == 1 // trying to save an incomplete form
     ) {
       dispatch(setShowErrors(true));
       return;
@@ -124,8 +121,12 @@ export default function MultiStepForm() {
 
     const submit = async () => {
       try {
-        await courseService.postCourse({ ...newCourse, state: state });
 
+        if (state === 0) { // put
+          await courseService.putCourse(newCourse)
+        } else { // post
+          await courseService.postCourse(newCourse);
+        }
         dispatch(resetForm());
         setFormState("DONE");
       } catch (error) {
@@ -134,9 +135,8 @@ export default function MultiStepForm() {
           const data = (error.response?.data as any)?.error?.errors;
           if (data && typeof data === "object") {
             const paths: string[] = Object.keys(data);
-
             console.log(paths);
-
+            dispatch(setShowErrors(true))
           }
         }
         else if (error instanceof Error) {
@@ -220,6 +220,14 @@ export default function MultiStepForm() {
         </div>
 
         <div className="multistep">
+          {newCourse.id !== null && (
+            <div>
+              <p>Se encuentra modificando un curso existente.</p>
+              <button onClick={() => dispatch(resetForm())}>
+                Descartar cambios y crear curso nuevo
+              </button>
+            </div>
+          )}
           {steps[currentStep].component}
 
           <div className="nav-buttons">

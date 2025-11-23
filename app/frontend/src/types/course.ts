@@ -7,6 +7,8 @@ export interface RegisterForm {
   weekly_planification: DailyPlanification[]; // 5 days
   staff: Staff[];
   materials: Material[];
+  state: number | null;
+  id: string | null;
 }
 
 export interface CourseData {

@@ -44,6 +44,8 @@ const initialState: RegisterForm = {
   currentPageNumber: 0,
   currentPageIsValid: false,
   showErrors: false,
+  state: null,
+  id: null,
 };
 
 const slice = createSlice({
@@ -52,6 +54,10 @@ const slice = createSlice({
   reducers: {
     resetForm: () => {
       return initialState;
+    },
+
+    setForm: (_state, action: PayloadAction<RegisterForm>) => {
+      return action.payload;
     },
 
     setCourseData: (state, action: PayloadAction<CourseData>) => {
@@ -159,6 +165,7 @@ const slice = createSlice({
 
 export const {
   resetForm,
+  setForm,
   setCourseData,
   setProgramContent,
   setWeeklyPlanification,

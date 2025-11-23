@@ -1,31 +1,21 @@
-    import * as React from "react";
+import * as React from "react";
 import teacherService from "../../services/Teacher";
-import { type CourseDate } from "../../types/course";
+import { type RegisterForm } from "../../types/course";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 import type { AppState } from "../../store";
+import { useDispatch } from "react-redux";
+import { setForm } from "../../reducers/formReducer";
+import { useNavigate } from "react-router-dom";
 
-type DataCurso = {
-  name: "";
-  faculty: "";
-  educational_level: string[];
-  quota: number;
-  course_start: CourseDate[];
-};
 
-type ContenidoPrograma = {
-  course_purpose: string;
-  learning_objectives: string[];
-};
 
-type Curso = {
-  id: string | number;
-  course_data: DataCurso;
-  program_content: ContenidoPrograma;
-};
+type Curso = RegisterForm
 
 const ViewCourses = () => {
   const user = useSelector((state: AppState) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [cursos, setCursos] = React.useState<Curso[]>([]);
   const [isLoading, setIsLoading] = React.useState(true);
@@ -47,6 +37,15 @@ const ViewCourses = () => {
 
   const [cursoSeleccionado, setCursoSeleccionado] =
     React.useState<Curso | null>(null);
+
+  const handleContinueForm = (curso: Curso) => {
+
+    if (curso.state === 0) {
+      dispatch(setForm({ ...curso, currentPageNumber: 0, currentPageIsValid: false }));
+      navigate("/course-form", { replace: false })
+    }
+
+  }
 
 
   if (isLoading) {
@@ -93,10 +92,17 @@ const ViewCourses = () => {
                       key={curso.id}
                       onClick={() => setCursoSeleccionado(curso)}
                       className={`w-full text-left p-4 rounded-lg transition-all duration-200 ${cursoSeleccionado?.id === curso.id
-                          ? 'bg-[rgba(184,50,132,0.2)] border border-[rgba(184,50,132,0.5)] shadow-[0_4px_15px_rgba(184,50,132,0.4)]'
-                          : 'bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] hover:bg-[rgba(184,50,132,0.1)] hover:border-[rgba(184,50,132,0.3)]'
+                        ? 'bg-[rgba(184,50,132,0.2)] border border-[rgba(184,50,132,0.5)] shadow-[0_4px_15px_rgba(184,50,132,0.4)]'
+                        : 'bg-[rgba(255,255,255,0.08)] border border-[rgba(255,255,255,0.15)] hover:bg-[rgba(184,50,132,0.1)] hover:border-[rgba(184,50,132,0.3)]'
                         }`}
                     >
+                      {curso.state === 0 && (
+                        <button onClick={() =>
+                          handleContinueForm(curso)
+                        }>
+                          Completar
+                        </button>
+                      )}
                       <h3 className="font-semibold text-[#f0f0f5] mb-1 line-clamp-2 wrap-break-word">
                         {curso.course_data.name}
                       </h3>
@@ -106,6 +112,11 @@ const ViewCourses = () => {
                       <div className="flex justify-between items-center mt-2">
                         <span className="text-xs text-[#e8e7f0] bg-[rgba(123,108,246,0.2)] px-2 py-1 rounded">
                           {curso.course_data.quota} cupos
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center mt-2">
+                        <span className="text-xs text-[#e8e7f0] bg-[rgba(123,108,246,0.2)] px-2 py-1 rounded">
+                          {curso.state === 1 ? "Registrado" : "Incompleto"}
                         </span>
                       </div>
                     </button>
