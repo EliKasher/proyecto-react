@@ -3,6 +3,7 @@ import { type AppState } from "../../store.ts";
 import type { IUser } from "../../types/users.ts";
 import TeacherLogin from "../teacher-login/TeacherLogin.tsx";
 import { Link } from "react-router-dom";
+import FunctionaryHome from "../functionary-home/FunctionaryHome.tsx";
 
 const RegisterForm = () => {
     return (
@@ -50,6 +51,9 @@ const Home = ({ }) => {
                 </p>
             </div>
         );
+    }
+    if (user.roles === "functionary") {
+        return <FunctionaryHome />;
     }
 
     return <RegisterForm />;
