@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
-import FunctionaryModel from "./src/models/functionary";
+import FunctionaryModel from "./models/functionary";
 
 // Cargar variables de entorno desde .env
 dotenv.config();
