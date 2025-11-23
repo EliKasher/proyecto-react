@@ -6,61 +6,61 @@ interface HeaderItem {
 
 export const getHeaderItems = (userRole: string): HeaderItem[] => {
   const homeItems = userRole === 'functionary' ? [
-    { 
-      id: "home", 
-      path: "/view-courses", 
-      label: "Ver Cursos", 
+    {
+      id: "home",
+      path: "view-courses",
+      label: "Ver Cursos",
     }
-  ] : userRole === 'teacher' ? [ 
-    { 
-      id: "home", 
-      path: "/view-courses", 
-      label: "Mis Cursos", 
+  ] : userRole === 'teacher' ? [
+    {
+      id: "home",
+      path: "view-courses",
+      label: "Mis Cursos",
     }
   ] : [];
 
-    const profileItems = userRole ? [ 
-    { 
-      id: "profile", 
-      path: "/profile", 
-      label: "Mi Perfil", 
+  const profileItems = userRole ? [
+    {
+      id: "profile",
+      path: "profile",
+      label: "Mi Perfil",
     }
   ] : [];
 
   const registerItems = userRole === 'functionary' ? [
-    { 
-      id: "register", 
-      path: "/functionary-form", 
-      label: "Registrar Funcionario", 
+    {
+      id: "register",
+      path: "functionary-form",
+      label: "Registrar Funcionario",
     }
-  ] : userRole === 'teacher' ? [ 
-    { 
-      id: "register", 
-      path: "/course-form", 
-      label: "Registrar Curso", 
+  ] : userRole === 'teacher' ? [
+    {
+      id: "register",
+      path: "course-form",
+      label: "Registrar Curso",
     }
   ] : [];
 
   const authItems = userRole ? [
-    { 
-      id: "logout", 
-      path: "/logout", 
-      label: "Cerrar Sesión", 
+    {
+      id: "logout",
+      path: "logout",
+      label: "Cerrar Sesión",
     }
   ] : [
     {
       id: "register",
-      path: "/register-teacher",
+      path: "register-teacher",
       label: "Regístrate"
     },
     {
       id: "login-teacher",
-      path: "/login-teacher",
+      path: "login-teacher",
       label: "Ingreso Profesores"
     },
     {
       id: "login-functionary",
-      path: "/functionary-login",
+      path: "login-functionary",
       label: "Ingreso Funcionarios"
     }
   ];

@@ -10,10 +10,11 @@ import middleware from "./utils/middleware";
 import functionaryRouter from "./controllers/functionary";
 import logoutRouter from "./controllers/logout";
 import loginRouter from "./controllers/login";
+import testingRouter from "./controllers/testing"
+import path from "path";
 
 const app = express();
 
-app.use(express.static("dist"));
 app.use(express.json());
 app.use("/api/login", loginRouter);
 app.use("/api/logout", logoutRouter);
@@ -25,5 +26,11 @@ app.use("/api/educational-levels", educationalLevelsRouter);
 app.use("/api/faculties", facultiesRouter);
 app.use("/api/contractual-relations", contractualRelationshipsRouter);
 app.use("/api/documents", documentsRouter);
+//solo exponer api/testing en ambiente de test
+if (process.env.NODE_ENV == "test") {
+    app.use("/api/testing", testingRouter);
+}
+app.use(express.static("dist"));
+
 app.use(middleware.errorHandler);
 export default app;
