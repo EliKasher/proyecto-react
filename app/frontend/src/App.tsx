@@ -1,4 +1,4 @@
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import MultiStepForm from "./components/register-course/Multistep";
 import ViewCourses from "./components/view-courses/ViewCourses";
@@ -33,6 +33,7 @@ export type Functionary = {
 
 function App() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
 
@@ -68,6 +69,9 @@ function App() {
     } finally {
       dispatch(resetUser());
       localStorage.removeItem("token");
+      navigate("/")
+
+
     }
   };
 
