@@ -33,16 +33,7 @@ const errorHandler = (
   }
 
   if (error.name === "ValidationError") {
-    if (error.errors) {
-      let formattedErrorMessage = "";
-
-      Object.keys(error.errors).map((path) => {
-        formattedErrorMessage += error.errors[path].message;
-      });
-      return response.status(400).json({ error: formattedErrorMessage });
-    } else {
-      return response.status(400).json({ error: error.message });
-    }
+    return response.status(400).json({ error: error });
   }
 
   const mongoError =

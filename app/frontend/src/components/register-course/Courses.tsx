@@ -59,9 +59,9 @@ const CourseForm = ({
     let errs = 0;
 
     // Name validation
-    if (data.name.length < 5) {
+    if (data.name.length < 5 || data.name.length > 40) {
       errs++;
-      errors.name = "El nombre debe tener mínimo 5 carácteres.";
+      errors.name = "El nombre debe tener entre 5 y 40 carácteres.";
     }
 
     // Check faculty is valid
@@ -209,6 +209,7 @@ const CourseForm = ({
               placeholder="ej: Álgebra Universitaria"
               name="course-name"
               value={data.name}
+              maxLength={40}
               onChange={(e) =>
                 dispatch(setCourseData({ ...data, name: e.target.value }))
               }
