@@ -59,10 +59,23 @@ const CourseDataSchema = new mongoose.Schema(
     },
     faculty: {
       type: String,
-      required: [
-        true,
-        "La facultad donde se va a realizar el curso es obligatoria.\n",
-      ],
+      validate: {
+        validator: function (v: string) {
+          const doc = this;
+          let formState = 1;
+
+          let save: any = doc;
+          let parent = doc.$parent();
+
+          if (typeof parent?.state === "number") {
+            formState = parent?.state;
+          }
+
+          return (formState === 0 && v.length === 0) || v.length > 0;
+        },
+        message:
+          "La facultad donde se va a realizar el curso es obligatoria.\n",
+      },
     },
     educational_level: {
       type: [String],
