@@ -15,15 +15,15 @@ if (uri) {
 const functionarySchema = new mongoose.Schema({
     first_name: { type: String, required: true, minLength: 3 },
     last_name: { type: String, required: true, minLength: 3 },
-    password: { 
-        type: String, 
-        required: true, 
+    password: {
+        type: String,
+        required: true,
         minLength: 8,
         validate: {
-            validator: function(password: string) {
+            validator: function (password: string) {
                 // Regex que verifica:
                 // Al menos una mayúscula (?=.*[A-Z])
-                // Al menos una minúscula (?=.*[a-z])  
+                // Al menos una minúscula (?=.*[a-z])
                 // Al menos un número (?=.*\d)
                 // Mínimo 8 caracteres .{8,}
                 return /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/.test(password);
@@ -108,22 +108,30 @@ async function createFunctionary() {
         await mongoose.connect(uri);
         console.log("Conectado a MongoDB");
 
-        const password = "ValidPass123"; // Debe cumplir las validaciones
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const email = "tomas.mendez@edv.cl";
+        const rut = "12345678-5";
 
-        const newFunctionary = new FunctionaryModel({
-            first_name: "Tomás",
-            last_name: "Mendez",
-            email: "tomas.mendez@edv.cl",
-            rut: "12345678-5",
-            password: hashedPassword,
-            roles: "functionary"
-        });
+        const existing = await FunctionaryModel.findOne({ $or: [{ email }, { rut }] });
+        if (existing) {
+            console.log("El funcionario ya existe:", existing.toJSON());
+        } else {
+            const password = "ValidPass123"; // Debe cumplir las validaciones
+            const hashedPassword = await bcrypt.hash(password, 10);
 
-        const saved = await newFunctionary.save();
-        console.log("Funcionario creado:", saved.toJSON());
+            const newFunctionary = new FunctionaryModel({
+                first_name: "Tomás",
+                last_name: "Mendez",
+                email,
+                rut,
+                password: hashedPassword,
+                roles: "functionary"
+            });
 
-        await mongoose.disconnect();
+            const saved = await newFunctionary.save();
+            console.log("Funcionario creado:", saved.toJSON());
+        }
+
+
     } catch (error) {
         console.error("Error:", error);
         process.exit(1);
