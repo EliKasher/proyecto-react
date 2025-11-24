@@ -12,11 +12,11 @@ import {
 
 const uri = config.MONGODB_URI;
 
-if (uri) {
-  mongoose.connect(uri).catch((error) => {
-    console.log("error connecting to MongoDB", error.message);
-  });
-}
+// if (uri) {
+//   mongoose.connect(uri).catch((error) => {
+//     console.log("error connecting to MongoDB", error.message);
+//   });
+// }
 
 const courseNameMaxLength = 40;
 const courseNameMinLength = 5;

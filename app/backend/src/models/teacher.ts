@@ -5,11 +5,11 @@ import mongoose from "mongoose";
 
 const uri = config.MONGODB_URI;
 
-if (uri) {
-  mongoose.connect(uri).catch((error) => {
-    console.log("error connecting to MongoDB", error.message);
-  });
-}
+// if (uri) {
+//   mongoose.connect(uri).catch((error) => {
+//     console.log("error connecting to MongoDB", error.message);
+//   });
+// }
 
 const teachersSchema = new mongoose.Schema({
   first_name: { type: String, required: true, minLength: 3 },

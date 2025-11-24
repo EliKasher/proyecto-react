@@ -4,11 +4,11 @@ import mongoose, { Mongoose } from "mongoose";
 
 const uri = config.MONGODB_URI;
 
-if (uri) {
-  mongoose.connect(uri).catch((error) => {
-    console.log("error connecting to MongoDB", error.message);
-  });
-}
+// if (uri) {
+//   mongoose.connect(uri).catch((error) => {
+//     console.log("error connecting to MongoDB", error.message);
+//   });
+// }
 
 const courseDateSchema = new mongoose.Schema({
   start_date: Number,
