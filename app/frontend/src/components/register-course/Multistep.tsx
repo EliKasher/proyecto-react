@@ -24,7 +24,7 @@ import {
 import type { AppState } from "../../store";
 
 
-type FormProgress = "DONE" | "NOT_DONE";
+type FormProgress = "DONE" | "NOT_DONE" | "SAVED";
 
 export default function MultiStepForm() {
 
@@ -129,8 +129,14 @@ export default function MultiStepForm() {
         } else {
           await courseService.postCourse(toSave); // called when id is null
         }
+
+        if (state === 0) {
+          setFormState("SAVED")
+        } else {
+          setFormState("DONE");
+        }
+
         dispatch(resetForm());
-        setFormState("DONE");
       } catch (error) {
 
         if (error instanceof AxiosError) {
@@ -225,13 +231,13 @@ export default function MultiStepForm() {
           {newCourse.id !== null && (
             <div className="text-center mb-8">
               <p className="text-text-light mb-4 text-lg">Se encuentra modificando un curso existente.</p>
-              <button 
-                  className="submit-btn bg-accent-pink hover:bg-accent text-text-lighter font-medium py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent-pink focus:ring-opacity-50"
-                  onClick={() => dispatch(resetForm())}
+              <button
+                className="submit-btn bg-accent-pink hover:bg-accent text-text-lighter font-medium py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-2 focus:ring-accent-pink focus:ring-opacity-50"
+                onClick={() => dispatch(resetForm())}
               >
-                  Descartar cambios y crear curso nuevo
+                Descartar cambios y crear curso nuevo
               </button>
-          </div>
+            </div>
           )}
           {steps[currentStep].component}
 
@@ -276,7 +282,7 @@ export default function MultiStepForm() {
   return (
     <div className="text-center">
       <h1 className="text-3xl font-bold text-text-creme mb-6">
-        Curso registrado con éxito.
+        {formState === "SAVED" ? "Curso guardado con éxito." : "Curso registrado con éxito."}
       </h1>
       <div className="flex gap-4 justify-center">
         <Link
