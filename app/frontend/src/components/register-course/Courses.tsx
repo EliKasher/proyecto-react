@@ -85,7 +85,7 @@ const CourseForm = ({
         errors.levels = "No puede seleccionar el mismo nivel dos veces.";
       }
 
-      // Check all levels are valid, break when at least one isn't
+      // Check all levels are valid
       for (let i = 0; i < data.educational_level.length; i++) {
         const lvl = data.educational_level[i];
         if (!educationalLevelsNames.includes(lvl)) {
@@ -109,7 +109,7 @@ const CourseForm = ({
       errs++;
       errors.dates = "Seleccione al menos una fecha.";
     } else {
-      // JSON.stringify to compare objects by value (not reference)
+      // Check duplicates via JSON.stringify
       const datesSet = new Set(data.course_start.map((d) => JSON.stringify(d)));
       if (datesSet.size !== data.course_start.length) {
         errs++;
@@ -117,16 +117,13 @@ const CourseForm = ({
           "No puede seleccionar la misma fecha de inicio mas de una vez.";
       }
 
-      const datesNoId = dates.map((d) => {
-        const { id, ...rest } = d;
-        return rest;
-      });
-
       for (let i = 0; i < data.course_start.length; i++) {
-        const start = data.course_start[i];
-        const found = datesNoId.some(
-          (d) => JSON.stringify(d) === JSON.stringify(start)
+        const start: Record<string, any> = data.course_start[i];
+
+        const found = dates.some((date: Record<string, any>) =>
+          Object.keys(start).every((key) => date[key] === start[key])
         );
+
         if (!found) {
           errs++;
           const errMsg = "Una fecha seleccionada no es una opción valida.";
