@@ -17,7 +17,6 @@ import { type AppState } from "./store.ts";
 import Profile from "./components/profile/Profile";
 import FunctionaryHome from "./components/functionary-home/FunctionaryHome.tsx";
 
-
 export type Teacher = {
   id: string;
   first_name: string;
@@ -72,9 +71,7 @@ function App() {
     } finally {
       dispatch(resetUser());
       localStorage.removeItem("token");
-      navigate("/")
-
-
+      navigate("/");
     }
   };
 
@@ -117,13 +114,13 @@ function App() {
           element={!user.logged ? <TeacherLogin /> : <Navigate to="/" />}
         />
         <Route
-          path="functionary-login"
+          path="login-functionary"
           element={!user.logged ? <FunctionaryLogin /> : <Navigate to="/" />}
         />
-          <Route
-          path= "functionary-home"
+        <Route
+          path="functionary-home"
           element={!user.logged ? <FunctionaryHome /> : <Navigate to="/" />}
-          />
+        />
 
         <Route
           path="profile"
