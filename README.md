@@ -188,8 +188,6 @@ En cuanto a reducers, se tienen los siguientes:
 
 <img width="1081" height="744" alt="autenticación" src="https://github.com/user-attachments/assets/751b59f9-5f8f-412a-bfd3-0e6f057c42a7" />
 
-## Descripción Tests E2E
-
 ## Librería de Estilos
 
 # Colores
