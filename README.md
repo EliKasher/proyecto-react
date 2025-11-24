@@ -229,4 +229,4 @@ Los flujos cubiertos por los tests e2e son los siguientes:
 
 ## URL de la aplicación
 
-https://fullstack.dcc.uchile.cl/7181
+https://fullstack.dcc.uchile.cl/7146
