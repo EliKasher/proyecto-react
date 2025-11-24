@@ -206,6 +206,20 @@ El registro de un curso se realiza con la metodología step-by-step para hacer m
 
 La librería de estilos elegida es tailwindcss por su amplio uso en muchas plataformas, su comodidad de uso y especificidad.
 
+## E2E tests
+
+Para correr los tests e2e se debe correr la aplicación en modo test, para usar la base de datos correspondiente. Para esto se debe crear un archivo `.env.test` con la misma información del `.env` pero cambiando `MONGODB_URI` por la base de datos de testing. Luego se debe hacer build del proyecto como se señala en esta [sección](#creando-la-build-de-producción) y ejecutarlo con:
+
+```
+npm run start:test
+```
+
+De esta forma se utilizará la base de datos de testing. Para correr los test de playwright se debe navegar a la carpeta `e2etests` y ejecutar:
+
+```bash
+npm test
+```
+
 ## URL de la aplicación
 
 https://fullstack.dcc.uchile.cl/7181
