@@ -19,7 +19,7 @@ const documentschema = new mongoose.Schema({
   },
 });
 
-const DocumentsModel = mongoose.model("documents", documentschema);
+const DocumentsModel = mongoose.model("cursosEDV_documents", documentschema);
 
 documentschema.set("toJSON", {
   transform: (

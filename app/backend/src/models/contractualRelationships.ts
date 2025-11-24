@@ -16,7 +16,7 @@ const contractualRelationshipSchema = new mongoose.Schema({
 });
 
 const ContractualRelationshipsModel = mongoose.model(
-  "contractual_relationships",
+  "cursosEDV_contractual_relationships",
   contractualRelationshipSchema
 );
 

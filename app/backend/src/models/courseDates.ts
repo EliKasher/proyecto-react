@@ -17,7 +17,10 @@ const courseDateSchema = new mongoose.Schema({
   end_month: String,
 });
 
-const courseDatesModel = mongoose.model("course_dates", courseDateSchema);
+const courseDatesModel = mongoose.model(
+  "cursosEdV_course_dates",
+  courseDateSchema
+);
 
 courseDateSchema.set("toJSON", {
   transform: (

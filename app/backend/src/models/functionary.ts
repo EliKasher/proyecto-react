@@ -83,7 +83,10 @@ const functionarySchema = new mongoose.Schema({
   },
 });
 
-const FunctionaryModel = mongoose.model("functionary", functionarySchema);
+const FunctionaryModel = mongoose.model(
+  "cursosEDV_functionary",
+  functionarySchema
+);
 
 functionarySchema.set("toJSON", {
   transform: (
@@ -102,43 +105,44 @@ functionarySchema.set("toJSON", {
   },
 });
 
-// async function createFunctionary() {
-//     try {
-//         const uri = process.env.MONGODB_URI;
-//         if (!uri) throw new Error("MONGODB_URI not found in .env");
+async function createFunctionary() {
+  try {
+    const uri = process.env.MONGODB_URI;
+    if (!uri) throw new Error("MONGODB_URI not found in .env");
 
-//         await mongoose.connect(uri);
-//         console.log("Conectado a MongoDB");
+    await mongoose.connect(uri);
+    console.log("Conectado a MongoDB");
 
-//         const email = "tomas.mendez@edv.cl";
-//         const rut = "12345678-5";
+    const email = "tomas.mendez@edv.cl";
+    const rut = "12345678-5";
 
-//         const existing = await FunctionaryModel.findOne({ $or: [{ email }, { rut }] });
-//         if (existing) {
-//             console.log("El funcionario ya existe:", existing.toJSON());
-//         } else {
-//             const password = "ValidPass123"; // Debe cumplir las validaciones
-//             const hashedPassword = await bcrypt.hash(password, 10);
+    const existing = await FunctionaryModel.findOne({
+      $or: [{ email }, { rut }],
+    });
+    if (existing) {
+      console.log("El funcionario ya existe:", existing.toJSON());
+    } else {
+      const password = "ValidPass123"; // Debe cumplir las validaciones
+      const hashedPassword = await bcrypt.hash(password, 10);
 
-//             const newFunctionary = new FunctionaryModel({
-//                 first_name: "Tomás",
-//                 last_name: "Mendez",
-//                 email,
-//                 rut,
-//                 password: hashedPassword,
-//                 roles: "functionary"
-//             });
+      const newFunctionary = new FunctionaryModel({
+        first_name: "Tomás",
+        last_name: "Mendez",
+        email,
+        rut,
+        password: hashedPassword,
+        roles: "functionary",
+      });
 
-//             const saved = await newFunctionary.save();
-//             console.log("Funcionario creado:", saved.toJSON());
-//         }
+      const saved = await newFunctionary.save();
+      console.log("Funcionario creado:", saved.toJSON());
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    process.exit(1);
+  }
+}
 
-//     } catch (error) {
-//         console.error("Error:", error);
-//         process.exit(1);
-//     }
-// }
-
-// createFunctionary()
+createFunctionary();
 
 export default FunctionaryModel;

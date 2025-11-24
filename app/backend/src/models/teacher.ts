@@ -86,12 +86,12 @@ const teachersSchema = new mongoose.Schema({
   courses: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "courses",
+      ref: "cursosEDV_courses",
     },
   ],
 });
 
-const TeachersModel = mongoose.model("teacher", teachersSchema);
+const TeachersModel = mongoose.model("cursosEDV_teacher", teachersSchema);
 
 teachersSchema.set("toJSON", {
   transform: (

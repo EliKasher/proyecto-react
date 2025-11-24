@@ -561,7 +561,7 @@ courseSchema.pre("validate", function (next) {
   next();
 });
 
-const CoursesModel = mongoose.model("courses", courseSchema);
+const CoursesModel = mongoose.model("cursosEDV_courses", courseSchema);
 
 courseSchema.set("toJSON", {
   transform: (
