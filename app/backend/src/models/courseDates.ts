@@ -30,38 +30,38 @@ courseDateSchema.set("toJSON", {
   },
 });
 
-const initialCourseDates = [
-  { start_date: 5, end_date: 9, start_month: "enero", end_month: "enero" },
-  { start_date: 12, end_date: 16, start_month: "enero", end_month: "enero" },
-  { start_date: 19, end_date: 23, start_month: "enero", end_month: "enero" },
-];
+// const initialCourseDates = [
+//   { start_date: 5, end_date: 9, start_month: "enero", end_month: "enero" },
+//   { start_date: 12, end_date: 16, start_month: "enero", end_month: "enero" },
+//   { start_date: 19, end_date: 23, start_month: "enero", end_month: "enero" },
+// ];
 
-async function initializeCourseDates() {
-  try {
-    for (const date of initialCourseDates) {
-      const exists = await courseDatesModel.findOne({
-        start_date: date.start_date,
-        end_date: date.end_date,
-        start_month: date.start_month,
-        end_month: date.end_month,
-      });
+// async function initializeCourseDates() {
+//   try {
+//     for (const date of initialCourseDates) {
+//       const exists = await courseDatesModel.findOne({
+//         start_date: date.start_date,
+//         end_date: date.end_date,
+//         start_month: date.start_month,
+//         end_month: date.end_month,
+//       });
 
-      if (!exists) {
-        await courseDatesModel.create(date);
-        console.log(
-          `Inserted course date: ${date.start_date}-${date.end_date} ${date.start_month}`
-        );
-      } else {
-        console.log(
-          `Course date already exists: ${date.start_date}-${date.end_date} ${date.start_month}`
-        );
-      }
-    }
-  } catch (error: any) {
-    console.error("Error initializing course dates:", error.message);
-  }
-}
+//       if (!exists) {
+//         await courseDatesModel.create(date);
+//         console.log(
+//           `Inserted course date: ${date.start_date}-${date.end_date} ${date.start_month}`
+//         );
+//       } else {
+//         console.log(
+//           `Course date already exists: ${date.start_date}-${date.end_date} ${date.start_month}`
+//         );
+//       }
+//     }
+//   } catch (error: any) {
+//     console.error("Error initializing course dates:", error.message);
+//   }
+// }
 
-initializeCourseDates();
+// initializeCourseDates();
 
 export default courseDatesModel;
