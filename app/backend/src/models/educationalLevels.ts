@@ -4,18 +4,18 @@ import mongoose, { Mongoose } from "mongoose";
 
 const uri = config.MONGODB_URI;
 
-if (uri) {
-  mongoose.connect(uri).catch((error) => {
-    console.log("error connecting to MongoDB", error.message);
-  });
-}
+// if (uri) {
+//   mongoose.connect(uri).catch((error) => {
+//     console.log("error connecting to MongoDB", error.message);
+//   });
+// }
 
 const educationalLevelsSchema = new mongoose.Schema({
   level: String,
 });
 
 const EducationalLevelsModel = mongoose.model(
-  "educational_levels",
+  "cursosEDV_educational_levels",
   educationalLevelsSchema
 );
 

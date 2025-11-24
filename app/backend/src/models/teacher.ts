@@ -5,11 +5,11 @@ import mongoose from "mongoose";
 
 const uri = config.MONGODB_URI;
 
-if (uri) {
-  mongoose.connect(uri).catch((error) => {
-    console.log("error connecting to MongoDB", error.message);
-  });
-}
+// if (uri) {
+//   mongoose.connect(uri).catch((error) => {
+//     console.log("error connecting to MongoDB", error.message);
+//   });
+// }
 
 const teachersSchema = new mongoose.Schema({
   first_name: { type: String, required: true, minLength: 3 },
@@ -86,12 +86,12 @@ const teachersSchema = new mongoose.Schema({
   courses: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "courses",
+      ref: "cursosEDV_courses",
     },
   ],
 });
 
-const TeachersModel = mongoose.model("teacher", teachersSchema);
+const TeachersModel = mongoose.model("cursosEDV_teacher", teachersSchema);
 
 teachersSchema.set("toJSON", {
   transform: (

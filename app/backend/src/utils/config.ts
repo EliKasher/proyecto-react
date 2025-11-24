@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === "test") {
   dotenv.config();
 }
 
-const { PORT, HOST, MONGODB_URI, JWT_SECRET } = process.env;
+const { PORT, HOST, MONGODB_URI, MONGODB_NAME, JWT_SECRET } = process.env;
 
 if (!PORT) {
   throw new Error("PORT is not defined in environment variables");
@@ -28,5 +28,6 @@ export default {
   PORT,
   HOST,
   MONGODB_URI,
+  MONGODB_NAME,
   JWT_SECRET,
 };
