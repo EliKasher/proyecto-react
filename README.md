@@ -208,7 +208,7 @@ La librería de estilos elegida es tailwindcss por su amplio uso en muchas plata
 
 ## E2E tests
 
-Para correr los tests e2e se debe correr la aplicación en modo test, para usar la base de datos correspondiente. Para esto se debe crear un archivo `.env.test` con la misma información del `.env` pero cambiando `MONGODB_URI` por la base de datos de testing. Luego se debe hacer build del proyecto como se señala en esta [sección](#creando-la-build-de-producción) y ejecutarlo con:
+Para testear la aplicación se utilizó Playwright. Para correr los tests e2e se debe correr la aplicación en modo test, para usar la base de datos correspondiente. Para esto se debe crear un archivo `.env.test` con la misma información del `.env` pero cambiando `MONGODB_URI` por la base de datos de testing. Luego se debe hacer build del proyecto como se señala en esta [sección](#creando-la-build-de-producción) y ejecutarlo con:
 
 ```
 npm run start:test
@@ -219,6 +219,13 @@ De esta forma se utilizará la base de datos de testing. Para correr los test de
 ```bash
 npm test
 ```
+
+Los flujos cubiertos por los tests e2e son los siguientes:
+
+- Login de profesores.
+- Visitar rutas protegidas con un usuario (lista de cursos, perfil, formulario de registro).
+- Visitar rutas protegidas sin usuario (redirige al login)
+- Registrar un curso con el formulario y verlo en el listado de cursos creados por el usuario.
 
 ## URL de la aplicación
 
