@@ -4,11 +4,11 @@ import mongoose, { mongo, Mongoose } from "mongoose";
 
 const uri = config.MONGODB_URI;
 
-if (uri) {
-  mongoose.connect(uri).catch((error) => {
-    console.log("error connecting to MongoDB", error.message);
-  });
-}
+// if (uri) {
+//   mongoose.connect(uri).catch((error) => {
+//     console.log("error connecting to MongoDB", error.message);
+//   });
+// }
 
 const documentschema = new mongoose.Schema({
   short_name: String,
@@ -19,7 +19,7 @@ const documentschema = new mongoose.Schema({
   },
 });
 
-const DocumentsModel = mongoose.model("documents", documentschema);
+const DocumentsModel = mongoose.model("cursosEDV_documents", documentschema);
 
 documentschema.set("toJSON", {
   transform: (

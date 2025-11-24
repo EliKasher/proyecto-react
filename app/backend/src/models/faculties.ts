@@ -4,17 +4,17 @@ import mongoose, { Mongoose } from "mongoose";
 
 const uri = config.MONGODB_URI;
 
-if (uri) {
-  mongoose.connect(uri).catch((error) => {
-    console.log("error connecting to MongoDB", error.message);
-  });
-}
+// if (uri) {
+//   mongoose.connect(uri).catch((error) => {
+//     console.log("error connecting to MongoDB", error.message);
+//   });
+// }
 
 const facultiesSchema = new mongoose.Schema({
   name: String,
 });
 
-const FacultiesModel = mongoose.model("faculties", facultiesSchema);
+const FacultiesModel = mongoose.model("cursosEDV_faculties", facultiesSchema);
 
 facultiesSchema.set("toJSON", {
   transform: (

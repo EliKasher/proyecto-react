@@ -1,5 +1,6 @@
 import * as React from "react";
 import teacherService from "../../services/Teacher";
+import courseService from "../../services/Course";
 import { type RegisterForm } from "../../types/course";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
@@ -23,7 +24,13 @@ const ViewCourses = () => {
   React.useEffect(() => {
     const setup = async () => {
       try {
-        const cursos = await teacherService.getTeacherCourses(user.id);
+        let cursos = []
+
+        if (user.roles === "teacher") {
+          cursos = await teacherService.getTeacherCourses(user.id);
+        } else {
+          cursos = await courseService.getCourses();
+        }
         setCursos(cursos);
       } catch (error: any) {
         toast.error(error.message);
@@ -65,9 +72,10 @@ const ViewCourses = () => {
     <div>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h1 className="text-3xl font-bold text-[#f0f0f5] mb-4">Mis Cursos</h1>
+          <h1 className="text-3xl font-bold text-[#f0f0f5] mb-4">{user.roles === "teacher" ? "Mis Cursos" : "Cursos"}</h1>
           <p className="text-lg text-[#e8e7f0]">
-            Gestiona y visualiza todos tus cursos
+            {user.roles === "teacher" ? "Gestiona y visualiza todos tus cursos" : "Cursos registrados"}
+
           </p>
         </div>
 
@@ -96,7 +104,7 @@ const ViewCourses = () => {
                         : 'bg-[rgba(184,50,132,0.1)] border border-[rgba(184,50,132,0.3)] hover:bg-[rgba(211,35,144,0.15)] hover:border hover:border-[rgba(211,35,144,0.5)] hover:shadow-[0_4px_15px_rgba(230,81,150,0.3)]'
                         }`}
                     >
-                      {curso.state === 0 && (
+                      {curso.state === 0 && user.roles === "teacher" && (
                         <button
                           className="bg-[rgba(123,108,246,0.2)] hover:bg-[rgba(123,108,246,0.3)] text-[#f0f0f5] text-xs font-medium py-1 px-3 rounded-lg border border-[rgba(123,108,246,0.4)] hover:border-[rgba(123,108,246,0.6)] transition-all duration-200 hover:scale-105 hover:shadow-[0_2px_8px_rgba(123,108,246,0.3)] mr-auto"
                           onClick={() => handleContinueForm(curso)}

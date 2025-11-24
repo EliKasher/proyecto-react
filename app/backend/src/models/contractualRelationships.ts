@@ -4,11 +4,11 @@ import mongoose, { mongo, Mongoose } from "mongoose";
 
 const uri = config.MONGODB_URI;
 
-if (uri) {
-  mongoose.connect(uri).catch((error) => {
-    console.log("error connecting to MongoDB", error.message);
-  });
-}
+// if (uri) {
+//   mongoose.connect(uri).catch((error) => {
+//     console.log("error connecting to MongoDB", error.message);
+//   });
+// }
 
 const contractualRelationshipSchema = new mongoose.Schema({
   relation: String,
@@ -16,7 +16,7 @@ const contractualRelationshipSchema = new mongoose.Schema({
 });
 
 const ContractualRelationshipsModel = mongoose.model(
-  "contractual_relationships",
+  "cursosEDV_contractual_relationships",
   contractualRelationshipSchema
 );
 
