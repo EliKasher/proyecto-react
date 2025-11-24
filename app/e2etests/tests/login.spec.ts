@@ -2,20 +2,6 @@ import { test, expect } from "@playwright/test";
 import { loginWith } from "./helper";
 
 test.beforeEach(async ({ page, request }) => {
-    await request.post("http://localhost:3001/api/testing/reset");
-    await request.post("http://localhost:3001/api/teachers", {
-        data: {
-            first_name: "test",
-            last_name: "test",
-            email: "test@example.com",
-            rut: "11111111-1",
-            phone: "+56999999999",
-            degree: "Test Degree",
-            college_relationship: "teacher",
-            password: "Test123.",
-        },
-    });
-
     await page.goto("http://localhost:3001");
 });
 test("teacher can log in", async ({ page }) => {

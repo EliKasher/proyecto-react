@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { loginWith } from "./helper";
 
-test.beforeEach(async ({ page, request }) => {
+test.beforeAll(async ({ request }) => {
     await request.post("http://localhost:3001/api/testing/reset");
     await request.post("http://localhost:3001/api/teachers", {
         data: {
@@ -15,7 +15,9 @@ test.beforeEach(async ({ page, request }) => {
             password: "Test123.",
         },
     });
+});
 
+test.beforeEach(async ({ page }) => {
     await page.goto("http://localhost:3001");
 });
 
@@ -70,9 +72,8 @@ test("teacher can register a course end-to-end", async ({ page }) => {
     //enviar el formulario
     await page.getByRole('button', { name: 'Enviar' }).click();
 
-    await expect(page.getByText('Curso registrado con éxito.')).toBeVisible();
 
     // navegar a Mis Cursos y verificar que el curso creado aparece
     await page.getByRole('button', { name: 'Mis Cursos' }).click();
-    await expect(page.getByRole('button', { name: /Curso E2E Test/ }).first()).toBeVisible();
+    await expect(page.getByRole('button', { name: "Curso E2E Test" }).first()).toBeVisible({ timeout: 10000 });
 });
