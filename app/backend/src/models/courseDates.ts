@@ -11,9 +11,9 @@ const uri = config.MONGODB_URI;
 // }
 
 const courseDateSchema = new mongoose.Schema({
-  start_date: Number,
+  start_date: String,
   start_month: String,
-  end_date: Number,
+  end_date: String,
   end_month: String,
 });
 
@@ -34,31 +34,26 @@ courseDateSchema.set("toJSON", {
 });
 
 const initialCourseDates = [
-  { start_date: 5, end_date: 9, start_month: "enero", end_month: "enero" },
-  { start_date: 12, end_date: 16, start_month: "enero", end_month: "enero" },
-  { start_date: 19, end_date: 23, start_month: "enero", end_month: "enero" },
+  { start_date: "5", end_date: "9", start_month: "enero", end_month: "enero" },
+  {
+    start_date: "12",
+    end_date: "16",
+    start_month: "enero",
+    end_month: "enero",
+  },
+  {
+    start_date: "19",
+    end_date: "23",
+    start_month: "enero",
+    end_month: "enero",
+  },
 ];
 
 async function initializeCourseDates() {
   try {
+    await courseDatesModel.deleteMany({});
     for (const date of initialCourseDates) {
-      const exists = await courseDatesModel.findOne({
-        start_date: date.start_date,
-        end_date: date.end_date,
-        start_month: date.start_month,
-        end_month: date.end_month,
-      });
-
-      if (!exists) {
-        await courseDatesModel.create(date);
-        console.log(
-          `Inserted course date: ${date.start_date}-${date.end_date} ${date.start_month}`
-        );
-      } else {
-        console.log(
-          `Course date already exists: ${date.start_date}-${date.end_date} ${date.start_month}`
-        );
-      }
+      await courseDatesModel.create(date);
     }
   } catch (error: any) {
     console.error("Error initializing course dates:", error.message);

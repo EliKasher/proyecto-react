@@ -51,16 +51,9 @@ const initialContractualRelations = [
 
 async function initializeContractualRelations() {
   try {
+    await ContractualRelationshipsModel.deleteMany({});
     for (const rel of initialContractualRelations) {
-      const exists = await ContractualRelationshipsModel.findOne({
-        relation: rel.relation,
-      });
-      if (!exists) {
-        await ContractualRelationshipsModel.create(rel);
-        console.log(`Inserted contractual relation: ${rel.relation}`);
-      } else {
-        console.log(`Contractual relation already exists: ${rel.relation}`);
-      }
+      await ContractualRelationshipsModel.create(rel);
     }
   } catch (error: any) {
     console.error("Error initializing contractual relations:", error.message);

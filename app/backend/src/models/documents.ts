@@ -55,16 +55,9 @@ const initialDocuments = [
 
 async function initializeDocuments() {
   try {
+    await DocumentsModel.deleteMany({});
     for (const doc of initialDocuments) {
-      const exists = await DocumentsModel.findOne({
-        short_name: doc.short_name,
-      });
-      if (!exists) {
-        await DocumentsModel.create(doc);
-        console.log(`Inserted document: ${doc.short_name}`);
-      } else {
-        console.log(`Document already exists: ${doc.short_name}`);
-      }
+      await DocumentsModel.create(doc);
     }
   } catch (error: any) {
     console.error("Error initializing documents:", error.message);

@@ -45,14 +45,9 @@ const initialFaculties = [
 
 async function initializeFaculties() {
   try {
+    await FacultiesModel.deleteMany({});
     for (const faculty of initialFaculties) {
-      const exists = await FacultiesModel.findOne({ name: faculty.name });
-      if (!exists) {
-        await FacultiesModel.create(faculty);
-        console.log(`Inserted faculty: ${faculty.name}`);
-      } else {
-        console.log(`Faculty already exists: ${faculty.name}`);
-      }
+      await FacultiesModel.create(faculty);
     }
   } catch (error: any) {
     console.error("Error initializing faculties:", error.message);

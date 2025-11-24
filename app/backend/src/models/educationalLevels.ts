@@ -47,14 +47,9 @@ const initialEducationalLevels = [
 
 async function initializeEducationalLevels() {
   try {
+    await EducationalLevelsModel.deleteMany({});
     for (const lvl of initialEducationalLevels) {
-      const exists = await EducationalLevelsModel.findOne({ level: lvl.level });
-      if (!exists) {
-        await EducationalLevelsModel.create(lvl);
-        console.log(`Inserted educational level: ${lvl.level}`);
-      } else {
-        console.log(`Educational level already exists: ${lvl.level}`);
-      }
+      await EducationalLevelsModel.create(lvl);
     }
   } catch (error: any) {
     console.error("Error initializing educational levels:", error.message);
