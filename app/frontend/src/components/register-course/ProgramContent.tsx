@@ -113,7 +113,7 @@ const ProgramContentForm = ({ data, showErrors, isValid }: Props) => {
             onChange={(e) => handleCoursePurposeChange(e.target.value)}
             required
           />
-          <p> {data.course_purpose.length}/500 Mínimo 250 carácteres</p>
+          <p className="recommendations"> {data.course_purpose.length}/500 Mínimo 250 carácteres</p>
           {showErrors && errors.purpose && (
             <p className="error-message">{errors.purpose}</p>
           )}
@@ -142,7 +142,7 @@ const ProgramContentForm = ({ data, showErrors, isValid }: Props) => {
                   value={objective}
                   onChange={(e) => handleObjectiveChange(index, e.target.value)}
                 />
-                <p> {objective.length}/250 Mínimo 100 carácteres</p>
+                <p className="recommendations"> {objective.length}/250 Mínimo 100 carácteres</p>
                 {showErrors && errors.objectives[index] && (
                   <p className="error-message">{errors.objectives[index]}</p>
                 )}

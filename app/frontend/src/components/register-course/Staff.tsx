@@ -153,7 +153,7 @@ const StaffForm = ({ data, isValid, showErrors }: Props) => {
                   }
                   required
                 />
-                <p>
+                <p className="recommendations">
                   {member.first_name.length}/{max}
                 </p>
                 {showErrors && errors[index].firstNameError && (
@@ -170,7 +170,7 @@ const StaffForm = ({ data, isValid, showErrors }: Props) => {
                   }
                   required
                 />
-                <p>
+                <p className="recommendations">
                   {member.last_name.length}/{max}
                 </p>
                 {showErrors && errors[index].lastNameError && (

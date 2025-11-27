@@ -133,12 +133,12 @@ const WeeklyProgramForm = ({ data, isValid, showErrors }: Props) => {
                       handleChange("first_period", e.target.value, day.day)
                     }
                   ></textarea>
-                  <p>
+                  <p style={{width: '100%', maxWidth: '450px'}} className="recommendations">
                     {data[day.day - 1].first_period.length}/{periodMax} El largo
                     mínimo es {periodMin}
                   </p>
                   {showErrors && errors[day.day - 1].firstPeriodError && (
-                    <p className="error-message">
+                    <p style={{width: '100%', maxWidth: '450px'}} className="error-message">
                       {errors[day.day - 1].firstPeriodError}
                     </p>
                   )}
@@ -156,12 +156,12 @@ const WeeklyProgramForm = ({ data, isValid, showErrors }: Props) => {
                       handleChange("first_classroom", e.target.value, day.day)
                     }
                   />
-                  <p>
+                  <p style={{width: '100%', maxWidth: '450px'}} className="recommendations">
                     {data[day.day - 1].first_classroom.length}/{classroomMax} El
                     largo mínimo es {classroomMin}
                   </p>
                   {showErrors && errors[day.day - 1].firstClassroomError && (
-                    <p className="error-message">
+                    <p style={{width: '100%', maxWidth: '450px'}} className="error-message">
                       {errors[day.day - 1].firstClassroomError}
                     </p>
                   )}
@@ -182,12 +182,12 @@ const WeeklyProgramForm = ({ data, isValid, showErrors }: Props) => {
                       handleChange("second_period", e.target.value, day.day)
                     }
                   ></textarea>
-                  <p>
+                  <p style={{width: '100%', maxWidth: '450px'}} className="recommendations">
                     {data[day.day - 1].second_period.length}/{periodMax} El
                     largo mínimo es {periodMin}
                   </p>
                   {showErrors && errors[day.day - 1].secondPeriodError && (
-                    <p className="error-message">
+                    <p style={{width: '100%', maxWidth: '450px'}} className="error-message">
                       {errors[day.day - 1].secondPeriodError}
                     </p>
                   )}
@@ -205,12 +205,12 @@ const WeeklyProgramForm = ({ data, isValid, showErrors }: Props) => {
                       handleChange("second_classroom", e.target.value, day.day)
                     }
                   />
-                  <p>
+                  <p style={{width: '100%', maxWidth: '450px'}} className="recommendations">
                     {data[day.day - 1].second_classroom.length}/{classroomMax}{" "}
                     El largo mínimo es {classroomMin}
                   </p>
                   {showErrors && errors[day.day - 1].secondClassroomError && (
-                    <p className="error-message">
+                    <p style={{width: '100%', maxWidth: '450px'}} className="error-message">
                       {errors[day.day - 1].secondClassroomError}
                     </p>
                   )}

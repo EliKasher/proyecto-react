@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import { KeyboardArrowUp, KeyboardArrowDown } from '@mui/icons-material';
 import CourseForm from "./Courses";
 import ProgramContentForm from "./ProgramContent";
 import WeeklyProgramForm from "./WeeklyProgram";
@@ -39,6 +40,7 @@ export default function MultiStepForm() {
     EducationalLevelSchema[]
   >([]);
   const [dates, setDates] = useState<CourseDateSchema[]>([]);
+  const [showScrollButtons, setShowScrollButtons] = useState(false);
 
   useEffect(() => {
     courseService
@@ -48,7 +50,38 @@ export default function MultiStepForm() {
     courseService.getCourseDates().then((data) => setDates(data));
 
     courseService.getFaculties().then((data) => setFaculties(data));
+
+    const checkScrollable = () => {
+      const isScrollable = document.documentElement.scrollHeight > window.innerHeight + 200;
+      setShowScrollButtons(isScrollable);
+    };
+
+    checkScrollable();
+
+    window.addEventListener('resize', checkScrollable);
+
+    const timeoutId = setTimeout(checkScrollable, 500);
+
+    return () => {
+      window.removeEventListener('resize', checkScrollable);
+      clearTimeout(timeoutId);
+    } 
+  }, [currentStep]);
+
+  const scrollTop = useCallback(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
   }, []);
+
+  const scrollBottom = useCallback(() => {
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth'
+    });
+  }, []);
+
 
   const steps = [
     {
@@ -160,12 +193,31 @@ export default function MultiStepForm() {
 
   if (formState === "NOT_DONE") {
     return (
-      <div className="multistep">
+      <div className="multistep relative">
+        {showScrollButtons && (
+          <>
+            <button
+              onClick={scrollTop}
+              className="fixed right-6 bottom-24 z-50 w-14 h-14 bg-linear-to-br from-blue-600 to-purple-600 hover:from-purple-600 hover:to-blue-600 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center justify-center group border-2 border-white border-opacity-20"
+              aria-label="Ir arriba"
+            >
+              <KeyboardArrowUp className="text-white text-3xl group-hover:-translate-y-0.5 transition-transform" />
+            </button>
+
+            <button
+              onClick={scrollBottom}
+              className="fixed right-6 bottom-6 z-50 w-14 h-14 bg-linear-to-br from-blue-600 to-purple-600 hover:from-purple-600 hover:to-blue-600 text-white rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 flex items-center justify-center group border-2 border-white border-opacity-20"
+              aria-label="Ir abajo"
+            >
+              <KeyboardArrowDown className="text-white text-3xl group-hover:translate-y-0.5 transition-transform" />
+            </button>
+          </>
+        )}
         <div className="w-full max-w-4xl mx-auto mb-8">
           <div className="flex items-center justify-between relative">
-            <div className="absolute top-1/2 left-0 right-0 h-1 bg-gray-600 -translate-y-1/2"></div>
+            <div className="absolute top-1/3 left-0 right-0 h-1 bg-gray-600 -translate-y-1/3"></div>
             <div
-              className="absolute top-1/2 left-0 h-1 bg-[#d32390] -translate-y-1/2 transition-all duration-500"
+              className="absolute top-1/3 left-0 h-1 bg-[#d32390] -translate-y-1/3 transition-all duration-500"
               style={{ width: `${(currentStep / (steps.length - 1)) * 100}%` }}
             ></div>
             {steps.map((step, index) => {
