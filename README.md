@@ -228,10 +228,10 @@ La petición espera un objeto JSON con los datos del profesor a registrar:
   password: string
 }
 
-GET /api/functionaries/
+# GET /api/functionaries/
 Retorna la lista completa de funcionarios registrados en la base de datos.
 
-POST /api/functionaries/
+# POST /api/functionaries/
 La petición espera un objeto JSON con los datos del funcionario a registrar:
 
 {
@@ -242,16 +242,16 @@ La petición espera un objeto JSON con los datos del funcionario a registrar:
     password: string
 }
 
-GET api/faculties/
+# GET api/faculties/
 Obtiene el nombre de todas las facultades de la Universidad desde la base de datos.
 
-GET api/educational-levels/
+# GET api/educational-levels/
 Obtiene los niveles de estudios desde la base de datos, para el form de registro de curso.
 
-GET api/documents/
+# GET api/documents/
 Obtiene los documentos desde la base de datos.
 
-GET api/course-dates
+# GET api/course-dates
 Entrega las fechas posibles para la realización de un curso desde la base de datos. El cuerpo de la respuesta es:
 
 {
@@ -261,7 +261,7 @@ Entrega las fechas posibles para la realización de un curso desde la base de da
     end_month: string,
 }
 
-GET api/contractual-relations
+# GET api/contractual-relations
 Obtiene las relaciones contractuales desde la base de datos para el registro de un profesor. La respuesta tiene los siguientes campos:
 
 {
