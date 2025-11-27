@@ -94,7 +94,7 @@ const ViewCourses = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-1">
               <div className="bg-[#16106b] rounded-xl shadow-[0_15px_35px_rgba(0,0,0,0.2)] p-6 border border-[rgba(123,108,246,0.5)]">
-                <div className="space-y-3 overflow-y-auto max-h-180">
+                <div className="space-y-3 overflow-y-auto max-h-180 custom-scrollbar">
                   {cursos.map((curso) => (
                     <button
                       key={curso.id}

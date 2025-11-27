@@ -18,6 +18,7 @@ export default {
             outlineOffset: '2px',
             },
         })
-        }
+        },
+        require('tailwind-scrollbar')({ nocompatible: true }),
     ],
     }

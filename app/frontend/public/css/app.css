@@ -28,6 +28,22 @@ body {
   width: 100%;
   min-height: 100vh;
   background-attachment: fixed;
+  scrollbar-width: thin;
+}
+
+html::-webkit-scrollbar, 
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+    border-radius: 10px;
 }
 
 body {
@@ -651,12 +667,19 @@ textarea {
   }
 }
 
-button:focus {
-  outline: none !important;
-  box-shadow: none !important;
+.custom-scrollbar {
+  scrollbar-width: thin;
+  
 }
 
-button:focus-visible {
-  outline: 2px solid #3b82f6 !important;
-  outline-offset: 2px !important;
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 10px;
 }

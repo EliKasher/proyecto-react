@@ -29,7 +29,6 @@ const putCourse = async (course: RegisterForm) => {
 const getFaculties = () => {
   const request = axiosSecure.get(baseUrl + "faculties");
   return request.then((response) => {
-    console.log("success");
     return response.data;
   });
 };
@@ -38,7 +37,6 @@ const getFaculties = () => {
 const getEducationalLevels = () => {
   const request = axiosSecure.get(baseUrl + "educational-levels");
   return request.then((response) => {
-    console.log("success");
     return response.data;
   });
 };
@@ -47,7 +45,6 @@ const getEducationalLevels = () => {
 const getCourseDates = () => {
   const request = axiosSecure.get(baseUrl + "course-dates");
   return request.then((response) => {
-    console.log("success");
     return response.data;
   });
 };
@@ -56,7 +53,6 @@ const getCourseDates = () => {
 const getEmploymentRelationships = () => {
   const request = axiosSecure.get(baseUrl + "contractual-relations");
   return request.then((response) => {
-    console.log("success");
     return response.data;
   });
 };
@@ -65,7 +61,6 @@ const getEmploymentRelationships = () => {
 const getRequiredDocuments = () => {
   const request = axiosSecure.get(baseUrl + "documents");
   return request.then((response) => {
-    console.log("success");
     return response.data;
   });
 };
@@ -74,7 +69,6 @@ const getRequiredDocuments = () => {
 const getCourses = () => {
   const request = axiosSecure.get(baseUrl + "courses");
   return request.then((response) => {
-    console.log("success");
     return response.data;
   });
 };
