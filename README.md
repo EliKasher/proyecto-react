@@ -194,7 +194,7 @@ La petición espera un objeto JSON con las credenciales del profesor:
   password: string
 }
 
-POST /api/logout
+# POST /api/logout
 Este endpoint no espera ningún objeto y le hace logout al usuario. Borra el token de las cookies.
 
 # GET /api/courses/
