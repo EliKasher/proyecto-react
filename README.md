@@ -186,6 +186,89 @@ En cuanto a reducers, se tienen los siguientes:
 
 ## Mapa de Rutas y Flujo de Autenticación
 
+# POST /api/login
+La petición espera un objeto JSON con las credenciales del profesor:
+
+{
+  rut: string,
+  password: string
+}
+
+POST /api/logout
+Este endpoint no espera ningún objeto y le hace logout al usuario. Borra el token de las cookies.
+
+# GET /api/courses/
+Retorna todos los cursos almacenados en la base de datos.
+
+# POST /api/courses/
+La petición espera un objeto JSON con la información del curso a registrar:
+
+{
+  course_data,
+  program_content,
+  weekly_planification,
+  teacher,
+  staff,
+  materials
+}
+
+# GET /api/teachers/
+Retorna la lista completa de profesores registrados en la base de datos.
+
+POST /api/teachers/
+La petición espera un objeto JSON con los datos del profesor a registrar:
+{
+  first_name: string,
+  last_name: string,
+  email: string,
+  rut: string,
+  phone: string,
+  degree: string,
+  college_relationship: string,
+  password: string
+}
+
+GET /api/functionaries/
+Retorna la lista completa de funcionarios registrados en la base de datos.
+
+POST /api/functionaries/
+La petición espera un objeto JSON con los datos del funcionario a registrar:
+
+{
+    rut: string,
+    first_name: string,
+    last_name: string, 
+    email: string,
+    password: string
+}
+
+GET api/faculties/
+Obtiene el nombre de todas las facultades de la Universidad desde la base de datos.
+
+GET api/educational-levels/
+Obtiene los niveles de estudios desde la base de datos, para el form de registro de curso.
+
+GET api/documents/
+Obtiene los documentos desde la base de datos.
+
+GET api/course-dates
+Entrega las fechas posibles para la realización de un curso desde la base de datos. El cuerpo de la respuesta es:
+
+{
+    start_date: number,
+    start_month: string,
+    end_date: number,
+    end_month: string,
+}
+
+GET api/contractual-relations
+Obtiene las relaciones contractuales desde la base de datos para el registro de un profesor. La respuesta tiene los siguientes campos:
+
+{
+    relation: String,
+    requirements: Array<String>
+}
+
 <img width="1081" height="744" alt="autenticación" src="https://github.com/user-attachments/assets/751b59f9-5f8f-412a-bfd3-0e6f057c42a7" />
 
 ## Librería de Estilos
