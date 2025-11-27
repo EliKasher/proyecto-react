@@ -215,7 +215,7 @@ La petición espera un objeto JSON con la información del curso a registrar:
 # GET /api/teachers/
 Retorna la lista completa de profesores registrados en la base de datos.
 
-POST /api/teachers/
+# POST /api/teachers/
 La petición espera un objeto JSON con los datos del profesor a registrar:
 {
   first_name: string,
